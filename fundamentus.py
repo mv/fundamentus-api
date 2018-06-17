@@ -92,8 +92,8 @@ def get_data(*args, **kwargs):
     
 if __name__ == '__main__':
     from waitingbar import WaitingBar
-    
-    THE_BAR = WaitingBar('[*] Downloading...')
+
+#   THE_BAR = WaitingBar('[*] Downloading...')
     lista = get_data()
     THE_BAR.stop()
     
@@ -113,7 +113,7 @@ if __name__ == '__main__':
                                                                                                                                           'Div.Brut/Pat.',
                                                                                                                                           'Cresc.5a'))
     
-    print('-'*154)
+#   THE_BAR.stop()
     for k, v in lista.items():
         print('{0:<7} {1:<7} {2:<10} {3:<7} {4:<10} {5:<7} {6:<10} {7:<10} {8:<10} {9:<11} {10:<11} {11:<7} {12:<11} {13:<14} {14:<7}'.format(k,
                                                                                                                                               v['cotacao'],
