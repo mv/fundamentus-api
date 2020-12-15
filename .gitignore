@@ -1,0 +1,60 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+##
+## foo.txt      # Ignore any file named foo.txt.
+## *.html       # Ignore (generated) html files,
+## !foo.html    # except foo.html which is maintained by hand.
+## *.[oa]       # Ignore objects and archives.
+## !lib.a       # but do track lib.a, even though you're ignoring .a files above
+## /TODO        # only ignore the root TODO file, not subdir/TODO
+## build/       # ignore all files in the build/ directory
+## doc/*.txt    # ignore doc/notes.txt, but not doc/server/arch.txt
+##
+
+.*
+!.gitignore
+
+*.[oa]
+*.log
+*.tmp
+*.pid
+*.swp
+*.sw?
+*~
+
+# Binary packages
+*.rpm
+*.deb
+*.gem
+*.pkg
+*.box
+*.iso
+*.war
+*.jar
+
+# Compressed
+*tar
+*z
+*bz2
+*zip
+*arj
+*a[0-9][0-9]
+*lha
+
+# textfiles
+*.buf
+*.lst
+*.log
+
+# directories
+tmp/
+log/
+.vagrant/
+__pycache__/
+
+# This project
+*csv
+*txt
+*ods
+*xls
+*xlsx
+
