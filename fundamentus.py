@@ -103,13 +103,13 @@ def get_fundamentus(*args, **kwargs):
 # Input: string formato pt-br
 # Output: python Decimal
 def to_decimal(string):
-  string = string.replace('.', '' )
-  string = string.replace(',', '.')
+    string = string.replace('.', '' )
+    string = string.replace(',', '.')
 
-  if (string.endswith('%')):
-    return Decimal(string[:-1]) / 100
-  else:
-    return Decimal(string)
+    if (string.endswith('%')):
+        return Decimal(string[:-1]) / 100
+    else:
+        return Decimal(string)
 
 
 if __name__ == '__main__':
