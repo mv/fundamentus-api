@@ -1,18 +1,27 @@
 # Fundamentus
-Esta é uma pequena API feita em python3 para análise de ações da BOVESPA utilizando o site fundamentus (www.fundamentus.com.br), que retorna os 
-principais indicadores fundamentalistas em formato JSON.
-A API utiliza o microframework Flask.
-Também é possível utilizar via linha de comando.
 
-# Linha de comando
-    $ python3 fundamentus.py
+Linha de comando que captura os dados do site Fundamentus (www.fundamentus.com.br) em formato CSV.
 
-# API
-Execute o server.py e conecte no endereço (ex.: http://127.0.0.1:5000/) com seu browser
+    ## Direto
+    $ ./fundamentus.py
 
-# Requirements
-    Flask
-    lxml
+    ## Alternativa
+    $ ./fundamentus.py > bovespa.csv
+
+
+Os dados são buscados a partir da página [**'Busca avançada por empresa'**](http://www.fundamentus.com.br/resultado.php) e podem ser filtrados.
+
     
-Install with:
-    pip3 install -r required.txt
+ 
+## Disclaimer
+
+Baseado no (script Fundamentus original)[https://github.com/phoemur/fundamentus] de (Phoemur)[https://github.com/phoemur]
+
+
+## License
+
+The MIT License (MIT)
+
+
+
+
