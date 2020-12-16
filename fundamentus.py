@@ -112,34 +112,34 @@ def to_decimal(string):
         return Decimal(string)
 
 
-if __name__ == '__main__':
+# CSV: ';' separator
+def print_csv(data):
 
      #         Papel   Cotacao  P/L     P/VP     PSR     DY      P/Ativo P/CapGir P/EBIT   P/ACL  EV/EBIT  EV/EBITDA Mrg.Ebit Mrg.Liq. Liq.Corr. ROIC     ROE       Liq.2meses Pat.Liq Div.Brut/Pat. Cresc.5anos))
     fmt_hdr = '{0:<6}; {1:<7}; {2:<10}; {3:<7}; {4:<8}; {5:<7}; {6:<10}; {7:<10}; {8:<8}; {9:<8}; {10:<8}; {11:<10}; {12:<8}; {13:<8}; {14:<9}; {15:<8}; {16:<8}; {17:<15};'
     fmt_row = '{0:<6}; {1:>7}; {2:>10}; {3:>7}; {4:>8}; {5:>7}; {6:>10}; {7:>10}; {8:>8}; {9:>8}; {10:>8}; {11:>10}; {12:>8}; {13:>8}; {14:>9}; {15:>8}; {16:>8}; {17:>15};'
-    print(fmt_hdr.format('Papel',
-                        'Cotacao',
-                        'P/L',
-                        'P/VP',
-                        'PSR',
-                        'DY',
-                        'P/Ativo',
-                        'P/Cap.Giro',
-                        'P/EBIT',
-                        'P/ACL',
-                        'EV/EBIT',
-                        'EV/EBITDA',
-                        'Mrg.Ebit',
-                        'Mrg.Liq.',
-                        'Liq.Corr.',
-                        'ROIC',
-                        'ROE',
-                        'Liq.2meses',
-                        'Pat.Liq',
-                        'Div.Brut/Pat.',
-                        'Cresc.5anos'))
 
-    data = get_fundamentus()
+    print(fmt_hdr.format('Papel',
+                         'Cotacao',
+                         'P/L',
+                         'P/VP',
+                         'PSR',
+                         'DY',
+                         'P/Ativo',
+                         'P/Cap.Giro',
+                         'P/EBIT',
+                         'P/ACL',
+                         'EV/EBIT',
+                         'EV/EBITDA',
+                         'Mrg.Ebit',
+                         'Mrg.Liq.',
+                         'Liq.Corr.',
+                         'ROIC',
+                         'ROE',
+                         'Liq.2meses',
+                         'Pat.Liq',
+                         'Div.Brut/Pat.',
+                         'Cresc.5anos'))
 
     for key, value in data.items():
         print(fmt_row.format(key,
@@ -163,4 +163,11 @@ if __name__ == '__main__':
                              value['Pat.Liq'],
                              value['Div.Brut/Pat.'],
                              value['Cresc.5anos']))
+
+
+
+if __name__ == '__main__':
+
+    data = get_fundamentus()
+    print_csv(data)
 
