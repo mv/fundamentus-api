@@ -3,6 +3,7 @@
 from fundamentus import get_fundamentus
 from fundamentus import print_csv
 
+from collections import OrderedDict
 
 if __name__ == '__main__':
 
@@ -16,5 +17,13 @@ if __name__ == '__main__':
               }
 
     data = get_fundamentus(params)
+
+    # Reorder by ticker
+    data = OrderedDict(sorted(data.items()))
+
+    # Reorder by column
+#   data = OrderedDict(sorted(data.items(), key=lambda x: x[1]["DY"]))
+#   data = OrderedDict(sorted(data.items(), key=lambda x: x[1]["ROE"]))
+
     print_csv(data)
 
