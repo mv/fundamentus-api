@@ -41,6 +41,7 @@ def print_simple(data):
 
     return
 
+
 def ranking(data):
 
     ## rank: EV/EBITDA
