@@ -7,15 +7,12 @@ from fundamentus import print_csv
 if __name__ == '__main__':
 
     # Parametros usados em 'Busca avancada por empresa'
-    params = {'pl_min'          : '',
-              'pl_max'          : '',
-              'pvp_min'         : '',
-              'pvp_max'         : '',
+    params = {'pl_min'          : '0',
+              'pl_max'          : '100',
               'roic_min'        : '0',
               'roic_max'        : '',
-              'roe_min'         : '',
+              'roe_min'         : '0',
               'roe_max'         : '',
-              'setor'           : '',
               }
 
     data = get_fundamentus(params)
