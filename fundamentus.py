@@ -37,7 +37,7 @@ def get_fundamentus(filters={}, *args, **kwargs):
               'margemliq_max'   : '',
               'liqcorr_min'     : '',
               'liqcorr_max'     : '',
-              'roic_in'         : '',
+              'roic_min'        : '',
               'roic_max'        : '',
               'roe_min'         : '',
               'roe_max'         : '',
