@@ -15,7 +15,7 @@ Os dados são buscados a partir da página [**'Busca avançada por empresa'**](h
  
 ## Disclaimer
 
-Baseado no (script Fundamentus original)[https://github.com/phoemur/fundamentus] de (Phoemur)[https://github.com/phoemur]
+Baseado no [script Fundamentus original](https://github.com/phoemur/fundamentus) de [Phoemur](https://github.com/phoemur)
 
 
 ## License
