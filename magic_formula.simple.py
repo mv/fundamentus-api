@@ -30,6 +30,14 @@ def print_simple(data):
                              value['ROE']
                              ))
 
+def ranking(data):
+
+    ##
+#   data = OrderedDict(sorted(data.items(), key=lambda x: x[1]["ROE"]))
+
+    return data
+
+
 
 if __name__ == '__main__':
 
@@ -37,19 +45,13 @@ if __name__ == '__main__':
     params = {'pl_min'   : '0',
               'pl_max'   : '100',
               'roic_min' : '0',
-              'roic_max' : '',
-              'roe_min'  : '0',
-              'roe_max'  : '',
+              'roe_min'  : '.6',
               }
 
     data = get_fundamentus(params)
 
-    # Reorder by ticker
-    data = OrderedDict(sorted(data.items()))
+    # Magic Formula: create rankings
+    magic = ranking(data)
 
-    # Reorder by column
-#   data = OrderedDict(sorted(data.items(), key=lambda x: x[1]["DY"]))
-#   data = OrderedDict(sorted(data.items(), key=lambda x: x[1]["ROE"]))
-
-    print_simple(data)
+    print_simple(magic)
 
