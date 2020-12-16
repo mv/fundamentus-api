@@ -142,7 +142,8 @@ def print_csv(data):
                          'Liq.2meses',
                          'Pat.Liq',
                          'Div.Brut/Pat.',
-                         'Cresc.5anos'))
+                         'Cresc.5anos',
+                         ))
 
     for key, value in data.items():
         print(fmt_row.format(key,
@@ -165,7 +166,8 @@ def print_csv(data):
                              value['Liq.2meses'],
                              value['Pat.Liq'],
                              value['Div.Brut/Pat.'],
-                             value['Cresc.5anos']))
+                             value['Cresc.5anos'],
+                             ))
 
 
 
