@@ -44,6 +44,10 @@
 *.buf
 *.lst
 *.log
+<<<<<<< HEAD
+=======
+*.csv
+>>>>>>> 68d4640cbdd14ba18c9314d68fe64b193e9a959d
 
 # directories
 tmp/
@@ -52,9 +56,9 @@ log/
 __pycache__/
 
 # This project
-*csv
-*txt
-*ods
-*xls
-*xlsx
+*.csv
+*.txt
+*.ods
+*.xls
+*.xlsx
 
