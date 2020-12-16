@@ -9,10 +9,7 @@ from lxml.html   import fragment_fromstring
 from collections import OrderedDict
 from decimal     import Decimal
 
-def get_fundamentus(*args, **kwargs):
-
-    # Busca avançada por empresa
-    url = 'http://www.fundamentus.com.br/resultado.php'
+def get_fundamentus(filters={}, *args, **kwargs):
 
     # Parametros usados em 'Busca avancada por empresa'
     # Parametros em branco retornam todas as empresas disponiveis
@@ -57,6 +54,12 @@ def get_fundamentus(*args, **kwargs):
               'ordem'           : '1',
               'x'               : '28',
               'y'               : '16'}
+
+    params.update(filters)
+
+
+    # Busca avançada por empresa
+    url = 'http://www.fundamentus.com.br/resultado.php'
 
     cookie_jar = http.cookiejar.CookieJar()
     opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookie_jar))
