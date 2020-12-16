@@ -17,7 +17,7 @@ def print_simple(data):
                          'EV/EBIT',
                          'EV/EBITDA',
                          'ROIC',
-                         'ROE'
+                         'ROE',
                          ))
 
     for key, value in data.items():
@@ -27,7 +27,7 @@ def print_simple(data):
                              value['EV/EBIT'],
                              value['EV/EBITDA'],
                              value['ROIC'],
-                             value['ROE']
+                             value['ROE'],
                              ))
 
 def ranking(data):
