@@ -77,28 +77,31 @@ def get_fundamentus(filters={}, *args, **kwargs):
 
     for rows in page.xpath('tbody')[0].findall("tr"):
 
-        results.update({rows.getchildren()[0][0].getchildren()[0].text: {
-            'Cotacao'       : to_decimal(rows.getchildren()[1].text),
-            'P/L'           : to_decimal(rows.getchildren()[2].text),
-            'P/VP'          : to_decimal(rows.getchildren()[3].text),
-            'PSR'           : to_decimal(rows.getchildren()[4].text),
-            'DY'            : to_decimal(rows.getchildren()[5].text),
-            'P/Ativo'       : to_decimal(rows.getchildren()[6].text),
-            'P/Cap.Giro'    : to_decimal(rows.getchildren()[7].text),
-            'P/EBIT'        : to_decimal(rows.getchildren()[8].text),
-            'P/ACL'         : to_decimal(rows.getchildren()[9].text),
-            'EV/EBIT'       : to_decimal(rows.getchildren()[10].text),
-            'EV/EBITDA'     : to_decimal(rows.getchildren()[11].text),
-            'Mrg.Ebit'      : to_decimal(rows.getchildren()[12].text),
-            'Mrg.Liq.'      : to_decimal(rows.getchildren()[13].text),
-            'Liq.Corr.'     : to_decimal(rows.getchildren()[14].text),
-            'ROIC'          : to_decimal(rows.getchildren()[15].text),
-            'ROE'           : to_decimal(rows.getchildren()[16].text),
-            'Liq.2meses'    : to_decimal(rows.getchildren()[17].text),
-            'Pat.Liq'       : to_decimal(rows.getchildren()[18].text),
-            'Div.Brut/Pat.' : to_decimal(rows.getchildren()[19].text),
-            'Cresc.5anos'   : to_decimal(rows.getchildren()[20].text)}
-        })
+        results.update(
+            {rows.getchildren()[0][0].getchildren()[0].text:
+                { 'Cotacao'       : to_decimal(rows.getchildren()[1].text),
+                  'P/L'           : to_decimal(rows.getchildren()[2].text),
+                  'P/VP'          : to_decimal(rows.getchildren()[3].text),
+                  'PSR'           : to_decimal(rows.getchildren()[4].text),
+                  'DY'            : to_decimal(rows.getchildren()[5].text),
+                  'P/Ativo'       : to_decimal(rows.getchildren()[6].text),
+                  'P/Cap.Giro'    : to_decimal(rows.getchildren()[7].text),
+                  'P/EBIT'        : to_decimal(rows.getchildren()[8].text),
+                  'P/ACL'         : to_decimal(rows.getchildren()[9].text),
+                  'EV/EBIT'       : to_decimal(rows.getchildren()[10].text),
+                  'EV/EBITDA'     : to_decimal(rows.getchildren()[11].text),
+                  'Mrg.Ebit'      : to_decimal(rows.getchildren()[12].text),
+                  'Mrg.Liq.'      : to_decimal(rows.getchildren()[13].text),
+                  'Liq.Corr.'     : to_decimal(rows.getchildren()[14].text),
+                  'ROIC'          : to_decimal(rows.getchildren()[15].text),
+                  'ROE'           : to_decimal(rows.getchildren()[16].text),
+                  'Liq.2meses'    : to_decimal(rows.getchildren()[17].text),
+                  'Pat.Liq'       : to_decimal(rows.getchildren()[18].text),
+                  'Div.Brut/Pat.' : to_decimal(rows.getchildren()[19].text),
+                  'Cresc.5anos'   : to_decimal(rows.getchildren()[20].text)
+                }
+            } # key: { }
+        )
 
     return results
 
