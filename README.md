@@ -34,7 +34,7 @@ A página de **'Busca avançada por empresa'** permite o uso de filtros para pes
     ```
 
 
-Os filtros são um [sub-grupo](https://github.com/mv/fundamentus/blob/e5a609b9f49ecd4ae9c40190616440903ebe99df/filter.py#L11) dos parametros em Python:
+Os filtros são um [sub-grupo](https://github.com/mv/fundamentus/blob/b7b1f47ac98e09955ca01470b4636d1c7578af4c/filter.example.py#L11) dos parametros em Python:
 
     ```python
 
@@ -48,7 +48,7 @@ Os filtros são um [sub-grupo](https://github.com/mv/fundamentus/blob/e5a609b9f4
 
     ```
 
-A lista completa dos filtros está no script principal [`fundamentus.py`](https://github.com/mv/fundamentus/blob/e5a609b9f49ecd4ae9c40190616440903ebe99df/fundamentus.py#L16).
+A lista completa dos filtros está no script principal [`fundamentus.py`](https://github.com/mv/fundamentus/blob/b7b1f47ac98e09955ca01470b4636d1c7578af4c/fundamentus.py#L16).
 
 
 ## Magic Formula: Joel Greenblatt
@@ -58,22 +58,22 @@ Obtendo uma lista filtrada dos dados, e aplicando o `ranking` da [**Magic Formul
     ```bash
 
     ## Magic Formula
-    $ ./magic_formula.simple.py 
+    $ ./magic_formula.simple.py
 
     $ ./magic_formula.simple.py > bovespa.ranking.csv
 
     ```
 
 
-    
+
 ## Disclaimer
 
 Baseado no [script Fundamentus original](https://github.com/phoemur/fundamentus) de [Phoemur](https://github.com/phoemur)
 
 Para saber mais sobre a **Magic Formula**:
+* https://en.wikipedia.org/wiki/Magic_formula_investing
 * https://www.magicformulainvesting.com/Home/AboutTheBook
 * https://www.investopedia.com/terms/m/magic-formula-investing.asp
-* https://en.wikipedia.org/wiki/Magic_formula_investing
 
 
 ## License
