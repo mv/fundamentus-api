@@ -47,10 +47,11 @@ echo "Generating: [$file]"
   | egrep '^[A-Z]' \
   | awk -v now="$(date +'%Y-%m-%d %X')" \
   '
-    BEGIN {printf "Fundamentus; %s\n\n", now}
-    NR==1 {printf "%-6s ;    %7s ;    %7s ;    %7s ;    %9s ;     %4s ; %8s\n"   , $1, $2, $3, $11, $12, $17, $16 }
-    NR>=2 {printf "%-6s ; %10.2f ; %10.2f ; %10.2f ; %12.2f ; %7.2f%% ; %7.2f%%\n", $1, $2, $3, $11, $12, $17*100, $16*100 | "sort "}
+    BEGIN {printf ";Fundamentus; %s\n\n", now}
+    NR==1 {printf "%-6s ;    %7s ;    %7s ;    %7s ;    %9s ;   %5s ;   %5s\n"   , $1, $2, $3, $11, $12, $17, $16 }
+    NR>=2 {printf "%-6s ; %10.2f ; %10.2f ; %10.2f ; %12.2f ; %7.4f ; %7.4f\n", $1, $2, $3, $11, $12, $17, $16 | "sort "}
   ' \
   > "${file}"
 
+#   NR>=2 {printf "%-6s ; %10.2f ; %10.2f ; %10.2f ; %12.2f ; %7.2f%% ; %7.2f%%\n", $1, $2, $3, $11, $12, $17*100, $16*100 | "sort "}
 
