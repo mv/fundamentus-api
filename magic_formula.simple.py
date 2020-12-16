@@ -5,11 +5,12 @@ from fundamentus import print_csv
 
 from collections import OrderedDict
 
+
 def print_simple(data):
 
-     #         Papel   Cotacao P/L      EV/EBIT EV/EBITDA ROIC   ROE
-    fmt_hdr = '{0:<6}; {1:<7}; {2:<10}; {3:<8}; {4:<10}; {5:<8}; {6:<8};'
-    fmt_row = '{0:<6}; {1:>7}; {2:>10}; {3:>8}; {4:>10}; {5:>8}; {6:>8};'
+    #         Papel   Cotacao P/L      EV/EBIT EV/EBITDA ROIC    ROE #   r..EV    r..ROE  r..ROIC magic
+    fmt_hdr = '{0:<6}; {1:<7}; {2:<10}; {3:<8}; {4:<10}; {5:<8}; {6:<8}; {7:<14}; {8:<8}; {9:<9}; {10:<5};'
+    fmt_row = '{0:<6}; {1:>7}; {2:>10}; {3:>8}; {4:>10}; {5:>8}; {6:>8}; {7:>14}; {8:>8}; {9:>9}; {10:>5};'
 
     print(fmt_hdr.format('Papel',
                          'Cotacao',
@@ -18,6 +19,10 @@ def print_simple(data):
                          'EV/EBITDA',
                          'ROIC',
                          'ROE',
+                         'rank_EV/EBITDA',
+                         'rank_ROE',
+                         'rank_ROIC',
+                         'Magic',
                          ))
 
     for key, value in data.items():
@@ -28,14 +33,52 @@ def print_simple(data):
                              value['EV/EBITDA'],
                              value['ROIC'],
                              value['ROE'],
+                             value['rank_EV/EBITDA'],
+                             value['rank_ROE'],
+                             value['rank_ROIC'],
+                             value['Magic'],
                              ))
+
+    return
 
 def ranking(data):
 
-    ##
-#   data = OrderedDict(sorted(data.items(), key=lambda x: x[1]["ROE"]))
+    ## rank: EV/EBITDA
+    rank = OrderedDict(sorted(data.items(), key=lambda x: x[1]["EV/EBITDA"]))
 
-    return data
+    idx = 1
+    for key, value in rank.items():
+        rank[key]['rank_EV/EBITDA'] = idx
+        idx += 1
+
+
+    ## rank: ROE
+    rank = OrderedDict(sorted(data.items(), key=lambda x: x[1]["ROE"]))
+
+    idx = 1
+    for key, value in rank.items():
+        rank[key]['rank_ROE'] = idx
+        idx += 1
+
+
+    ## rank: ROIC
+    rank = OrderedDict(sorted(data.items(), key=lambda x: x[1]["ROIC"]))
+
+    idx = 1
+    for key, value in rank.items():
+        rank[key]['rank_ROIC'] = idx
+        idx += 1
+
+
+    ## Magic Formula...
+    for key, value in rank.items():
+        magic = rank[key]['rank_EV/EBITDA'] + \
+                rank[key]['rank_ROE']
+        rank[key]['Magic'] = magic
+
+
+    rank = OrderedDict(sorted(data.items(), key=lambda x: x[1]["Magic"]))
+    return rank
 
 
 
@@ -52,6 +95,6 @@ if __name__ == '__main__':
 
     # Magic Formula: create rankings
     magic = ranking(data)
-
     print_simple(magic)
+
 
