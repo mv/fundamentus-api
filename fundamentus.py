@@ -9,6 +9,7 @@ from lxml.html   import fragment_fromstring
 from collections import OrderedDict
 from decimal     import Decimal
 
+
 def get_fundamentus(filters={}, *args, **kwargs):
 
     # Parametros usados em 'Busca avancada por empresa'
