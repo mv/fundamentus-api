@@ -5,9 +5,6 @@
 #   https://stackoverflow.com/questions/30250715/how-do-you-get-the-first-3-elements-in-python-ordereddict/30250803
 #   https://stackoverflow.com/questions/21062781/shortest-way-to-get-first-item-of-ordereddict-in-python-3
 #
-#   https://www.geeksforgeeks.org/sorted-function-python/
-#   https://realpython.com/python-sort/
-#
 
 from fundamentus import get_fundamentus
 from fundamentus import print_csv
@@ -30,11 +27,6 @@ if __name__ == '__main__':
 
     print_csv(top_10)
 
-
-
-    # Reorder by Div Yield
-#   data = OrderedDict(sorted(data.items(), key = lambda x: x[1]["DY"]))
-#   data = OrderedDict(sorted(data.items(), key = lambda x: x[1]["DY"], reverse=True))
 
     # Top 10
 #   top_list = list(data)[:10]
