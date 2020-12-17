@@ -101,8 +101,29 @@ def get_fundamentus(filters={}, *args, **kwargs):
                   'Div.Brut/Pat.' : to_decimal(rows.getchildren()[19].text),
                   'Cresc.5anos'   : to_decimal(rows.getchildren()[20].text)
                 }
-            } # key: { }
+            }
         )
+        #
+        # results.items()
+        #   ([('XXX3': {'Cotacao': Decimal('10.10'),
+        #               'P/L':     Decimal('09.90'),
+        #               ...
+        #              }),
+        #     ('YYY4': {'Cotacao': Decimal('12.12'),
+        #               'P/L':     Decimal('08.80'),
+        #               ...
+        #              }),
+        #   ])
+        #
+        # results.keys()
+        #   (['XXX3', 'YYY4'])
+        #
+        # results['XXX3']
+        #   {'Cotacao': Decimal('10.10'), 'P/L': Decimal('09.90'),...}
+        #
+        # results['XXX3']['P/L']
+        #   Decimal('09.90')
+        #
 
     return results
 
