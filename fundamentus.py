@@ -32,6 +32,8 @@ def get_fundamentus(filters={}, *args, **kwargs):
               'fgrah_max'       : '',
               'firma_ebit_min'  : '',
               'firma_ebit_max'  : '',
+              'firma_ebitda_min': '',
+              'firma_ebitda_max': '',
               'margemebit_min'  : '',
               'margemebit_max'  : '',
               'margemliq_min'   : '',

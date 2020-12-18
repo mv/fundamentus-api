@@ -82,10 +82,13 @@ def ranking(data):
 if __name__ == '__main__':
 
     # Parametros usados em 'Busca avancada por empresa'
-    params = {'pl_min'   : '0',
-              'pl_max'   : '100',
-              'roic_min' : '0',
-              'roe_min'  : '.6',
+    params = {'pl_min'        : '',
+              'pl_max'        : '',
+              'firma_ebit_min': '0',
+              'firma_ebit_max': '',
+              'roic_min'      : '',
+              'roe_min'       : '',
+              'liq_min'       : '1000000',
               }
 
     data = get_fundamentus(params)
