@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-import urllib.request
-import urllib.parse
-import http.cookiejar
+import requests
 
 import pandas as pd
 
@@ -74,14 +72,12 @@ def get_fundamentus(filters={}, *args, **kwargs):
 
     url = 'http://www.fundamentus.com.br/resultado.php'
 
-    cookie_jar = http.cookiejar.CookieJar()
-    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookie_jar))
-    opener.addheaders = [('User-agent', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201'),
-                         ('Accept', 'text/html, text/plain, text/css, text/sgml, */*;q=0.01')]
+    hdr = {'User-agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201',
+           'Accept': 'text/html, text/plain, text/css, text/sgml, */*;q=0.01',
+           'Accept-Encoding': 'gzip, deflate',
+           }
 
-    with opener.open(url, urllib.parse.urlencode(params).encode('UTF-8')) as link:
-        content = link.read().decode('ISO-8859-1')
-
+    content = requests.get(url, headers=hdr).text
 
     # parse
     df = pd.read_html(content, decimal=",", thousands='.')[0]
