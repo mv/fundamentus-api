@@ -139,7 +139,6 @@ def print_csv(data):
 
     # print rows
     for key, value in data.items():
-
         line = ''
         for label in fmt:
             row  = '{:' + fmt[label][1] + '}; '
@@ -153,3 +152,6 @@ if __name__ == '__main__':
 
     data = get_fundamentus()
     print_csv(data)
+
+#
+
