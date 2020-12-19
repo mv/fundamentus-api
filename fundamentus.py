@@ -56,7 +56,7 @@ def get_fundamentus(filters={}, *args, **kwargs):
            'Accept-Encoding': 'gzip, deflate',
            }
 
-    content = requests.get(url, headers=hdr).text
+    content = requests.post(url, headers=hdr, data=params).text
 
     # parse
     df = pd.read_html(content, decimal=",", thousands='.')[0]
