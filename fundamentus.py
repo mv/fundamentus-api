@@ -99,34 +99,34 @@ def fix_perc(val):
         val = val.replace(',', '.')
         val = Decimal(val.rstrip('%')) / 100
 
-    return val
+    return Decimal(val)
 
 
 # CSV: ';' separator
 def print_csv(data):
 
     #       Label              hdr    row
-    fmt = { 'Papel'        :  ['<6' , '<6' ] ,
-            'Cotacao'      :  ['>7' , '>7' ] ,
-            'P/L'          :  ['>10', '>10'] ,
-            'P/VP'         :  ['>7' , '>7' ] ,
-            'PSR'          :  ['>8' , '>8' ] ,
-            'DY'           :  ['>7' , '>7' ] ,
-            'P/Ativo'      :  ['>10', '>10'] ,
-            'P/CapGiro'    :  ['>10', '>10'] ,
-            'P/EBIT'       :  ['>8' , '>8' ] ,
-            'P/AtivCircLiq':  ['>8' , '>8' ] ,
-            'EV/EBIT'      :  ['>8' , '>8' ] ,
-            'EV/EBITDA'    :  ['>10', '>10'] ,
-            'MrgEbit'      :  ['>8' , '>8' ] ,
-            'MrgLiq'       :  ['>8' , '>8' ] ,
-            'LiqCorr'      :  ['>9' , '>9' ] ,
-            'ROIC'         :  ['>8' , '>8' ] ,
-            'ROE'          :  ['>8' , '>8' ] ,
-            'Liq2meses'    :  ['>15', '>15'] ,
-#           'PatLiq'       :  ['>15', '>15'] ,
-#           'DivBrut/Pat'  :  ['>15', '>15'] ,
-#           'Cresc5anos'   :  ['>15', '>15'] ,
+    fmt = { 'Papel'        :  ['<6' , '<6'     ] ,
+            'Cotacao'      :  ['>9' , '>9,.2f' ] ,
+            'P/L'          :  ['>10', '>10,.2f'] ,
+            'P/VP'         :  ['>10', '>10,.2f'] ,
+            'PSR'          :  ['>8' , '>8,.2f' ] ,
+            'DY'           :  ['>7' , '>7,.4f' ] ,
+            'P/Ativo'      :  ['>10', '>10,.4f'] ,
+            'P/CapGiro'    :  ['>10', '>10,.2f'] ,
+            'P/EBIT'       :  ['>9' , '>9,.2f' ] ,
+            'P/AtivCircLiq':  ['>13', '>13,.2f'] ,
+            'EV/EBIT'      :  ['>10', '>10,.2f'] ,
+            'EV/EBITDA'    :  ['>10', '>10,.2f'] ,
+            'MrgEbit'      :  ['>9' , '>9,.4f' ] ,
+            'MrgLiq'       :  ['>9' , '>9,.4f' ] ,
+            'LiqCorr'      :  ['>9' , '>9,.2f' ] ,
+            'ROIC'         :  ['>8' , '>8,.4f' ] ,
+            'ROE'          :  ['>8' , '>8,.4f' ] ,
+            'Liq2meses'    :  ['>16', '>16,.2f'] ,
+            'PatLiq'       :  ['>18', '>18,.2f'] ,
+            'DivBrut/Pat'  :  ['>12', '>12,.2f'] ,
+            'Cresc5anos'   :  ['>10' ,'>10,.4f'] ,
     }
 
     # print header first
