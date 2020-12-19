@@ -3,8 +3,8 @@
 import requests
 import pandas   as pd
 
-from collections import OrderedDict
 from decimal     import Decimal
+from collections import OrderedDict
 
 
 # URL:
@@ -12,7 +12,7 @@ from decimal     import Decimal
 #   http://fundamentus.com.br/resultado.php
 
 def get_fundamentus(filters={}, *args, **kwargs):
-
+    ##
     ## Parametros usados em 'Busca avancada por empresa'
     ##   Default: todas as empresas
     ##   Detalhes: view-source:http://fundamentus.com.br/buscaavancada.php
@@ -38,31 +38,32 @@ def get_fundamentus(filters={}, *args, **kwargs):
               'tx_cresc_rec_min': '', 'tx_cresc_rec_max': '',
               'setor'           : '',
               }
-
-    ## Parametros: aplicando 'meus' filtros
     ##
+    ## Parametros: aplicando 'meus' filtros
     params.update(filters)
+    ##
 
 
     ##
     ## Busca avançada por empresa
     ##
-
     url = 'http://www.fundamentus.com.br/resultado.php'
-
     hdr = {'User-agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201',
            'Accept': 'text/html, text/plain, text/css, text/sgml, */*;q=0.01',
            'Accept-Encoding': 'gzip, deflate',
            }
 
-    content = requests.post(url, headers=hdr, data=params).text
+    content = requests.post(url, headers=hdr, data=params)
+    content.encoding = 'ISO-8859-1'
 
-    # parse
-    df = pd.read_html(content, decimal=",", thousands='.')[0]
+    ## parse
+    df = pd.read_html(content.text, decimal=",", thousands='.')[0]
 
-    # load
+    ## load
     results = OrderedDict()
-
+    ##
+    ## df to OrderedDict
+    ##
     for row in df.to_dict('records'):
         results[row['Papel']] = {
             # fix header names
@@ -92,7 +93,9 @@ def get_fundamentus(filters={}, *args, **kwargs):
     return results
 
 
+#
 # Input: string perc pt-br
+#
 def fix_perc(val):
     if (val.endswith('%')):
         val = val.replace('.', '' )
@@ -101,10 +104,10 @@ def fix_perc(val):
 
     return Decimal(val)
 
-
-# CSV: ';' separator
+#
+# CSV: ';' separator, fixed
+#
 def print_csv(data):
-
     #       Label              hdr    row
     fmt = { 'Papel'        :  ['<6' , '<6'     ] ,
             'Cotacao'      :  ['>9' , '>9,.2f' ] ,
