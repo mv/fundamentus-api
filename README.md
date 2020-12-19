@@ -9,44 +9,38 @@ Os dados são buscados a partir da página [**'Busca avançada por empresa'**](h
 
 Para obter a listagem completa de todos os dados:
 
-    ```bash
+```bash
+## Direto
+$ ./fundamentus.py
 
-    ## Direto
-    $ ./fundamentus.py
-
-    ## Alternativa
-    $ ./fundamentus.py > bovespa.csv
-
-    ```
+## Alternativa
+$ ./fundamentus.py > bovespa.csv
+```
 
 
 ## Aplicando um filtro
 
 A página de **'Busca avançada por empresa'** permite o uso de filtros para pesquisa:
 
-    ```bash
+```bash
+## Usando um filtro customizado:
+$ ./filter.example.py
 
-    ## Usando um filtro customizado:
-    $ ./filter.example.py
-
-    $ ./filter.example.py > bovespa.filtered.csv
-
-    ```
+$ ./filter.example.py > bovespa.filtered.csv
+```
 
 
 Os filtros são um [sub-grupo](https://github.com/mv/fundamentus/blob/b7b1f47ac98e09955ca01470b4636d1c7578af4c/filter.example.py#L11) dos parametros em Python:
 
-    ```python
-
-    params = {'pl_min'          : '0',
-              'pl_max'          : '100',
-              'roic_min'        : '0',
-              'roic_max'        : '',
-              'roe_min'         : '0',
-              'roe_max'         : '',
-              }
-
-    ```
+```python
+params = {'pl_min'  : '0',
+          'pl_max'  : '100',
+          'roic_min': '0',
+          'roic_max': '',
+          'roe_min' : '0',
+          'roe_max' : '',
+          }
+```
 
 A lista completa dos filtros está no script principal [`fundamentus.py`](https://github.com/mv/fundamentus/blob/b7b1f47ac98e09955ca01470b4636d1c7578af4c/fundamentus.py#L16).
 
@@ -55,14 +49,12 @@ A lista completa dos filtros está no script principal [`fundamentus.py`](https:
 
 Obtendo uma lista filtrada dos dados, e aplicando o `ranking` da [**Magic Formula**](https://www.magicformulainvesting.com/Home/AboutTheBook) de Joel Greenblatt:
 
-    ```bash
+```bash
+## Magic Formula
+$ ./magic_formula.simple.py
 
-    ## Magic Formula
-    $ ./magic_formula.simple.py
-
-    $ ./magic_formula.simple.py > bovespa.ranking.csv
-
-    ```
+$ ./magic_formula.simple.py > bovespa.ranking.csv
+```
 
 
 
@@ -79,7 +71,3 @@ Para saber mais sobre a **Magic Formula**:
 ## License
 
 The MIT License (MIT)
-
-
-
-
