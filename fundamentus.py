@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
 
-import re
 import urllib.request
 import urllib.parse
 import http.cookiejar
 
-from lxml.html   import fragment_fromstring
+import pandas as pd
+
 from collections import OrderedDict
 from decimal     import Decimal
 
+
+# URL:
+#   http://fundamentus.com.br/buscaavancada.php
+#   http://fundamentus.com.br/resultado.php
 
 def get_fundamentus(filters={}, *args, **kwargs):
 
@@ -78,60 +82,37 @@ def get_fundamentus(filters={}, *args, **kwargs):
     with opener.open(url, urllib.parse.urlencode(params).encode('UTF-8')) as link:
         content = link.read().decode('ISO-8859-1')
 
-    pattern = re.compile('<table id="resultado".*</table>', re.DOTALL)
-    re_data = re.findall(pattern, content)[0]
-    page    = fragment_fromstring(re_data)
 
+    # parse
+    df = pd.read_html(content, decimal=",", thousands='.')[0]
+
+    # load
     results = OrderedDict()
 
-    for rows in page.xpath('tbody')[0].findall("tr"):
-
-        results.update(
-            {rows.getchildren()[0][0].getchildren()[0].text:
-                { 'Cotacao'       : to_decimal(rows.getchildren()[1].text),
-                  'P/L'           : to_decimal(rows.getchildren()[2].text),
-                  'P/VP'          : to_decimal(rows.getchildren()[3].text),
-                  'PSR'           : to_decimal(rows.getchildren()[4].text),
-                  'DY'            : to_decimal(rows.getchildren()[5].text),
-                  'P/Ativo'       : to_decimal(rows.getchildren()[6].text),
-                  'P/Cap.Giro'    : to_decimal(rows.getchildren()[7].text),
-                  'P/EBIT'        : to_decimal(rows.getchildren()[8].text),
-                  'P/ACL'         : to_decimal(rows.getchildren()[9].text),
-                  'EV/EBIT'       : to_decimal(rows.getchildren()[10].text),
-                  'EV/EBITDA'     : to_decimal(rows.getchildren()[11].text),
-                  'Mrg.Ebit'      : to_decimal(rows.getchildren()[12].text),
-                  'Mrg.Liq.'      : to_decimal(rows.getchildren()[13].text),
-                  'Liq.Corr.'     : to_decimal(rows.getchildren()[14].text),
-                  'ROIC'          : to_decimal(rows.getchildren()[15].text),
-                  'ROE'           : to_decimal(rows.getchildren()[16].text),
-                  'Liq.2meses'    : to_decimal(rows.getchildren()[17].text),
-                  'Pat.Liq'       : to_decimal(rows.getchildren()[18].text),
-                  'Div.Brut/Pat.' : to_decimal(rows.getchildren()[19].text),
-                  'Cresc.5anos'   : to_decimal(rows.getchildren()[20].text)
-                }
-            }
-        )
-        #
-        # results.items()
-        #   ([('XXX3': {'Cotacao': Decimal('10.10'),
-        #               'P/L':     Decimal('09.90'),
-        #               ...
-        #              }),
-        #     ('YYY4': {'Cotacao': Decimal('12.12'),
-        #               'P/L':     Decimal('08.80'),
-        #               ...
-        #              }),
-        #   ])
-        #
-        # results.keys()
-        #   (['XXX3', 'YYY4'])
-        #
-        # results['XXX3']
-        #   {'Cotacao': Decimal('10.10'), 'P/L': Decimal('09.90'),...}
-        #
-        # results['XXX3']['P/L']
-        #   Decimal('09.90')
-        #
+    for row in df.to_dict('records'):
+        results[row['Papel']] = {
+            # fix header names
+            'Cotacao'       :          row['Cotação'          ] ,
+            'P/L'           :          row['P/L'              ] ,
+            'P/VP'          :          row['P/VP'             ] ,
+            'PSR'           :          row['PSR'              ] ,
+            'DY'            : fix_perc(row['Div.Yield'        ]),
+            'P/Ativo'       :          row['P/Ativo'          ] ,
+            'P/Cap.Giro'    :          row['P/Cap.Giro'       ] ,
+            'P/EBIT'        :          row['P/EBIT'           ] ,
+            'P/ACL'         :          row['P/Ativ Circ.Liq'  ] ,
+            'EV/EBIT'       :          row['EV/EBIT'          ] ,
+            'EV/EBITDA'     :          row['EV/EBITDA'        ] ,
+            'Mrg.Ebit'      : fix_perc(row['Mrg Ebit'         ]),
+            'Mrg.Liq.'      : fix_perc(row['Mrg. Líq.'        ]),
+            'Liq.Corr.'     :          row['Liq. Corr.'       ] ,
+            'ROIC'          : fix_perc(row['ROIC'             ]),
+            'ROE'           : fix_perc(row['ROE'              ]),
+            'Liq.2meses'    :          row['Liq.2meses'       ] ,
+            'Pat.Liq'       :          row['Patrim. Líq'      ] ,
+            'Div.Brut/Pat.' :          row['Dív.Brut/ Patrim.'] ,
+            'Cresc.5anos'   : fix_perc(row['Cresc. Rec.5a'    ]),
+        }
 
     return results
 
