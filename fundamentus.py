@@ -118,7 +118,6 @@ def get_fundamentus(filters={}, *args, **kwargs):
 
 
 # Input: string perc pt-br
-# Output: python Decimal
 def fix_perc(val):
     if (val.endswith('%')):
         val = val.replace('.', '' )
