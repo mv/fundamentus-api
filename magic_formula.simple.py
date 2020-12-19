@@ -82,11 +82,9 @@ def ranking(data):
 if __name__ == '__main__':
 
     # Parametros usados em 'Busca avancada por empresa'
-    params = {'pl_min'        : '',
-              'pl_max'        : '',
-              'firma_ebit_min': '0',
-              'firma_ebit_max': '',
-              'roic_min'      : '',
+    params = {'pl_min'        : '0',
+              'firma_ebit_min': '0.001',
+              'roic_min'      : '0.001',
               'roe_min'       : '',
               'liq_min'       : '1000000',
               }
