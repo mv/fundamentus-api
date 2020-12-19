@@ -94,20 +94,20 @@ def get_fundamentus(filters={}, *args, **kwargs):
             'PSR'           :          row['PSR'              ] ,
             'DY'            : fix_perc(row['Div.Yield'        ]),
             'P/Ativo'       :          row['P/Ativo'          ] ,
-            'P/Cap.Giro'    :          row['P/Cap.Giro'       ] ,
+            'P/CapGiro'     :          row['P/Cap.Giro'       ] ,
             'P/EBIT'        :          row['P/EBIT'           ] ,
-            'P/ACL'         :          row['P/Ativ Circ.Liq'  ] ,
+            'P/AtivCircLiq' :          row['P/Ativ Circ.Liq'  ] ,
             'EV/EBIT'       :          row['EV/EBIT'          ] ,
             'EV/EBITDA'     :          row['EV/EBITDA'        ] ,
-            'Mrg.Ebit'      : fix_perc(row['Mrg Ebit'         ]),
-            'Mrg.Liq.'      : fix_perc(row['Mrg. Líq.'        ]),
-            'Liq.Corr.'     :          row['Liq. Corr.'       ] ,
+            'MrgEbit'       : fix_perc(row['Mrg Ebit'         ]),
+            'MrgLiq'        : fix_perc(row['Mrg. Líq.'        ]),
+            'LiqCorr'       :          row['Liq. Corr.'       ] ,
             'ROIC'          : fix_perc(row['ROIC'             ]),
             'ROE'           : fix_perc(row['ROE'              ]),
-            'Liq.2meses'    :          row['Liq.2meses'       ] ,
-            'Pat.Liq'       :          row['Patrim. Líq'      ] ,
-            'Div.Brut/Pat.' :          row['Dív.Brut/ Patrim.'] ,
-            'Cresc.5anos'   : fix_perc(row['Cresc. Rec.5a'    ]),
+            'Liq2meses'     :          row['Liq.2meses'       ] ,
+            'PatLiq'        :          row['Patrim. Líq'      ] ,
+            'DivBrut/Pat'   :          row['Dív.Brut/ Patrim.'] ,
+            'Cresc5anos'    : fix_perc(row['Cresc. Rec.5a'    ]),
         }
 
     return results
@@ -134,20 +134,20 @@ def print_csv(data):
             'PSR'          :  ['>8' , '>8' ] ,
             'DY'           :  ['>7' , '>7' ] ,
             'P/Ativo'      :  ['>10', '>10'] ,
-            'P/Cap.Giro'   :  ['>10', '>10'] ,
+            'P/CapGiro'    :  ['>10', '>10'] ,
             'P/EBIT'       :  ['>8' , '>8' ] ,
-            'P/ACL'        :  ['>8' , '>8' ] ,
+            'P/AtivCircLiq':  ['>8' , '>8' ] ,
             'EV/EBIT'      :  ['>8' , '>8' ] ,
             'EV/EBITDA'    :  ['>10', '>10'] ,
-            'Mrg.Ebit'     :  ['>8' , '>8' ] ,
-            'Mrg.Liq.'     :  ['>8' , '>8' ] ,
-            'Liq.Corr.'    :  ['>9' , '>9' ] ,
+            'MrgEbit'      :  ['>8' , '>8' ] ,
+            'MrgLiq'       :  ['>8' , '>8' ] ,
+            'LiqCorr'      :  ['>9' , '>9' ] ,
             'ROIC'         :  ['>8' , '>8' ] ,
             'ROE'          :  ['>8' , '>8' ] ,
-            'Liq.2meses'   :  ['>15', '>15'] ,
-#           'Pat.Liq'      :  ['>15', '>15'] ,
-#           'Div.Brut/Pat.':  ['>15', '>15'] ,
-#           'Cresc.5anos'  :  ['>15', '>15'] ,
+            'Liq2meses'    :  ['>15', '>15'] ,
+#           'PatLiq'       :  ['>15', '>15'] ,
+#           'DivBrut/Pat'  :  ['>15', '>15'] ,
+#           'Cresc5anos'   :  ['>15', '>15'] ,
     }
 
     # print header first
@@ -155,7 +155,6 @@ def print_csv(data):
     for label in fmt:
         hdr  = '{:' + fmt[label][0] + '}; '
         line = line + hdr.format( label )
-
     print(line)
 
 
@@ -166,9 +165,7 @@ def print_csv(data):
         for label in fmt:
             row  = '{:' + fmt[label][1] + '}; '
             line = line + row.format( value[label] )
-
         print(line)
-
 
     return
 
@@ -177,4 +174,3 @@ if __name__ == '__main__':
 
     data = get_fundamentus()
     print_csv(data)
-
