@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
 import requests
-
-import pandas as pd
+import pandas   as pd
 
 from collections import OrderedDict
 from decimal     import Decimal
