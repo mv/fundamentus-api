@@ -12,8 +12,9 @@ from decimal     import Decimal
 
 def get_fundamentus(filters={}, *args, **kwargs):
 
-    # Parametros usados em 'Busca avancada por empresa'
-    # Parametros em branco retornam todas as empresas disponiveis
+    ## Parametros usados em 'Busca avancada por empresa'
+    ##   Default: todas as empresas
+    ##
     params = {'pl_min'          : '',
               'pl_max'          : '',
               'pvp_min'         : '',
@@ -58,10 +59,15 @@ def get_fundamentus(filters={}, *args, **kwargs):
               'x'               : '28',
               'y'               : '16'}
 
+    ## Parametros: aplicando 'meus' filtros
+    ##
     params.update(filters)
 
 
-    # Busca avançada por empresa
+    ##
+    ## Busca avançada por empresa
+    ##
+
     url = 'http://www.fundamentus.com.br/resultado.php'
 
     cookie_jar = http.cookiejar.CookieJar()
