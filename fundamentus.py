@@ -37,7 +37,6 @@ def get_fundamentus(filters={}, *args, **kwargs):
               'divbruta_min'    : '', 'divbruta_max'    : '',
               'tx_cresc_rec_min': '', 'tx_cresc_rec_max': '',
               'setor'           : '',
-              'ordem'           : '1',
               }
 
     ## Parametros: aplicando 'meus' filtros
