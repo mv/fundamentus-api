@@ -136,16 +136,15 @@ def get_fundamentus(filters={}, *args, **kwargs):
     return results
 
 
-# Input: string formato pt-br
+# Input: string perc pt-br
 # Output: python Decimal
-def to_decimal(string):
-    string = string.replace('.', '' )
-    string = string.replace(',', '.')
+def fix_perc(val):
+    if (val.endswith('%')):
+        val = val.replace('.', '' )
+        val = val.replace(',', '.')
+        val = Decimal(val.rstrip('%')) / 100
 
-    if (string.endswith('%')):
-        return Decimal(string[:-1]) / 100
-    else:
-        return Decimal(string)
+    return val
 
 
 # CSV: ';' separator
