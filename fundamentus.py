@@ -87,6 +87,7 @@ def get_fundamentus(filters={}, *args, **kwargs):
     for row in df.to_dict('records'):
         results[row['Papel']] = {
             # fix header names
+            'Papel'         :          row['Papel'            ] ,
             'Cotacao'       :          row['Cotação'          ] ,
             'P/L'           :          row['P/L'              ] ,
             'P/VP'          :          row['P/VP'             ] ,
@@ -125,57 +126,51 @@ def fix_perc(val):
 # CSV: ';' separator
 def print_csv(data):
 
-     #         Papel   Cotacao  P/L     P/VP     PSR     DY      P/Ativo P/CapGir P/EBIT   P/ACL  EV/EBIT  EV/EBITDA Mrg.Ebit Mrg.Liq. Liq.Corr. ROIC     ROE       Liq.2meses Pat.Liq Div.Brut/Pat. Cresc.5anos))
-    fmt_hdr = '{0:<6}; {1:<7}; {2:<10}; {3:<7}; {4:<8}; {5:<7}; {6:<10}; {7:<10}; {8:<8}; {9:<8}; {10:<8}; {11:<10}; {12:<8}; {13:<8}; {14:<9}; {15:<8}; {16:<8}; {17:<15};'
-    fmt_row = '{0:<6}; {1:>7}; {2:>10}; {3:>7}; {4:>8}; {5:>7}; {6:>10}; {7:>10}; {8:>8}; {9:>8}; {10:>8}; {11:>10}; {12:>8}; {13:>8}; {14:>9}; {15:>8}; {16:>8}; {17:>15};'
+    #       Label              hdr    row
+    fmt = { 'Papel'        :  ['<6' , '<6' ] ,
+            'Cotacao'      :  ['>7' , '>7' ] ,
+            'P/L'          :  ['>10', '>10'] ,
+            'P/VP'         :  ['>7' , '>7' ] ,
+            'PSR'          :  ['>8' , '>8' ] ,
+            'DY'           :  ['>7' , '>7' ] ,
+            'P/Ativo'      :  ['>10', '>10'] ,
+            'P/Cap.Giro'   :  ['>10', '>10'] ,
+            'P/EBIT'       :  ['>8' , '>8' ] ,
+            'P/ACL'        :  ['>8' , '>8' ] ,
+            'EV/EBIT'      :  ['>8' , '>8' ] ,
+            'EV/EBITDA'    :  ['>10', '>10'] ,
+            'Mrg.Ebit'     :  ['>8' , '>8' ] ,
+            'Mrg.Liq.'     :  ['>8' , '>8' ] ,
+            'Liq.Corr.'    :  ['>9' , '>9' ] ,
+            'ROIC'         :  ['>8' , '>8' ] ,
+            'ROE'          :  ['>8' , '>8' ] ,
+            'Liq.2meses'   :  ['>15', '>15'] ,
+#           'Pat.Liq'      :  ['>15', '>15'] ,
+#           'Div.Brut/Pat.':  ['>15', '>15'] ,
+#           'Cresc.5anos'  :  ['>15', '>15'] ,
+    }
 
-    print(fmt_hdr.format('Papel',
-                         'Cotacao',
-                         'P/L',
-                         'P/VP',
-                         'PSR',
-                         'DY',
-                         'P/Ativo',
-                         'P/Cap.Giro',
-                         'P/EBIT',
-                         'P/ACL',
-                         'EV/EBIT',
-                         'EV/EBITDA',
-                         'Mrg.Ebit',
-                         'Mrg.Liq.',
-                         'Liq.Corr.',
-                         'ROIC',
-                         'ROE',
-                         'Liq.2meses',
-                         'Pat.Liq',
-                         'Div.Brut/Pat.',
-                         'Cresc.5anos',
-                         ))
+    # print header first
+    line = ''
+    for label in fmt:
+        hdr  = '{:' + fmt[label][0] + '}; '
+        line = line + hdr.format( label )
 
+    print(line)
+
+
+    # print rows
     for key, value in data.items():
-        print(fmt_row.format(key,
-                             value['Cotacao'],
-                             value['P/L'],
-                             value['P/VP'],
-                             value['PSR'],
-                             value['DY'],
-                             value['P/Ativo'],
-                             value['P/Cap.Giro'],
-                             value['P/EBIT'],
-                             value['P/ACL'],
-                             value['EV/EBIT'],
-                             value['EV/EBITDA'],
-                             value['Mrg.Ebit'],
-                             value['Mrg.Liq.'],
-                             value['Liq.Corr.'],
-                             value['ROIC'],
-                             value['ROE'],
-                             value['Liq.2meses'],
-                             value['Pat.Liq'],
-                             value['Div.Brut/Pat.'],
-                             value['Cresc.5anos'],
-                             ))
 
+        line = ''
+        for label in fmt:
+            row  = '{:' + fmt[label][1] + '}; '
+            line = line + row.format( value[label] )
+
+        print(line)
+
+
+    return
 
 
 if __name__ == '__main__':
