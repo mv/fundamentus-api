@@ -119,4 +119,6 @@ if __name__ == '__main__':
     magic = ranking(data)
     print_simple(magic)
 
+#   from IPython import embed
+#   embed()
 
