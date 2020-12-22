@@ -7,6 +7,17 @@ from collections import OrderedDict
 
 
 def print_simple(data):
+    """
+    Print a 'simple' version of the CSV file that includes
+      - Papel;Cotacao;P/L;EV/EBIT;EV/EBITDA;ROIC;ROE;'rankings'
+      - rankings: EV/EBIT, ROIC, Magic ranking
+
+      Input:
+        OrderedDict()
+
+      Output:
+        stdout: CSV separated by ';'
+    """
 
     #         Papel   Cotacao P/L      EV/EBIT EV/EBITDA ROIC    ROE #   r_EV     r_ROIC  r_magic
     fmt_hdr = '{0:<6}; {1:<7}; {2:<10}; {3:<8}; {4:<10}; {5:<8}; {6:<8}; {7:<12}; {8:<9}; {9:<10};'
@@ -41,11 +52,27 @@ def print_simple(data):
 
 
 def ranking(data):
+    """
+    Ranking:
+      Order data by EV/EBIT first, and ROIC next
+
+      Input:
+        OrderedDict()
+
+      Return:
+        OrderedDict()
+
+      Obs:
+        rank: EV/EBIT
+          in the book: rank by greater EBIT/EV
+          fundamentus: rank by smaller EV/EBIT **
+
+        rank: ROIC
+          in the book: rank by greater Return on Invested Capital
+          fundamentus: rank by greater ROIC (best available aproximation) **
+    """
 
     ## rank: EV/EBIT
-    ##   in the book: rank by greater EBIT/EV
-    ##   fundamentus: rank by smaller EV/EBIT **
-    ##
     rank = OrderedDict(sorted(data.items(), key=lambda x: x[1]["EV/EBIT"]))
 
     idx = 1
@@ -55,9 +82,6 @@ def ranking(data):
 
 
     ## rank: ROIC
-    ##   in the book: rank by greater Return on Invested Capital
-    ##   fundamentus: rank by greater ROIC (best available aproximation) **
-    ##
     rank = OrderedDict(sorted(data.items(), key=lambda x: x[1]["ROIC"], reverse=True))
 
     idx = 1
