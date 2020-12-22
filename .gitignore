@@ -61,4 +61,7 @@ __pycache__/
 *.ods
 *.xls
 *.xlsx
+data/*
+Untitled*
+?.*
 
