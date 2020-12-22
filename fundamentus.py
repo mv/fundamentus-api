@@ -7,15 +7,21 @@ from decimal     import Decimal
 from collections import OrderedDict
 
 
-# URL:
-#   http://fundamentus.com.br/buscaavancada.php
-#   http://fundamentus.com.br/resultado.php
-
 def get_fundamentus(filters={}, *args, **kwargs):
+    """
+    Get data from fundamentus:
+      URL:
+        http://fundamentus.com.br/resultado.php
+    Input:
+      filters = {}
+      list of keys as defined in
+      view-source:http://fundamentus.com.br/buscaavancada.php
+    Output:
+      OrderedDict()
+    """
     ##
     ## Parametros usados em 'Busca avancada por empresa'
     ##   Default: todas as empresas
-    ##   Detalhes: view-source:http://fundamentus.com.br/buscaavancada.php
     ##
     params = {'pl_min'          : '', 'pl_max'          : '',
               'pvp_min'         : '', 'pvp_max'         : '',
@@ -92,11 +98,14 @@ def get_fundamentus(filters={}, *args, **kwargs):
 
     return results
 
-
-#
-# Input: string perc pt-br
-#
 def fix_perc(val):
+    """
+    Fix percent: string in pt-br, like '45,56%', to '0.4556'
+
+    Input: str
+    Output: Decimal
+    """
+
     if (val.endswith('%')):
         val = val.replace('.', '' )
         val = val.replace(',', '.')
@@ -104,10 +113,13 @@ def fix_perc(val):
 
     return Decimal(val)
 
-#
-# CSV: ';' separator, fixed
-#
+##
 def print_csv(data):
+    """
+    CSV printed to stdout
+      - separator: ';'
+      - fixed-width columns for better reading
+    """
     #       Label              hdr    row
     fmt = { 'Papel'        :  ['<6' , '<6'     ] ,
             'Cotacao'      :  ['>9' , '>9,.2f' ] ,
@@ -155,6 +167,4 @@ if __name__ == '__main__':
 
     data = get_fundamentus()
     print_csv(data)
-
-#
 

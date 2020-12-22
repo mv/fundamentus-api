@@ -58,5 +58,8 @@ __pycache__/
 *.ods
 *.xls
 *.xlsx
+Untitled*
+?.*
 venv/
+data/
 
