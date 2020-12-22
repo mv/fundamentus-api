@@ -18,4 +18,3 @@ echodo virtualenv venv
 echodo source venv/bin/activate
 echodo pip install -r required.txt
 
-
