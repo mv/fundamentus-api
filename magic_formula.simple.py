@@ -5,6 +5,8 @@ from fundamentus import print_csv
 
 from collections import OrderedDict
 
+import time
+
 
 def print_simple(data):
     """
@@ -49,6 +51,28 @@ def print_simple(data):
                              ))
 
     return
+
+
+def filter_out(data):
+    """
+    filter out: finance and Securities
+
+    Input/Output: OrderedDict()
+    """
+
+    # 35: Finance
+    finan = get_fundamentus( { 'setor': '35' } )
+    time.sleep(1)
+
+    # 38: Securities
+    segur = get_fundamentus( { 'setor': '38' } )
+
+    lst = sorted( list(finan.keys()) + list(segur.keys()) )
+    for key in lst:
+        if key in data:
+            del(data[key])
+
+    return data
 
 
 def ranking(data):
@@ -107,12 +131,18 @@ if __name__ == '__main__':
               'roic_min'      : '0.001',
               'roe_min'       : '',
               'liq_min'       : '1000000',
+              'setor'         : '',
               }
 
     data = get_fundamentus(params)
 
+
+    # remove: list of finance companies
+    data2 = filter_out(data)
+
+
     # Magic Formula: create rankings
-    magic = ranking(data)
+    magic = ranking(data2)
     print_simple(magic)
 
 #   from IPython import embed
