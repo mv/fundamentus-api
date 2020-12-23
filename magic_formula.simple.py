@@ -61,13 +61,13 @@ def filter_out(data):
     """
 
     # 35: Finance
-    finan = get_fundamentus( { 'setor': '35' } )
+    finan = get_fundamentus( { 'setor': '35' } ).keys()
     time.sleep(.2)
 
     # 38: Securities
-    segur = get_fundamentus( { 'setor': '38' } )
+    segur = get_fundamentus( { 'setor': '38' } ).keys()
 
-    lst = sorted( list(finan.keys()) + list(segur.keys()) )
+    lst = list(finan) + list(segur)
     for key in lst:
         if key in data:
             del(data[key])
