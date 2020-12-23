@@ -67,8 +67,7 @@ def filter_out(data):
     # 38: Securities
     segur = get_fundamentus( { 'setor': '38' } ).keys()
 
-    lst = list(finan) + list(segur)
-    for key in lst:
+    for key in (list(finan) + list(segur)):
         if key in data:
             del(data[key])
 
