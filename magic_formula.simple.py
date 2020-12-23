@@ -62,7 +62,7 @@ def filter_out(data):
 
     # 35: Finance
     finan = get_fundamentus( { 'setor': '35' } )
-    time.sleep(1)
+    time.sleep(.2)
 
     # 38: Securities
     segur = get_fundamentus( { 'setor': '38' } )
