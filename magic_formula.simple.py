@@ -75,19 +75,16 @@ def ranking(data):
     ## rank: EV/EBIT
     rank = OrderedDict(sorted(data.items(), key=lambda x: x[1]["EV/EBIT"]))
 
-    idx = 1
-    for key, value in rank.items():
-        rank[key]['rank_EV/EBIT'] = idx
-        idx += 1
+    # keys() are sorted because 'OrderedDict' keeps its order ;D
+    for i, key in enumerate(rank.keys()):
+        rank[key]['rank_EV/EBIT'] = i+1
 
 
     ## rank: ROIC
     rank = OrderedDict(sorted(data.items(), key=lambda x: x[1]["ROIC"], reverse=True))
 
-    idx = 1
-    for key, value in rank.items():
-        rank[key]['rank_ROIC'] = idx
-        idx += 1
+    for i, key, in enumerate(rank.keys()):
+        rank[key]['rank_ROIC'] = i+1
 
 
     ## Magic Formula...
@@ -100,7 +97,6 @@ def ranking(data):
     rank = OrderedDict(sorted(data.items(), key=lambda x: x[1]["rank_Magic"]))
 
     return rank
-
 
 
 if __name__ == '__main__':
