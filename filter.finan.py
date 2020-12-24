@@ -6,10 +6,7 @@
 #
 
 from fundamentus import get_fundamentus
-from fundamentus import print_csv
-
-from collections import OrderedDict
-
+from fundamentus import print_table
 
 if __name__ == '__main__':
 
@@ -23,8 +20,9 @@ if __name__ == '__main__':
     data = get_fundamentus(params)
 
     # Reorder by ticker
-    data = OrderedDict(sorted(data.items()))
-    print_csv(data)
+    data.sort_values(by='papel', inplace=True)
+
+    print_table( data[ ['papel','cotacao','pl','dy','roic','roe'] ] )
 
 
     ## Setores:
