@@ -65,7 +65,7 @@ def get_fundamentus(filters={}):
     df = pd.read_html(content.text, decimal=",", thousands='.')[0]
 
     ## naming
-    df.name = 'Fundamentus: HTML names'
+    df.name = 'Fundamentus: RAW = HTML names'
 
     ## index by 'Papel', instead of a 'int'
     df.index = df['Papel']
