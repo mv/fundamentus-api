@@ -11,10 +11,10 @@ Para obter a listagem completa de todos os dados:
 
 ```bash
 ## Direto
-$ ./fundamentus.py
+$ ./fundamentus.csv.py
 
 ## Alternativa
-$ ./fundamentus.py > bovespa.csv
+$ ./fundamentus.csv.py > bovespa.csv
 ```
 
 
@@ -71,3 +71,4 @@ Para saber mais sobre a **Magic Formula**:
 ## License
 
 The MIT License (MIT)
+
