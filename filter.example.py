@@ -1,15 +1,9 @@
 #!/usr/bin/env python3
 #
-# Ref:
-#   https://www.geeksforgeeks.org/sorted-function-python/
-#   https://realpython.com/python-sort/
 #
 
 from fundamentus import get_fundamentus
 from fundamentus import print_csv
-
-from collections import OrderedDict
-
 
 if __name__ == '__main__':
 
@@ -25,11 +19,7 @@ if __name__ == '__main__':
     data = get_fundamentus(params)
 
     # Reorder by ticker
-    data = OrderedDict(sorted(data.items()))
+    data.sort_values(by='papel', inplace=True)
 
-    # Reorder by column, descending
-#   data = OrderedDict(sorted(data.items(), key = lambda x: x[1]["DY"] , reverse=True))
-#   data = OrderedDict(sorted(data.items(), key = lambda x: x[1]["ROE"], reverse=True))
-
-    print_csv(data)
+    print_csv( data[ ['papel','cotacao','pl','dy','roic','roe'] ] )
 
