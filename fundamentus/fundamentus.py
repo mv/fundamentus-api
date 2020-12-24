@@ -174,7 +174,7 @@ def print_csv(data):
     """
     CSV printed to stdout
     """
-    print(data.to_csv(index=False, header=True, decimal='.', float_format='%.2f' ))
+    print(data.to_csv(index=False, header=True, decimal='.', float_format='%.4f' ))
 
     return
 
@@ -189,7 +189,7 @@ def print_table(data):
                     , headers=data.columns
                     , tablefmt='presto'
                     , showindex='no'
-                    , floatfmt=".2f"
+                    , floatfmt=".4f"
                     , disable_numparse=False
                )
      )
