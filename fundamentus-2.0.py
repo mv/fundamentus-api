@@ -3,8 +3,7 @@
 import requests
 import pandas   as pd
 
-from decimal     import Decimal
-from collections import OrderedDict
+from tabulate import tabulate
 
 
 def get_fundamentus(filters={}):
@@ -142,10 +141,26 @@ def rename_cols(data):
 def print_csv(data):
     """
     CSV printed to stdout
-      - separator: ';'
+    """
+    print(data.to_csv(index=False, header=True, decimal='.', float_format='%.2f' ))
+
+    return
+
+
+def print_table(data):
+    """
+    Text table printed to stdout
+      - separator: '|'
       - fixed-width columns for better reading
     """
-    print(data)
+    print( tabulate ( data
+                    , headers=data.columns
+                    , tablefmt='presto'
+                    , showindex='no'
+                    , floatfmt=".2f"
+                    , disable_numparse=False
+               )
+     )
 
     return
 
@@ -155,5 +170,7 @@ if __name__ == '__main__':
     data  = get_fundamentus()
     data2 = rename_cols(data)
 
-    print_csv(data)
+    # print_csv(data)
+    # print_table(data)
+
 
