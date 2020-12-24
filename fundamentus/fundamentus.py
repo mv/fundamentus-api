@@ -72,13 +72,6 @@ def get_fundamentus_raw(filters={}):
     ## parse + load
     df = pd.read_html(content.text, decimal=",", thousands='.')[0]
 
-    ## naming
-    df.name = 'Fundamentus: RAW = HTML names'
-
-    ## index by 'Papel', instead of a 'int'
-    df.index = df['Papel']
-    df.index.name = 'Papel'
-
     ## Fix: percent string
     _fix_perc(df,'Div.Yield'    )
     _fix_perc(df,'Mrg Ebit'     )
@@ -87,6 +80,17 @@ def get_fundamentus_raw(filters={}):
     _fix_perc(df,'ROE'          )
     _fix_perc(df,'Cresc. Rec.5a')
 
+    ## index by 'Papel', instead of 'int'
+    df.index = df['Papel']
+    df.drop('Papel', axis='columns', inplace=True)
+    df.sort_index(inplace=True)
+
+    ## naming
+    df.name = 'Fundamentus: HTML names'
+    df.columns.name = 'Multiples'
+    df.index.name = 'Papel'
+
+    ## return sorted by 'Papel'
     return df
 
 
@@ -128,6 +132,11 @@ def get_fundamentus(filters={}):
     ## rename!
     data2 = _rename_cols(data1)
 
+    ## metadata
+    data2.name = 'Fundamentus: short names'
+    data2.columns.name = 'Multiples'
+    data2.index.name = 'Papel'
+
     return data2
 
 
@@ -141,10 +150,8 @@ def _rename_cols(data):
     """
 
     df2 = pd.DataFrame()
-    df2.name = 'Fundamentus: short header names'
 
     ## Fix: rename columns
-    df2['papel'    ] = data['Papel'            ]
     df2['cotacao'  ] = data['Cotação'          ]
     df2['pl'       ] = data['P/L'              ]
     df2['pvp'      ] = data['P/VP'             ]
@@ -174,7 +181,12 @@ def print_csv(data):
     """
     CSV printed to stdout
     """
-    print(data.to_csv(index=False, header=True, decimal='.', float_format='%.4f' ))
+    print(data.to_csv( index=True
+                     , header=True
+                     , decimal='.'
+                     , float_format='%.4f'
+                     )
+         )
 
     return
 
@@ -186,9 +198,7 @@ def print_table(data):
       - fixed-width columns for better reading
     """
     print( tabulate ( data
-                    , headers=data.columns
                     , tablefmt='presto'
-                    , showindex='no'
                     , floatfmt=".4f"
                     , disable_numparse=False
                )
