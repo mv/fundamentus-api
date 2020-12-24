@@ -73,17 +73,17 @@ def get_fundamentus(filters={}):
     df.index.name = 'Papel'
 
     ## Fix: percent string
-    fix_perc(df,'Div.Yield'    )
-    fix_perc(df,'Mrg Ebit'     )
-    fix_perc(df,'Mrg. Líq.'    )
-    fix_perc(df,'ROIC'         )
-    fix_perc(df,'ROE'          )
-    fix_perc(df,'Cresc. Rec.5a')
+    _fix_perc(df,'Div.Yield'    )
+    _fix_perc(df,'Mrg Ebit'     )
+    _fix_perc(df,'Mrg. Líq.'    )
+    _fix_perc(df,'ROIC'         )
+    _fix_perc(df,'ROE'          )
+    _fix_perc(df,'Cresc. Rec.5a')
 
     return df
 
 
-def fix_perc(df, column):
+def _fix_perc(df, column):
     """
     Fix percent:
       - inplace: replace string in pt-br
