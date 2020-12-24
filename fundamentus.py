@@ -7,7 +7,7 @@ from decimal     import Decimal
 from collections import OrderedDict
 
 
-def get_fundamentus(filters={}, *args, **kwargs):
+def get_fundamentus(filters={}):
     """
     Get data from fundamentus:
       URL:
