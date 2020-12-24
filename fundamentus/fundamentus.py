@@ -11,17 +11,22 @@ import pandas   as pd
 from tabulate import tabulate
 
 
-def get_fundamentus(filters={}):
+def get_fundamentus_raw(filters={}):
     """
     Get data from fundamentus:
       URL:
         http://fundamentus.com.br/resultado.php
+
+    RAW:
+      DataFrame preserves original HTML header names
+
     Input:
       filters = {}
       list of keys as defined in
       view-source:http://fundamentus.com.br/buscaavancada.php
+
     Output:
-      OrderedDict()
+      DataFrame
     """
     ##
     ## Parametros usados em 'Busca avancada por empresa'
@@ -48,11 +53,9 @@ def get_fundamentus(filters={}):
               'tx_cresc_rec_min': '', 'tx_cresc_rec_max': '',
               'setor'           : '',
               }
-    ##
+
     ## Parametros: aplicando 'meus' filtros
     params.update(filters)
-    ##
-
 
     ##
     ## Busca avançada por empresa
@@ -104,7 +107,31 @@ def _fix_perc(df, column):
     return
 
 
-def rename_cols(data):
+def get_fundamentus(filters={}):
+    """
+    Get data from fundamentus.
+      URL:
+        http://fundamentus.com.br/resultado.php
+
+      DataFrame uses short header names
+
+    Input:
+      filters = {}
+
+    Output:
+      DataFrame
+    """
+
+    ## get RAW data
+    data1 = get_fundamentus_raw(filters)
+
+    ## rename!
+    data2 = _rename_cols(data1)
+
+    return data2
+
+
+def _rename_cols(data):
     """
     Rename columns in DataFrame
       - use a valid Python identifier
@@ -114,7 +141,7 @@ def rename_cols(data):
     """
 
     df2 = pd.DataFrame()
-    df2.name = 'Fundamentus: short names'
+    df2.name = 'Fundamentus: short header names'
 
     ## Fix: rename columns
     df2['papel'    ] = data['Papel'            ]
@@ -172,10 +199,7 @@ def print_table(data):
 
 if __name__ == '__main__':
 
-    data  = get_fundamentus()
-    data2 = rename_cols(data)
-
-    # print_csv(data)
-    # print_table(data)
+    data = get_fundamentus()
+    print_csv(data)
 
 
