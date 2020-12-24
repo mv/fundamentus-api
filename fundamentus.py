@@ -58,7 +58,7 @@ def get_fundamentus(filters={}):
            'Accept': 'text/html, text/plain, text/css, text/sgml, */*;q=0.01',
            'Accept-Encoding': 'gzip, deflate',
            }
-
+    ## POST
     content = requests.post(url, headers=hdr, data=params)
     content.encoding = 'ISO-8859-1'
 
@@ -98,6 +98,7 @@ def get_fundamentus(filters={}):
 
     return results
 
+##
 def fix_perc(val):
     """
     Fix percent: string in pt-br, like '45,56%', to '0.4556'
@@ -150,7 +151,6 @@ def print_csv(data):
         hdr  = '{:' + fmt[label][0] + '}; '
         line = line + hdr.format( label )
     print(line)
-
 
     # print rows
     for key, value in data.items():
