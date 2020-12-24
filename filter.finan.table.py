@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 #
-# Ref:
-#   https://www.geeksforgeeks.org/sorted-function-python/
-#   https://realpython.com/python-sort/
-#
 
 from fundamentus import get_fundamentus
 from fundamentus import print_table

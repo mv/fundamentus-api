@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 #
-#
 
 from fundamentus import get_fundamentus
 from fundamentus import print_csv
