@@ -60,58 +60,83 @@ def get_fundamentus(filters={}):
            }
 
     content = requests.post(url, headers=hdr, data=params)
-    content.encoding = 'ISO-8859-1'
+#   content.encoding = 'ISO-8859-1'
 
-    ## parse
+    ## parse + load
     df = pd.read_html(content.text, decimal=",", thousands='.')[0]
 
-    ## load
-    results = OrderedDict()
-    ##
-    ## df to OrderedDict
-    ##
-    for row in df.to_dict('records'):
-        results[row['Papel']] = {
-            # fix header names
-            'Papel'         :          row['Papel'            ] ,
-            'Cotacao'       :          row['Cotação'          ] ,
-            'P/L'           :          row['P/L'              ] ,
-            'P/VP'          :          row['P/VP'             ] ,
-            'PSR'           :          row['PSR'              ] ,
-            'DY'            : fix_perc(row['Div.Yield'        ]),
-            'P/Ativo'       :          row['P/Ativo'          ] ,
-            'P/CapGiro'     :          row['P/Cap.Giro'       ] ,
-            'P/EBIT'        :          row['P/EBIT'           ] ,
-            'P/AtivCircLiq' :          row['P/Ativ Circ.Liq'  ] ,
-            'EV/EBIT'       :          row['EV/EBIT'          ] ,
-            'EV/EBITDA'     :          row['EV/EBITDA'        ] ,
-            'MrgEbit'       : fix_perc(row['Mrg Ebit'         ]),
-            'MrgLiq'        : fix_perc(row['Mrg. Líq.'        ]),
-            'LiqCorr'       :          row['Liq. Corr.'       ] ,
-            'ROIC'          : fix_perc(row['ROIC'             ]),
-            'ROE'           : fix_perc(row['ROE'              ]),
-            'Liq2meses'     :          row['Liq.2meses'       ] ,
-            'PatLiq'        :          row['Patrim. Líq'      ] ,
-            'DivBrut/Pat'   :          row['Dív.Brut/ Patrim.'] ,
-            'Cresc5anos'    : fix_perc(row['Cresc. Rec.5a'    ]),
-        }
+    ## naming
+    df.name = 'Fundamentus: HTML names'
 
-    return results
+    ## index by 'Papel', instead of a 'int'
+    df.index = df['Papel']
+    df.index.name = 'Papel'
 
-def fix_perc(val):
+    ## Fix: percent string
+    fix_perc(df,'Div.Yield'    )
+    fix_perc(df,'Mrg Ebit'     )
+    fix_perc(df,'Mrg. Líq.'    )
+    fix_perc(df,'ROIC'         )
+    fix_perc(df,'ROE'          )
+    fix_perc(df,'Cresc. Rec.5a')
+
+    return df
+
+
+def fix_perc(df, column):
     """
-    Fix percent: string in pt-br, like '45,56%', to '0.4556'
+    Fix percent:
+      - inplace: replace string in pt-br
+      - from '45,56%' to '0.4556'
 
-    Input: str
-    Output: Decimal
+    Input: DataFrame, column_name
     """
 
-    if (val.endswith('%')):
-        val = val.replace('.', '' )
-        val = val.replace(',', '.')
-        val = Decimal(val.rstrip('%')) / 100
+    df[column] = df[column].str.rstrip('%')
+    df[column] = df[column].str.replace('.', '' )
+    df[column] = df[column].str.replace(',', '.')
+    df[column] = df[column].astype(float) / 100
 
-    return Decimal(val)
+    return
+
+
+def rename_cols(data):
+    """
+    Rename columns in DataFrame
+      - use a valid Python identifier
+      - so each column can be a DataFrame property
+      - Example:
+          df.pl > 0
+    """
+
+    df2 = pd.DataFrame()
+    df2.name = 'Fundamentus: short names'
+
+    ## Fix: rename columns
+    df2['papel'    ] = data['Papel'            ]
+    df2['cotacao'  ] = data['Cotação'          ]
+    df2['pl'       ] = data['P/L'              ]
+    df2['pvp'      ] = data['P/VP'             ]
+    df2['psr'      ] = data['PSR'              ]
+    df2['dy'       ] = data['Div.Yield'        ]
+    df2['pa'       ] = data['P/Ativo'          ]
+    df2['pcg'      ] = data['P/Cap.Giro'       ]
+    df2['pebit'    ] = data['P/EBIT'           ]
+    df2['pacl'     ] = data['P/Ativ Circ.Liq'  ]
+    df2['evebit'   ] = data['EV/EBIT'          ]
+    df2['evebitda' ] = data['EV/EBITDA'        ]
+    df2['mrgebit'  ] = data['Mrg Ebit'         ]
+    df2['mrgliq'   ] = data['Mrg. Líq.'        ]
+    df2['roic'     ] = data['ROIC'             ]
+    df2['roe'      ] = data['ROE'              ]
+    df2['liqc'     ] = data['Liq. Corr.'       ]
+    df2['liq2m'    ] = data['Liq.2meses'       ]
+    df2['patrliq'  ] = data['Patrim. Líq'      ]
+    df2['divbpatr' ] = data['Dív.Brut/ Patrim.']
+    df2['c5y'      ] = data['Cresc. Rec.5a'    ]
+
+    return df2
+
 
 ##
 def print_csv(data):
@@ -120,51 +145,15 @@ def print_csv(data):
       - separator: ';'
       - fixed-width columns for better reading
     """
-    #       Label              hdr    row
-    fmt = { 'Papel'        :  ['<6' , '<6'     ] ,
-            'Cotacao'      :  ['>9' , '>9,.2f' ] ,
-            'P/L'          :  ['>10', '>10,.2f'] ,
-            'P/VP'         :  ['>10', '>10,.2f'] ,
-            'PSR'          :  ['>8' , '>8,.2f' ] ,
-            'DY'           :  ['>7' , '>7,.4f' ] ,
-            'P/Ativo'      :  ['>10', '>10,.4f'] ,
-            'P/CapGiro'    :  ['>10', '>10,.2f'] ,
-            'P/EBIT'       :  ['>9' , '>9,.2f' ] ,
-            'P/AtivCircLiq':  ['>13', '>13,.2f'] ,
-            'EV/EBIT'      :  ['>10', '>10,.2f'] ,
-            'EV/EBITDA'    :  ['>10', '>10,.2f'] ,
-            'MrgEbit'      :  ['>9' , '>9,.4f' ] ,
-            'MrgLiq'       :  ['>9' , '>9,.4f' ] ,
-            'LiqCorr'      :  ['>9' , '>9,.2f' ] ,
-            'ROIC'         :  ['>8' , '>8,.4f' ] ,
-            'ROE'          :  ['>8' , '>8,.4f' ] ,
-            'Liq2meses'    :  ['>16', '>16,.2f'] ,
-            'PatLiq'       :  ['>18', '>18,.2f'] ,
-            'DivBrut/Pat'  :  ['>12', '>12,.2f'] ,
-            'Cresc5anos'   :  ['>10' ,'>10,.4f'] ,
-    }
-
-    # print header first
-    line = ''
-    for label in fmt:
-        hdr  = '{:' + fmt[label][0] + '}; '
-        line = line + hdr.format( label )
-    print(line)
-
-
-    # print rows
-    for key, value in data.items():
-        line = ''
-        for label in fmt:
-            row  = '{:' + fmt[label][1] + '}; '
-            line = line + row.format( value[label] )
-        print(line)
+    print(data)
 
     return
 
 
 if __name__ == '__main__':
 
-    data = get_fundamentus()
+    data  = get_fundamentus()
+    data2 = rename_cols(data)
+
     print_csv(data)
 
