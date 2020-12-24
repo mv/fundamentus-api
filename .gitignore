@@ -58,6 +58,7 @@ __pycache__/
 *.ods
 *.xls
 *.xlsx
+*.ipynb
 Untitled*
 ?.*
 venv/
