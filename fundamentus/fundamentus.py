@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+# Fundamentus v2.0
+#   as a lib
+#   2.0: pandas/DataFrame based
+#
+
 import requests
 import pandas   as pd
 
