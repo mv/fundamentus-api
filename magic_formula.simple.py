@@ -4,6 +4,7 @@
 import pandas as pd
 
 from fundamentus import get_fundamentus
+from fundamentus import get_setor_data
 from fundamentus import print_csv
 from fundamentus import print_table
 
@@ -18,13 +19,13 @@ def filter_out(data):
     """
 
     # 35: Finance
-    idx_fin = get_fundamentus( { 'setor': '35' } ).index
+    idx_fin = get_setor_data(35)
 
     # 38: Securities
-    idx_seg = get_fundamentus( { 'setor': '38' } ).index
+    idx_seg = get_setor_data(38)
 
     df = data
-    for idx in list(idx_fin) + list(idx_seg):
+    for idx in idx_fin + idx_seg:
         try:
             df = df.drop(idx)
             # print('idx: ',idx, 'dropped.')
