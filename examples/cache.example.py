@@ -16,7 +16,7 @@ def main():
         for i in range(5):
             j = requests.get('https://httpbin.org/uuid').json()['uuid']
             r = requests.get('https://httpbin.org/delay/2')
-            print('  Request {}: code = {}, uuid= {}'.format(i,r,j))
+            print('  Request {}: code = {}, uuid = {}, cached = {}'.format(i,r,j,r.from_cache))
 
 
     # And if we need to get fresh page or don't want to cache it?
