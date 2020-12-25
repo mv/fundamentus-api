@@ -198,6 +198,7 @@ def print_table(data):
       - fixed-width columns for better reading
     """
     print( tabulate ( data
+                    , headers=data.columns
                     , tablefmt='presto'
                     , floatfmt=".4f"
                     , disable_numparse=False
