@@ -67,7 +67,6 @@ def get_fundamentus_raw(filters={}):
            }
 
     content = requests.post(url, headers=hdr, data=params)
-#   content.encoding = 'ISO-8859-1'
 
     ## parse + load
     df = pd.read_html(content.text, decimal=",", thousands='.')[0]
