@@ -18,17 +18,21 @@ def filter_out(data):
     """
 
     # 35: Finance
-    finan = get_fundamentus( { 'setor': '35' } ).keys()
-    time.sleep(.2)
+    idx_fin = get_fundamentus( { 'setor': '35' } ).index
 
     # 38: Securities
-    segur = get_fundamentus( { 'setor': '38' } ).keys()
+    idx_seg = get_fundamentus( { 'setor': '38' } ).index
 
-    for key in (list(finan) + list(segur)):
-        if key in data:
-            del(data[key])
+    df = data
+    for idx in list(idx_fin) + list(idx_seg):
+        try:
+            df = df.drop(idx)
+            # print('idx: ',idx, 'dropped.')
+        except:
+            # print('idx: ',idx, 'NOT FOUND.')
+            pass
 
-    return data
+    return df
 
 
 def ranking(data):
@@ -81,7 +85,7 @@ if __name__ == '__main__':
     params = {'pl_min'        : '0',
               'firma_ebit_min': '0.001',
               'roic_min'      : '0.001',
-              'roe_min'       : '',
+              'roe_min'       : '0.001',
               'liq_min'       : '',
               'setor'         : '',
               }
@@ -94,11 +98,11 @@ if __name__ == '__main__':
 
 
     # filter: list of finance companies: remove
-#   df2 = filter_out(df)
+    df2 = filter_out(df)
 
 
     # Magic Formula: create rankings
-    magic = ranking(df)
+    magic = ranking(df2)
     print_table(magic)
 
 
