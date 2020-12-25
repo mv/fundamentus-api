@@ -137,7 +137,11 @@ def get_fundamentus(filters={}):
     data2.columns.name = 'Multiples'
     data2.index.name = 'Papel'
 
-    return data2
+    ## remove duplicates
+#   df = data2.drop_duplicates(subset=['cotacao','pl','pvp'], keep='last')
+    df = data2.drop_duplicates(keep='first')
+
+    return df
 
 
 def _rename_cols(data):
