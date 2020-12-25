@@ -6,6 +6,8 @@
 #
 
 requests==2.25.1
+requests-cache=0.5.2
+
 pandas==1.1.5
 lxml==4.6.2
 

@@ -6,9 +6,14 @@
 #
 
 import requests
+import requests_cache
 import pandas   as pd
 
 from tabulate import tabulate
+
+
+# requests cache: 1h
+requests_cache.install_cache('.requests-cache', backend='sqlite', expire_after=3600)
 
 
 def get_fundamentus_raw(filters={}):
@@ -66,7 +71,8 @@ def get_fundamentus_raw(filters={}):
            'Accept-Encoding': 'gzip, deflate',
            }
 
-    content = requests.post(url, headers=hdr, data=params)
+    with requests_cache.enabled():
+        content = requests.post(url, headers=hdr, data=params)
 
     ## parse + load
     df = pd.read_html(content.text, decimal=",", thousands='.')[0]
