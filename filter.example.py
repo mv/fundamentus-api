@@ -19,7 +19,7 @@ if __name__ == '__main__':
     data = get_fundamentus(params)
 
     # Reorder by ticker
-    data.sort_values(by='papel', inplace=True)
+    data = data.sort_index(ascending=True)
 
-    print_csv( data[ ['papel','cotacao','pl','dy','roic','roe'] ] )
+    print_csv( data[ ['cotacao','pl','dy','roic','roe'] ] )
 
