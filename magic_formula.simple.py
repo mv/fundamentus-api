@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 #
 
+import pandas as pd
+
 from fundamentus import get_fundamentus
 from fundamentus import print_csv
 
@@ -56,9 +58,9 @@ def print_simple(data):
 
 def filter_out(data):
     """
-    filter out: finance and Securities
+    filter out: Finance and Securities
 
-    Input/Output: OrderedDict()
+    Input/Output: DataFrame()
     """
 
     # 35: Finance
@@ -80,11 +82,7 @@ def ranking(data):
     Ranking:
       Order data by EV/EBIT first, and ROIC next
 
-      Input:
-        OrderedDict()
-
-      Return:
-        OrderedDict()
+      Input/Output: DataFrame()
 
       Obs:
         rank: EV/EBIT
@@ -96,31 +94,31 @@ def ranking(data):
           fundamentus: rank by greater ROIC (best available aproximation) **
     """
 
-    ## rank: EV/EBIT
-    rank = OrderedDict(sorted(data.items(), key=lambda x: x[1]["EV/EBIT"]))
+    magic = data
 
-    # keys() are sorted because 'OrderedDict' keeps its order ;D
-    for i, key in enumerate(rank.keys()):
-        rank[key]['rank_EV/EBIT'] = i+1
+
+    ## rank: EV/EBIT
+    rank1 = data.sort_values('evebit', ascending=True).index
+
+    df1 = pd.DataFrame( { 'rank': range(len(data)) }, index = rank1)
+    df1 += 1
+    magic = magic.assign(rank_evebit = df1)
 
 
     ## rank: ROIC
-    rank = OrderedDict(sorted(data.items(), key=lambda x: x[1]["ROIC"], reverse=True))
+    rank2 = data.sort_values('roic', ascending=False).index
 
-    for i, key, in enumerate(rank.keys()):
-        rank[key]['rank_ROIC'] = i+1
+    df2 = pd.DataFrame({ 'rank': range( len(data) )}, index = rank2)
+    df2 += 1
+    magic = magic.assign(rank_roic = df2)
 
 
     ## Magic Formula...
-    for key, value in rank.items():
-        magic = rank[key]['rank_EV/EBIT'] + \
-                rank[key]['rank_ROIC']
-        rank[key]['rank_Magic'] = magic
+    magic['rank_magic'] = magic['rank_evebit'] + magic['rank_roic']
+    magic = magic.sort_values('rank_magic')
 
 
-    rank = OrderedDict(sorted(data.items(), key=lambda x: x[1]["rank_Magic"]))
-
-    return rank
+    return magic
 
 
 if __name__ == '__main__':
@@ -130,20 +128,25 @@ if __name__ == '__main__':
               'firma_ebit_min': '0.001',
               'roic_min'      : '0.001',
               'roe_min'       : '',
-              'liq_min'       : '1000000',
+              'liq_min'       : '',
               'setor'         : '',
               }
 
     data = get_fundamentus(params)
 
+    # my_columns = data.columns
+    my_columns = ['cotacao', 'pl', 'evebit', 'evebitda', 'roic', 'roe']
+    df = data[ my_columns ]
 
-    # remove: list of finance companies
-    data2 = filter_out(data)
+
+    # filter: list of finance companies: remove
+#   df2 = filter_out(df)
 
 
     # Magic Formula: create rankings
-    magic = ranking(data2)
-    print_simple(magic)
+    magic = ranking(df)
+    print_table(magic)
+
 
 #   from IPython import embed
 #   embed()
