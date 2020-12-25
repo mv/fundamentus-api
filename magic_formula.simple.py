@@ -5,55 +5,9 @@ import pandas as pd
 
 from fundamentus import get_fundamentus
 from fundamentus import print_csv
-
-from collections import OrderedDict
+from fundamentus import print_table
 
 import time
-
-
-def print_simple(data):
-    """
-    Print a 'simple' version of the CSV file that includes
-      - Papel;Cotacao;P/L;EV/EBIT;EV/EBITDA;ROIC;ROE;'rankings'
-      - rankings: EV/EBIT, ROIC, Magic ranking
-
-      Input:
-        OrderedDict()
-
-      Output:
-        stdout: CSV separated by ';'
-    """
-
-    #         Papel   Cotacao P/L      EV/EBIT EV/EBITDA ROIC    ROE #   r_EV     r_ROIC  r_magic
-    fmt_hdr = '{0:<6}; {1:>7}; {2:>10}; {3:>8}; {4:>10}; {5:>8}; {6:>8}; {7:>12}; {8:>9}; {9:>10};'
-    fmt_row = '{0:<6}; {1:>7}; {2:>10}; {3:>8.2f}; {4:>10.2f}; {5:>8.4f}; {6:>8.4f}; {7:>12}; {8:>9}; {9:>10};'
-
-    print(fmt_hdr.format('Papel',
-                         'Cotacao',
-                         'P/L',
-                         'EV/EBIT',
-                         'EV/EBITDA',
-                         'ROIC',
-                         'ROE',
-                         'rank_EV/EBIT',
-                         'rank_ROIC',
-                         'rank_Magic',
-                         ))
-
-    for key, value in data.items():
-        print(fmt_row.format(key,
-                             value['Cotacao'],
-                             value['P/L'],
-                             value['EV/EBIT'],
-                             value['EV/EBITDA'],
-                             value['ROIC'],
-                             value['ROE'],
-                             value['rank_EV/EBIT'],
-                             value['rank_ROIC'],
-                             value['rank_Magic'],
-                             ))
-
-    return
 
 
 def filter_out(data):
