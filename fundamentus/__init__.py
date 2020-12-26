@@ -4,9 +4,9 @@ __all__ = ['get_resultado','get_resultado_raw','print_csv','print_table']
 from fundamentus.resultado  import get_resultado
 from fundamentus.resultado  import get_resultado_raw
 
-from fundamentus.details     import get_details
-from fundamentus.details     import get_details_list
-from fundamentus.details     import get_details_raw
+from fundamentus.detalhes   import get_detalhes
+from fundamentus.detalhes   import get_detalhes_raw
+from fundamentus.detalhes   import get_detalhes_list
 
 from fundamentus.setor       import get_setor_data
 from fundamentus.setor       import get_setor_id

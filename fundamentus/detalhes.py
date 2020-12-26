@@ -16,7 +16,7 @@ import pandas   as pd
 from collections import OrderedDict
 
 
-def get_details_list(lst=[]):
+def get_detalhes_list(lst=[]):
     """
     Get detailed data for a given list
     """
@@ -24,7 +24,7 @@ def get_details_list(lst=[]):
     result = pd.DataFrame()
 
     for papel in lst:
-        df = get_details(papel)
+        df = get_detalhes(papel)
         result = result.append(df)
 
     result.drop('Papel', axis='columns', inplace=True)
@@ -32,7 +32,7 @@ def get_details_list(lst=[]):
     return result.sort_index()
 
 
-def get_details(papel='WEGE3'):
+def get_detalhes(papel='WEGE3'):
     """
     Get detailed data from fundamentus:
       URL:
@@ -43,7 +43,7 @@ def get_details(papel='WEGE3'):
     """
 
     ## raw
-    df_list = get_details_raw(papel)
+    df_list = get_detalhes_raw(papel)
 
     ## Fix 0
     ## 'top header/summary'
@@ -142,7 +142,7 @@ def get_details(papel='WEGE3'):
     return result
 
 
-def get_details_raw(papel='WEGE3'):
+def get_detalhes_raw(papel='WEGE3'):
     """
     Get RAW detailed data from fundamentus:
       URL:
