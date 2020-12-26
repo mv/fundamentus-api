@@ -20,6 +20,49 @@ df2 = pd.DataFrame()
 df3 = pd.DataFrame()
 df4 = pd.DataFrame()
 
+
+def _fix_key(_series):
+    pass
+    res = _series
+    res = res.str.strip('?')
+    res = res.str.replace('(','')
+    res = res.str.replace(')','')
+    res = res.str.replace('$','')
+    res = res.str.replace('.','')
+    res = res.str.replace('/','')
+    res = res.str.replace('ç','c')
+    res = res.str.replace('ã','a')
+    res = res.str.replace('é','e')
+    res = res.str.replace('ê','e')
+    res = res.str.replace('ó','o')
+    res = res.str.replace('õ','o')
+    res = res.str.replace('í','i')
+    res = res.str.replace('ú','u')
+    res = res.str.replace('Ú','U')
+    res = res.str.replace(' ','_')
+
+    return res
+
+
+def _fmt_perc(df, column):
+    """
+    Fix percent:
+      - inplace: replace string in pt-br
+      - from '45,56%' to '0.4556'
+
+    Input: DataFrame, column_name
+    """
+
+#   df[column] = df[column].str.rstrip('%')
+    df[column] = df[column].str.replace('.', '' )
+    df[column] = df[column].str.replace(',', '.')
+#   df[column] = df[column].astype(float)
+#   df[column] = df[column].astype(float) / 100
+#   df[column] = '{:4.2f}%'.format(df[column])
+
+    return
+
+
 def get_details(papel='WEGE3'):
     """
     Get detailed data from fundamentus:
@@ -127,48 +170,6 @@ def get_details(papel='WEGE3'):
 
     ##
     return result
-
-
-def _fix_key(_series):
-    pass
-    res = _series
-    res = res.str.strip('?')
-    res = res.str.replace('(','')
-    res = res.str.replace(')','')
-    res = res.str.replace('$','')
-    res = res.str.replace('.','')
-    res = res.str.replace('/','')
-    res = res.str.replace('ç','c')
-    res = res.str.replace('ã','a')
-    res = res.str.replace('é','e')
-    res = res.str.replace('ê','e')
-    res = res.str.replace('ó','o')
-    res = res.str.replace('õ','o')
-    res = res.str.replace('í','i')
-    res = res.str.replace('ú','u')
-    res = res.str.replace('Ú','U')
-    res = res.str.replace(' ','_')
-
-    return res
-
-
-def _fmt_perc(df, column):
-    """
-    Fix percent:
-      - inplace: replace string in pt-br
-      - from '45,56%' to '0.4556'
-
-    Input: DataFrame, column_name
-    """
-
-#   df[column] = df[column].str.rstrip('%')
-    df[column] = df[column].str.replace('.', '' )
-    df[column] = df[column].str.replace(',', '.')
-#   df[column] = df[column].astype(float)
-#   df[column] = df[column].astype(float) / 100
-#   df[column] = '{:4.2f}%'.format(df[column])
-
-    return
 
 
 def get_details_raw(papel='WEGE3'):
