@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/usr/bin/env python3
 #
 # Fundamentus v2.0
