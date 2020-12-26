@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 
-from fundamentus import get_fundamentus
+from fundamentus import get_resultado
 from fundamentus import print_csv
 
 
@@ -16,7 +16,8 @@ if __name__ == '__main__':
               'roe_max' : '',
               }
 
-    data = get_fundamentus(params)
+#   data = get_resultado(params)
+    data = get_resultado()
 
     # Reorder by ticker
     print_csv( data.sort_values(by='Papel') )

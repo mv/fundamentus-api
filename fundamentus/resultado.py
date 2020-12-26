@@ -4,6 +4,9 @@
 #   as a lib
 #   2.0: pandas/DataFrame based
 #
+# Resultado:
+#   Info from http://fundamentus.com.br/resultado.php
+#
 
 from fundamentus.utils import perc_to_float
 
@@ -14,7 +17,7 @@ import pandas   as pd
 from tabulate import tabulate
 
 
-def get_fundamentus_raw():
+def get_resultado_raw():
     """
     Get data from fundamentus:
       URL:
@@ -64,7 +67,7 @@ def get_fundamentus_raw():
     return df
 
 
-def get_fundamentus():
+def get_resultado():
     """
     Data from fundamentus, fixing header names.
       URL:
@@ -76,7 +79,7 @@ def get_fundamentus():
     """
 
     ## get RAW data
-    data1 = get_fundamentus_raw()
+    data1 = get_resultado_raw()
 
     ## rename!
     data2 = _rename_cols(data1)

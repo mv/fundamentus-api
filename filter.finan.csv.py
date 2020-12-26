@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 
-from fundamentus import get_fundamentus
+from fundamentus import get_resultado
 from fundamentus import print_csv
 
 from fundamentus import get_setor_data
@@ -9,7 +9,7 @@ from fundamentus import get_setor_data
 
 if __name__ == '__main__':
 
-    data = get_fundamentus()
+    data = get_resultado()
 
     # Filter by 'row'
     #   transpose 1: filter by row
