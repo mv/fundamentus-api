@@ -7,19 +7,16 @@ from fundamentus import print_csv
 
 if __name__ == '__main__':
 
-    # Parametros usados em 'Busca avancada por empresa'
-    params = {'pl_min'          : '0',
-              'pl_max'          : '100',
-              'roic_min'        : '0',
-              'roic_max'        : '',
-              'roe_min'         : '0',
-              'roe_max'         : '',
-              }
-
-    data = get_fundamentus(params)
+    data = get_fundamentus()
 
     # Reorder by ticker
     data = data.sort_index(ascending=True)
+
+    # filter on DataFrame
+    data = data[ data.pl   > 0   ]
+    data = data[ data.pl   < 100 ]
+    data = data[ data.roe  > 0   ]
+    data = data[ data.roic > 0   ]
 
     print_csv( data[ ['cotacao','pl','dy','roic','roe'] ] )
 

@@ -12,7 +12,7 @@ import pandas   as pd
 from tabulate import tabulate
 
 
-def get_fundamentus_raw(filters={}):
+def get_fundamentus_raw():
     """
     Get data from fundamentus:
       URL:
@@ -21,42 +21,9 @@ def get_fundamentus_raw(filters={}):
     RAW:
       DataFrame preserves original HTML header names
 
-    Input:
-      filters = {}
-      list of keys as defined in
-      view-source:http://fundamentus.com.br/buscaavancada.php
-
     Output:
       DataFrame
     """
-    ##
-    ## Parametros usados em 'Busca avancada por empresa'
-    ##   Default: todas as empresas
-    ##
-    params = {'pl_min'          : '', 'pl_max'          : '',
-              'pvp_min'         : '', 'pvp_max'         : '',
-              'psr_min'         : '', 'psr_max'         : '',
-              'divy_min'        : '', 'divy_max'        : '',
-              'pativos_min'     : '', 'pativos_max'     : '',
-              'pcapgiro_min'    : '', 'pcapgiro_max'    : '',
-              'pebit_min'       : '', 'pebit_max'       : '',
-              'fgrah_min'       : '', 'fgrah_max'       : '',
-              'firma_ebit_min'  : '', 'firma_ebit_max'  : '',
-              'firma_ebitda_min': '', 'firma_ebitda_max': '',
-              'margemebit_min'  : '', 'margemebit_max'  : '',
-              'margemliq_min'   : '', 'margemliq_max'   : '',
-              'liqcorr_min'     : '', 'liqcorr_max'     : '',
-              'roic_min'        : '', 'roic_max'        : '',
-              'roe_min'         : '', 'roe_max'         : '',
-              'liq_min'         : '', 'liq_max'         : '',
-              'patrim_min'      : '', 'patrim_max'      : '',
-              'divbruta_min'    : '', 'divbruta_max'    : '',
-              'tx_cresc_rec_min': '', 'tx_cresc_rec_max': '',
-              'setor'           : '',
-              }
-
-    ## Parametros: aplicando 'meus' filtros
-    params.update(filters)
 
     ##
     ## Busca avançada por empresa
@@ -68,7 +35,6 @@ def get_fundamentus_raw(filters={}):
            }
 
     with requests_cache.enabled():
-        # content = requests.post(url, headers=hdr, data=params)
         content = requests.get(url, headers=hdr)
 
     ## parse + load
@@ -113,23 +79,19 @@ def _fix_perc(df, column):
     return
 
 
-def get_fundamentus(filters={}):
+def get_fundamentus():
     """
-    Get data from fundamentus.
+    Data from fundamentus, fixing header names.
       URL:
         http://fundamentus.com.br/resultado.php
-
-      DataFrame uses short header names
-
-    Input:
-      filters = {}
-
+      Obs:
+        DataFrame uses short header names
     Output:
       DataFrame
     """
 
     ## get RAW data
-    data1 = get_fundamentus_raw(filters)
+    data1 = get_fundamentus_raw()
 
     ## rename!
     data2 = _rename_cols(data1)

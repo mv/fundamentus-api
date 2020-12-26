@@ -4,21 +4,21 @@
 from fundamentus import get_fundamentus
 from fundamentus import print_table
 
+from fundamentus import get_setor_data
+
+
 if __name__ == '__main__':
 
-    # Parametros usados em 'Busca avancada por empresa'
-    params = {'pl_min'  : '0',
-              'roic_min': '-0.1',
-              'roe_min' : '-0.1',
-              'setor'   : '35',
-              }
+    data = get_fundamentus()
 
-    data = get_fundamentus(params)
+    # Filter by 'row'
+    #   transpose 1: filter by row
+    #   transpose 2: print by column
+    setor = get_setor_data(35)
+    data2 = data.T[ setor ]
+    data2 = data2.T
 
-    # Reorder by ticker
-    data = data.sort_index(ascending=True)
-
-    print_table( data[ ['cotacao','pl','dy','roic','roe'] ] )
+    print_table( data2.sort_index() )
 
 
     ## Setores:

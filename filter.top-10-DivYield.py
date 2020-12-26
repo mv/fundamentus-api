@@ -8,13 +8,7 @@ from fundamentus import print_table
 
 if __name__ == '__main__':
 
-    # Parametros usados em 'Busca avancada por empresa'
-    params = {'pl_min'          : '0.001',
-              'divy_min'        : '0',
-              'divy_max'        : '',
-              }
-
-    data = get_fundamentus(params)
+    data = get_fundamentus()
 
     # Top 10:
     data.sort_values( by='dy', inplace=True, ascending=False )
