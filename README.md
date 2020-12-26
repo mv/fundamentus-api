@@ -2,7 +2,7 @@
 
 Linha de comando que captura os dados do site Fundamentus (www.fundamentus.com.br) em formato CSV.
 
-Os dados são buscados a partir da página [**'Busca avançada por empresa'**](http://www.fundamentus.com.br/resultado.php) e podem ser filtrados.
+Os dados são buscados a partir da página [**'Resultado'**](http://www.fundamentus.com.br/resultado.php) e podem ser filtrados.
 
 
 ## Dados completos
@@ -17,7 +17,6 @@ $ ./fundamentus.csv.py
 $ ./fundamentus.csv.py > bovespa.csv
 ```
 
-
 ## Aplicando um filtro
 
 A página de **'Busca avançada por empresa'** permite o uso de filtros para pesquisa:
@@ -29,20 +28,25 @@ $ ./filter.example.py
 $ ./filter.example.py > bovespa.filtered.csv
 ```
 
-
-Os filtros são um [sub-grupo](https://github.com/mv/fundamentus/blob/b7b1f47ac98e09955ca01470b4636d1c7578af4c/filter.example.py#L11) dos parametros em Python:
+Os filtros são propriedades do DataFrame definido:
 
 ```python
-params = {'pl_min'  : '0',
-          'pl_max'  : '100',
-          'roic_min': '0',
-          'roic_max': '',
-          'roe_min' : '0',
-          'roe_max' : '',
-          }
+# filter on DataFrame
+data = data[ data.pl   > 0   ]
+data = data[ data.pl   < 100 ]
+data = data[ data.roe  > 0   ]
+data = data[ data.roic > 0   ]
 ```
 
-A lista completa dos filtros está no script principal [`fundamentus.py`](https://github.com/mv/fundamentus/blob/b7b1f47ac98e09955ca01470b4636d1c7578af4c/fundamentus.py#L16).
+A lista completa dos filtros pode ser visualizada via IPython:
+```python
+In [1]: %run filter.example.py
+In [2]: data.columns
+Out[2]:
+Index(['cotacao', 'pl', 'pvp', 'psr', 'dy', 'pa', 'pcg', 'pebit', 'pacl', 'evebit', 'evebitda', 'mrgebit', 'mrgliq', 'roic', 'roe', 'liqc', 'liq2m', 'patrliq', 'divbpatr', 'c5y'], dtype='object', name='Multiples')
+```
+
+A list entre os nomes web e os filtros/propriedades está [**aqui**](https://github.com/mv/fundamentus/blob/00e75054be3eeda643bc5f86540332df854ae1bc/fundamentus/resultado.py#L111).
 
 
 ## Magic Formula: Joel Greenblatt
@@ -56,16 +60,14 @@ $ ./magic_formula.simple.py
 $ ./magic_formula.simple.py > bovespa.ranking.csv
 ```
 
-
-
 ## Disclaimer
 
-Baseado no [script Fundamentus original](https://github.com/phoemur/fundamentus) de [Phoemur](https://github.com/phoemur)
+1. Inspirado no [script Fundamentus original](https://github.com/phoemur/fundamentus) de [Phoemur](https://github.com/phoemur)
 
-Para saber mais sobre a **Magic Formula**:
-* https://en.wikipedia.org/wiki/Magic_formula_investing
-* https://www.magicformulainvesting.com/Home/AboutTheBook
-* https://www.investopedia.com/terms/m/magic-formula-investing.asp
+2. Para saber mais sobre a **Magic Formula**:   
+  * https://en.wikipedia.org/wiki/Magic_formula_investing
+  * https://www.magicformulainvesting.com/Home/AboutTheBook
+  * https://www.investopedia.com/terms/m/magic-formula-investing.asp
 
 
 ## License
