@@ -82,29 +82,39 @@ def ranking(data):
 
 if __name__ == '__main__':
 
-    # Parametros usados em 'Busca avancada por empresa'
-    params = {'pl_min'        : '0',
-              'firma_ebit_min': '0.001',
-              'roic_min'      : '0.001',
-              'roe_min'       : '0.001',
-              'liq_min'       : '',
-              'setor'         : '',
-              }
+    # GET: all dataset (cacheable)
+    data = get_fundamentus()
 
-    data = get_fundamentus(params)
+    # filters
+    data2 = data
+    data2 = data2[ data2.pl       > 0  ]
+    data2 = data2[ data2.pl       < 30 ]
+    data2 = data2[ data2.roic     > 0  ]
+    data2 = data2[ data2.roe      > 0  ]
+    data2 = data2[ data2.evebit   > 0  ]
+    data2 = data2[ data2.evebitda > 0  ]
+    data2 = data2[ data2.divbpatr < 3  ]
+    data2 = data2[ data2.liq2m    > 0  ]
+    data2 = data2[ data2.c5y      > 0  ]
+    data2 = data2[ data2.pacl     > 0  ]
 
-    # my_columns = data.columns
-    my_columns = ['cotacao', 'pl', 'evebit', 'evebitda', 'roic', 'roe']
-    df = data[ my_columns ]
+#   my_columns = data.columns
+#   my_columns = ['cotacao', 'pl', 'pvp', 'psr', 'dy', 'pa', 'pcg', 'pebit', 'pacl',
+#                 'evebit', 'evebitda', 'mrgebit', 'mrgliq', 'roic', 'roe',
+#                 'liqc', 'liq2m', 'patrliq', 'divbpatr', 'c5y']
+    my_columns = ['pl', 'pvp', 'psr', 'dy', 'pa', 'pcg', 'pebit', 'pacl',
+                  'evebit', 'evebitda', 'mrgebit', 'mrgliq', 'roic', 'roe',
+                  'liqc', 'divbpatr', 'c5y']
+    df1 = data2[ my_columns ]
 
 
     # filter: list of finance companies: remove
-    df2 = filter_out(df)
+    df2 = filter_out(df1)
 
 
     # Magic Formula: create rankings
     magic = ranking(df2)
-    print_table(magic)
+#   print_table(magic)
 
 
 #   from IPython import embed
