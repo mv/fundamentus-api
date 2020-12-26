@@ -5,6 +5,8 @@
 #   2.0: pandas/DataFrame based
 #
 
+from fundamentus.utils import perc_to_float
+
 import requests
 import requests_cache
 import pandas   as pd
@@ -41,12 +43,12 @@ def get_fundamentus_raw():
     df = pd.read_html(content.text, decimal=",", thousands='.')[0]
 
     ## Fix: percent string
-    _fix_perc(df,'Div.Yield'    )
-    _fix_perc(df,'Mrg Ebit'     )
-    _fix_perc(df,'Mrg. Líq.'    )
-    _fix_perc(df,'ROIC'         )
-    _fix_perc(df,'ROE'          )
-    _fix_perc(df,'Cresc. Rec.5a')
+    perc_to_float(df,'Div.Yield'    )
+    perc_to_float(df,'Mrg Ebit'     )
+    perc_to_float(df,'Mrg. Líq.'    )
+    perc_to_float(df,'ROIC'         )
+    perc_to_float(df,'ROE'          )
+    perc_to_float(df,'Cresc. Rec.5a')
 
     ## index by 'Papel', instead of 'int'
     df.index = df['Papel']
@@ -60,23 +62,6 @@ def get_fundamentus_raw():
 
     ## return sorted by 'Papel'
     return df
-
-
-def _fix_perc(df, column):
-    """
-    Fix percent:
-      - inplace: replace string in pt-br
-      - from '45,56%' to '0.4556'
-
-    Input: DataFrame, column_name
-    """
-
-    df[column] = df[column].str.rstrip('%')
-    df[column] = df[column].str.replace('.', '' )
-    df[column] = df[column].str.replace(',', '.')
-    df[column] = df[column].astype(float) / 100
-
-    return
 
 
 def get_fundamentus():
@@ -142,43 +127,4 @@ def _rename_cols(data):
     df2['c5y'      ] = data['Cresc. Rec.5a'    ]
 
     return df2
-
-
-##
-def print_csv(data):
-    """
-    CSV printed to stdout
-    """
-    print(data.to_csv( index=True
-                     , header=True
-                     , decimal='.'
-                     , float_format='%.4f'
-                     )
-         )
-
-    return
-
-
-def print_table(data):
-    """
-    Text table printed to stdout
-      - separator: '|'
-      - fixed-width columns for better reading
-    """
-    print( tabulate ( data
-                    , headers=data.columns
-                    , tablefmt='presto'
-                    , floatfmt=".4f"
-                    , disable_numparse=False
-               )
-     )
-
-    return
-
-
-if __name__ == '__main__':
-
-    data = get_fundamentus()
-    print_csv(data)
-
 
