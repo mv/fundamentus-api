@@ -7,4 +7,7 @@ from fundamentus.fundamentus import print_csv
 from fundamentus.fundamentus import print_table
 
 from fundamentus.setor       import get_setor_data
+from fundamentus.setor       import get_setor_id
+from fundamentus.setor       import list_setor
+
 

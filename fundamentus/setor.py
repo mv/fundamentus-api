@@ -6,14 +6,14 @@ import requests
 import requests_cache
 import pandas   as pd
 
+from   tabulate import tabulate
+
 
 def get_setor_data(setor=None):
     """
     """
 
-    ##
-    ## Busca avançada por empresa
-    ##
+    ## GET: setor
     url = 'http://www.fundamentus.com.br/resultado.php?setor={}'.format(setor)
 
     hdr = {'User-agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201' ,
@@ -31,63 +31,68 @@ def get_setor_data(setor=None):
     return list(df['Papel'])
 
 
+def get_setor_id(label):
+    return df.T[label]['id']
+
 def list_setor():
-    ## Setores:
-    setor = [
-       [ 'agro'            , 42 , 'Agropecuária'                            ] ,
-       [ 'saneamento'      , 33 , 'Água e Saneamento'                       ] ,
-       [ 'alimentos'       , 15 , 'Alimentos'                               ] ,
-       [ 'bebidas'         , 16 , 'Bebidas'                                 ] ,
-       [ 'com1'            , 27 , 'Comércio'                                ] ,
-       [ 'com2'            , 12 , 'Comércio'                                ] ,
-       [ 'com3'            , 20 , 'Comércio e Distribuição'                 ] ,
-       [ 'computadores'    , 28 , 'Computadores e Equipamentos'             ] ,
-       [ 'construcao'      , 13 , 'Construção e Engenharia'                 ] ,
-       [ 'engenharia'      , 13 , 'Construção e Engenharia'                 ] ,
-       [ 'diversos'        , 26 , 'Diversos'                                ] ,
-       [ 'embalagens'      , 6  , 'Embalagens'                              ] ,
-       [ 'energia'         , 32 , 'Energia Elétrica'                        ] ,
-       [ 'equipamentos'    , 9  , 'Equipamentos Elétricos'                  ] ,
-       [ 'imoveis'         , 39 , 'Exploração de Imóveis'                   ] ,
-       [ 'financeiro'      , 35 , 'Financeiros'                             ] ,
-       [ 'fumo'            , 17 , 'Fumo'                                    ] ,
-       [ 'gas'             , 34 , 'Gás'                                     ] ,
-       [ 'holdings'        , 40 , 'Holdings Diversificadas'                 ] ,
-       [ 'hoteis'          , 24 , 'Hoteis e Restaurantes'                   ] ,
-       [ 'restaurantes'    , 24 , 'Hoteis e Restaurantes'                   ] ,
-       [ 'papel'           , 5  , 'Madeira e Papel'                         ] ,
-       [ 'maquinas'        , 10 , 'Máquinas e Equipamentos'                 ] ,
-       [ 'materiais'       , 7  , 'Materiais Diversos'                      ] ,
-       [ 'transporte'      , 8  , 'Material de Transporte'                  ] ,
-       [ 'midia'           , 23 , 'Mídia'                                   ] ,
-       [ 'mineracao'       , 2  , 'Mineração'                               ] ,
-       [ 'outros'          , 41 , 'Outros'                                  ] ,
-       [ 'petroleo'        , 1  , 'Petróleo, Gás e Biocombustíveis'         ] ,
-       [ 'previdencia'     , 38 , 'Previdência e Seguros'                   ] ,
-       [ 'seguros'         , 38 , 'Previdência e Seguros'                   ] ,
-       [ 'usopessoal'      , 18 , 'Prods. de Uso Pessoal e de Limpeza'      ] ,
-       [ 'limpeza'         , 18 , 'Prods. de Uso Pessoal e de Limpeza'      ] ,
-       [ 'programas'       , 29 , 'Programas e Serviços'                    ] ,
-       [ 'quimicos'        , 4  , 'Químicos'                                ] ,
-       [ 'saude'           , 19 , 'Saúde'                                   ] ,
-       [ 'securitizadoras' , 36 , 'Securitizadoras de Recebíveis'           ] ,
-       [ 'servicos'        , 11 , 'Serviços'                                ] ,
-       [ 'finandiversos'   , 37 , 'Serviços Financeiros Diversos'           ] ,
-       [ 'siderurgia'      , 3  , 'Siderurgia e Metalurgia'                 ] ,
-       [ 'tecidos'         , 21 , 'Tecidos, Vestuário e Calçados'           ] ,
-       [ 'vestuario'       , 21 , 'Tecidos, Vestuário e Calçados'           ] ,
-       [ 'telecom'         , 43 , 'Telecomunicações'                        ] ,
-       [ 'telefoniafixa'   , 30 , 'Telefonia Fixa'                          ] ,
-       [ 'telefoniamovel'  , 31 , 'Telefonia Móvel'                         ] ,
-       [ 'transporte'      , 14 , 'Transporte'                              ] ,
-       [ 'utilidades'      , 22 , 'Utilidades Domésticas'                   ] ,
-       [ 'viagens'         , 25 , 'Viagens e Lazer'                         ] ,
-    ]
-    ##
-
-    return setor
+    print( tabulate(df, headers=['label','desc','id'], tablefmt='presto') )
+    return
 
 
-def get_setor_id():
-    pass;
+## Setores:
+setor = [
+   [ 'agro'            , 'Agropecuária'                       , 42 ] ,
+   [ 'saneamento'      , 'Água e Saneamento'                  , 33 ] ,
+   [ 'alimentos'       , 'Alimentos'                          , 15 ] ,
+   [ 'bebidas'         , 'Bebidas'                            , 16 ] ,
+   [ 'com1'            , 'Comércio'                           , 27 ] ,
+   [ 'com2'            , 'Comércio'                           , 12 ] ,
+   [ 'com3'            , 'Comércio e Distribuição'            , 20 ] ,
+   [ 'computadores'    , 'Computadores e Equipamentos'        , 28 ] ,
+   [ 'construcao'      , 'Construção e Engenharia'            , 13 ] ,
+   [ 'engenharia'      , 'Construção e Engenharia'            , 13 ] ,
+   [ 'diversos'        , 'Diversos'                           , 26 ] ,
+   [ 'embalagens'      , 'Embalagens'                         , 6  ] ,
+   [ 'energia'         , 'Energia Elétrica'                   , 32 ] ,
+   [ 'equipamentos'    , 'Equipamentos Elétricos'             , 9  ] ,
+   [ 'imoveis'         , 'Exploração de Imóveis'              , 39 ] ,
+   [ 'financeiro'      , 'Financeiros'                        , 35 ] ,
+   [ 'fumo'            , 'Fumo'                               , 17 ] ,
+   [ 'gas'             , 'Gás'                                , 34 ] ,
+   [ 'holdings'        , 'Holdings Diversificadas'            , 40 ] ,
+   [ 'hoteis'          , 'Hoteis e Restaurantes'              , 24 ] ,
+   [ 'restaurantes'    , 'Hoteis e Restaurantes'              , 24 ] ,
+   [ 'papel'           , 'Madeira e Papel'                    , 5  ] ,
+   [ 'maquinas'        , 'Máquinas e Equipamentos'            , 10 ] ,
+   [ 'materiais'       , 'Materiais Diversos'                 , 7  ] ,
+   [ 'transporte'      , 'Material de Transporte'             , 8  ] ,
+   [ 'midia'           , 'Mídia'                              , 23 ] ,
+   [ 'mineracao'       , 'Mineração'                          , 2  ] ,
+   [ 'outros'          , 'Outros'                             , 41 ] ,
+   [ 'petroleo'        , 'Petróleo, Gás e Biocombustíveis'    , 1  ] ,
+   [ 'previdencia'     , 'Previdência e Seguros'              , 38 ] ,
+   [ 'seguros'         , 'Previdência e Seguros'              , 38 ] ,
+   [ 'usopessoal'      , 'Prods. de Uso Pessoal e de Limpeza' , 18 ] ,
+   [ 'limpeza'         , 'Prods. de Uso Pessoal e de Limpeza' , 18 ] ,
+   [ 'programas'       , 'Programas e Serviços'               , 29 ] ,
+   [ 'quimicos'        , 'Químicos'                           , 4  ] ,
+   [ 'saude'           , 'Saúde'                              , 19 ] ,
+   [ 'securitizadoras' , 'Securitizadoras de Recebíveis'      , 36 ] ,
+   [ 'servicos'        , 'Serviços'                           , 11 ] ,
+   [ 'finandiversos'   , 'Serviços Financeiros Diversos'      , 37 ] ,
+   [ 'siderurgia'      , 'Siderurgia e Metalurgia'            , 3  ] ,
+   [ 'tecidos'         , 'Tecidos, Vestuário e Calçados'      , 21 ] ,
+   [ 'vestuario'       , 'Tecidos, Vestuário e Calçados'      , 21 ] ,
+   [ 'telecom'         , 'Telecomunicações'                   , 43 ] ,
+   [ 'telefoniafixa'   , 'Telefonia Fixa'                     , 30 ] ,
+   [ 'telefoniamovel'  , 'Telefonia Móvel'                    , 31 ] ,
+   [ 'transporte'      , 'Transporte'                         , 14 ] ,
+   [ 'utilidades'      , 'Utilidades Domésticas'              , 22 ] ,
+   [ 'viagens'         , 'Viagens e Lazer'                    , 25 ] ,
+]
+##
+df = pd.DataFrame(setor, columns=['label','desc','id'])
+df.index = df['label']
+df = df[ ['desc','id']]
+# return df
 

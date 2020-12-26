@@ -5,6 +5,8 @@ import pandas as pd
 
 from fundamentus import get_fundamentus
 from fundamentus import get_setor_data
+from fundamentus import get_setor_id
+from fundamentus import list_setor
 from fundamentus import print_csv
 from fundamentus import print_table
 
@@ -18,14 +20,12 @@ def filter_out(data):
     Input/Output: DataFrame()
     """
 
-    # 35: Finance
-    idx_fin = get_setor_data(35)
-
-    # 38: Securities
-    idx_seg = get_setor_data(38)
-
     df = data
-    for idx in idx_fin + idx_seg:
+    lst = []
+    lst = lst + get_setor_data( get_setor_id('financeiro') )
+    lst = lst + get_setor_data( get_setor_id('seguros'   ) )
+
+    for idx in lst:
         try:
             df = df.drop(idx)
             # print('idx: ',idx, 'dropped.')
@@ -109,4 +109,10 @@ if __name__ == '__main__':
 
 #   from IPython import embed
 #   embed()
+
+#   id_fin = get_setor_id('financeiro')
+#   id_seg = get_setor_id('seguros'   )
+
+#   idx_fin = get_setor_data( get_setor_id('financeiro') )
+#   idx_seg = get_setor_data( get_setor_id('seguros'   ) )
 
