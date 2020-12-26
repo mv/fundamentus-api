@@ -3,7 +3,7 @@
 
 import pandas as pd
 
-from fundamentus import get_fundamentus
+from fundamentus import get_resultado
 from fundamentus import get_setor_data
 from fundamentus import get_setor_id
 from fundamentus import list_setor
@@ -83,7 +83,7 @@ def ranking(data):
 if __name__ == '__main__':
 
     # GET: all dataset (cacheable)
-    data = get_fundamentus()
+    data = get_resultado()
 
     # filters
     data2 = data
@@ -114,7 +114,7 @@ if __name__ == '__main__':
 
     # Magic Formula: create rankings
     magic = ranking(df2)
-#   print_table(magic)
+    print_table(magic)
 
 
 #   from IPython import embed

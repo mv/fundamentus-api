@@ -2,7 +2,7 @@
 #
 #
 
-from fundamentus import get_details_list
+from fundamentus import get_detalhes_list
 from fundamentus import print_csv
 
 if __name__ == '__main__':
@@ -24,7 +24,7 @@ if __name__ == '__main__':
                 'Lucro_Liquido_3m'       ,
                 ]
 
-    df1 = get_details_list( my_list )
+    df1 = get_detalhes_list( my_list )
     df2 = df1[ my_cols ]
 
     print_csv(df2)

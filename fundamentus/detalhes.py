@@ -5,70 +5,18 @@
 #   2.0: pandas/DataFrame based
 #
 
+from fundamentus.utils import dt_iso8601
+from fundamentus.utils import from_pt_br
+from fundamentus.utils import fmt_dec
+
 import requests
 import requests_cache
 import pandas   as pd
 
 from collections import OrderedDict
-from datetime    import datetime
 
 
-def _dt_iso8601(val):
-    """
-    Format dates: yyyy-mm-dd
-    """
-    dt = datetime.strptime(val, '%d/%m/%Y')
-    dt = datetime.strftime(dt , '%Y-%m-%d')
-
-    return dt
-
-
-def _fix_key(_series):
-    """
-    _fix_key: fix key/label by removing pt-br stuff
-    """
-    pass
-    res = _series
-    res = res.str.strip('?')
-    res = res.str.replace('(','')
-    res = res.str.replace(')','')
-    res = res.str.replace('$','')
-    res = res.str.replace('.','')
-    res = res.str.replace('/','')
-    res = res.str.replace('ç','c')
-    res = res.str.replace('ã','a')
-    res = res.str.replace('é','e')
-    res = res.str.replace('ê','e')
-    res = res.str.replace('ó','o')
-    res = res.str.replace('õ','o')
-    res = res.str.replace('í','i')
-    res = res.str.replace('ú','u')
-    res = res.str.replace('Ú','U')
-    res = res.str.replace(' ','_')
-
-    return res
-
-
-def _fmt_perc(df, column):
-    """
-    Fix percent:
-      - inplace: replace string in pt-br
-      - from '45,56%' to '45.56%'
-
-    Input: DataFrame, column_name
-    """
-
-#   df[column] = df[column].str.rstrip('%')
-    df[column] = df[column].str.replace('.', '' )
-    df[column] = df[column].str.replace(',', '.')
-#   df[column] = df[column].astype(float)
-#   df[column] = df[column].astype(float) / 100
-#   df[column] = '{:4.2f}%'.format(df[column])
-
-    return
-
-
-def get_details_list(lst=[]):
+def get_detalhes_list(lst=[]):
     """
     Get detailed data for a given list
     """
@@ -76,7 +24,7 @@ def get_details_list(lst=[]):
     result = pd.DataFrame()
 
     for papel in lst:
-        df = get_details(papel)
+        df = get_detalhes(papel)
         result = result.append(df)
 
     result.drop('Papel', axis='columns', inplace=True)
@@ -84,7 +32,7 @@ def get_details_list(lst=[]):
     return result.sort_index()
 
 
-def get_details(papel='WEGE3'):
+def get_detalhes(papel='WEGE3'):
     """
     Get detailed data from fundamentus:
       URL:
@@ -95,27 +43,27 @@ def get_details(papel='WEGE3'):
     """
 
     ## raw
-    df_list = get_details_raw(papel)
+    df_list = get_detalhes_raw(papel)
 
     ## Fix 0
     ## 'top header/summary'
     df = df_list[0]
-    df[0] = _fix_key( df[0] )
-    df[2] = _fix_key( df[2] )
+    df[0] = from_pt_br( df[0] )
+    df[2] = from_pt_br( df[2] )
 
     ## Fix 1
     ## Valor de mercado
     df = df_list[1]
-    df[0] = _fix_key( df[0] )
-    df[2] = _fix_key( df[2] )
+    df[0] = from_pt_br( df[0] )
+    df[2] = from_pt_br( df[2] )
 
     ## Fix 2
     ## 0/1: oscilacoes
     ## 2/3: indicadores
     df = df_list[2]
-    df[0] = _fix_key( df[0] )
-    df[2] = _fix_key( df[2] )
-    df[4] = _fix_key( df[4] )
+    df[0] = from_pt_br( df[0] )
+    df[2] = from_pt_br( df[2] )
+    df[4] = from_pt_br( df[4] )
 
     df[0] = 'Oscilacao_' + df[0]
 
@@ -123,15 +71,15 @@ def get_details(papel='WEGE3'):
     df_list[2] = df_list[2].drop(0)
 
     ##
-    _fmt_perc(df_list[2], 1) # oscilacoes
-    _fmt_perc(df_list[2], 3) # indicadores
-    _fmt_perc(df_list[2], 5) # indicadores
+    fmt_dec(df_list[2], 1) # oscilacoes
+    fmt_dec(df_list[2], 3) # indicadores
+    fmt_dec(df_list[2], 5) # indicadores
 
     ## Fix 3
     ## balanco patrimonial
     df = df_list[3]
-    df[0] = _fix_key( df[0] )
-    df[2] = _fix_key( df[2] )
+    df[0] = from_pt_br( df[0] )
+    df[2] = from_pt_br( df[2] )
 
     ## remove extra line
     df_list[3] = df_list[3].drop(0)
@@ -140,8 +88,8 @@ def get_details(papel='WEGE3'):
     ## Fix 4
     ## DRE
     df = df_list[4]
-    df[0] = _fix_key( df[0] )
-    df[2] = _fix_key( df[2] )
+    df[0] = from_pt_br( df[0] )
+    df[2] = from_pt_br( df[2] )
 
     df[0] = df[0] + '_12m'
     df[2] = df[2] + '_3m'
@@ -185,8 +133,8 @@ def get_details(papel='WEGE3'):
             result[k] = vals[i]
 
     # Last fixes
-    result['Data_ult_cot']           = _dt_iso8601(result['Data_ult_cot'])
-    result['Ult_balanco_processado'] = _dt_iso8601(result['Ult_balanco_processado'])
+    result['Data_ult_cot']           = dt_iso8601(result['Data_ult_cot'])
+    result['Ult_balanco_processado'] = dt_iso8601(result['Ult_balanco_processado'])
 
     result = pd.DataFrame( result , index=[papel])
 
@@ -194,7 +142,7 @@ def get_details(papel='WEGE3'):
     return result
 
 
-def get_details_raw(papel='WEGE3'):
+def get_detalhes_raw(papel='WEGE3'):
     """
     Get RAW detailed data from fundamentus:
       URL:

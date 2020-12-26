@@ -2,12 +2,12 @@
 #
 #
 
-from fundamentus import get_fundamentus
+from fundamentus import get_resultado
 from fundamentus import print_csv
 
 if __name__ == '__main__':
 
-    data = get_fundamentus()
+    data = get_resultado()
 
     # Reorder by ticker
     data = data.sort_index(ascending=True)
