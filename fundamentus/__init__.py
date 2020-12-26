@@ -10,4 +10,7 @@ from fundamentus.setor       import get_setor_data
 from fundamentus.setor       import get_setor_id
 from fundamentus.setor       import list_setor
 
+from fundamentus.details     import get_details
+from fundamentus.details     import get_details_raw
+
 
