@@ -61,9 +61,9 @@ def get_resultado_raw():
     ## naming
     df.name = 'Fundamentus: HTML names'
     df.columns.name = 'Multiples'
-    df.index.name = 'Papel'
+    df.index.name = 'papel'
 
-    ## return sorted by 'Papel'
+    ## return sorted by 'papel'
     return df
 
 
@@ -87,7 +87,7 @@ def get_resultado():
     ## metadata
     data2.name = 'Fundamentus: short names'
     data2.columns.name = 'Multiples'
-    data2.index.name = 'Papel'
+    data2.index.name = 'papel'
 
     ## remove duplicates
 #   df = data2.drop_duplicates(subset=['cotacao','pl','pvp'], keep='last')
