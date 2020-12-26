@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #!/usr/bin/env python3
 #
 # Fundamentus v2.0
@@ -11,17 +10,23 @@ import requests_cache
 import pandas   as pd
 
 from collections import OrderedDict
-from tabulate    import tabulate
+from datetime    import datetime
 
 
-df0 = pd.DataFrame()
-df1 = pd.DataFrame()
-df2 = pd.DataFrame()
-df3 = pd.DataFrame()
-df4 = pd.DataFrame()
+def _dt_iso8601(val):
+    """
+    Format dates: yyyy-mm-dd
+    """
+    dt = datetime.strptime(val, '%d/%m/%Y')
+    dt = datetime.strftime(dt , '%Y-%m-%d')
+
+    return dt
 
 
 def _fix_key(_series):
+    """
+    _fix_key: fix key/label by removing pt-br stuff
+    """
     pass
     res = _series
     res = res.str.strip('?')
@@ -48,7 +53,7 @@ def _fmt_perc(df, column):
     """
     Fix percent:
       - inplace: replace string in pt-br
-      - from '45,56%' to '0.4556'
+      - from '45,56%' to '45.56%'
 
     Input: DataFrame, column_name
     """
@@ -63,6 +68,22 @@ def _fmt_perc(df, column):
     return
 
 
+def get_details_list(lst=[]):
+    """
+    Get detailed data for a given list
+    """
+
+    result = pd.DataFrame()
+
+    for papel in lst:
+        df = get_details(papel)
+        result = result.append(df)
+
+    result.drop('Papel', axis='columns', inplace=True)
+
+    return result.sort_index()
+
+
 def get_details(papel='WEGE3'):
     """
     Get detailed data from fundamentus:
@@ -70,11 +91,8 @@ def get_details(papel='WEGE3'):
         http://fundamentus.com.br/detalhes.php?papel=WEGE3
 
     Output:
-      OrderedDict
+      df
     """
-
-    result = OrderedDict()
-    result = { 'id': papel }
 
     ## raw
     df_list = get_details_raw(papel)
@@ -165,6 +183,10 @@ def get_details(papel='WEGE3'):
             pass
         else:
             result[k] = vals[i]
+
+    # Last fixes
+    result['Data_ult_cot']           = _dt_iso8601(result['Data_ult_cot'])
+    result['Ult_balanco_processado'] = _dt_iso8601(result['Ult_balanco_processado'])
 
     result = pd.DataFrame( result , index=[papel])
 
