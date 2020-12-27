@@ -44,6 +44,7 @@ def from_pt_br(val):
     res = res.str.replace('ú','u')
     res = res.str.replace('Ú','U')
     res = res.str.replace(' ','_')
+    res = res.str.replace('__','_')
 
     return res
 
