@@ -17,10 +17,13 @@ def dt_iso8601(val):
     """
     Format dates: yyyy-mm-dd
     """
-    dt = datetime.strptime(val, '%d/%m/%Y')
-    dt = datetime.strftime(dt , '%Y-%m-%d')
+    try:
+        dt = datetime.strptime(val, '%d/%m/%Y')
+        dt = datetime.strftime(dt , '%Y-%m-%d')
+        return dt
+    except:
+        return
 
-    return dt
 
 
 def from_pt_br(val):

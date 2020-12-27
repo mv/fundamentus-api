@@ -100,8 +100,8 @@ def get_detalhes(papel='WEGE3'):
     df[3] = fmt_dec(df[3])    # indicadores 1
     df[5] = fmt_dec(df[5])    # indicadores 2
 
-    keys = keys + list(df[0]) # oscilacoes
-    vals = vals + list(df[1])
+#   keys = keys + list(df[0]) # oscilacoes
+#   vals = vals + list(df[1]) # OBS: ignoring for now...
 
     keys = keys + list(df[2]) # Indicadores 1
     vals = vals + list(df[3])
