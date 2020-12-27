@@ -23,10 +23,12 @@ def get_detalhes_list(lst=[]):
 
     result = pd.DataFrame()
 
+    # build result for each get
     for papel in lst:
         df = get_detalhes(papel)
         result = result.append(df)
 
+    # duplicate column (papel is the index already)
     result.drop('Papel', axis='columns', inplace=True)
 
     return result.sort_index()
