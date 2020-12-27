@@ -48,6 +48,18 @@ Index(['cotacao', 'pl', 'pvp', 'psr', 'dy', 'pa', 'pcg', 'pebit', 'pacl', 'evebi
 
 A list entre os nomes web e os filtros/propriedades está [**aqui**](https://github.com/mv/fundamentus/blob/00e75054be3eeda643bc5f86540332df854ae1bc/fundamentus/resultado.py#L111).
 
+## Internals
+
+1. Requisicoes via `requests` são todas **CACHEABLE**.
+
+2. *Wip...*
+
+
+## IPython
+
+*Wip...*
+
+
 
 ## Magic Formula: Joel Greenblatt
 
@@ -64,7 +76,7 @@ $ ./magic_formula.simple.py > bovespa.ranking.csv
 
 1. Inspirado no [script Fundamentus original](https://github.com/phoemur/fundamentus) de [Phoemur](https://github.com/phoemur)
 
-2. Para saber mais sobre a **Magic Formula**:   
+2. Para saber mais sobre a **Magic Formula**:
   * https://en.wikipedia.org/wiki/Magic_formula_investing
   * https://www.magicformulainvesting.com/Home/AboutTheBook
   * https://www.investopedia.com/terms/m/magic-formula-investing.asp
