@@ -22,6 +22,7 @@ def get_detalhes_list(lst=[]):
     """
 
     result = pd.DataFrame()
+    df = pd.DataFrame()
 
     # build result for each get
     for papel in lst:
@@ -30,7 +31,10 @@ def get_detalhes_list(lst=[]):
         result = result.append(df)
 
     # duplicate column (papel is the index already)
-    result.drop('Papel', axis='columns', inplace=True)
+    try:
+        result.drop('Papel', axis='columns', inplace=True)
+    except:
+        pass
 
     return result.sort_index()
 
@@ -47,6 +51,10 @@ def get_detalhes(papel='WEGE3'):
 
     ## raw
     tables = get_detalhes_raw(papel)
+    if len(tables) != 5:
+        # HTML tables not rendered as expected
+        return None
+
 
     ## Build df by putting k/v together
     keys = []
