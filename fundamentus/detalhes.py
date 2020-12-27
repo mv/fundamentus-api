@@ -46,18 +46,31 @@ def get_detalhes(papel='WEGE3'):
     df_list = get_detalhes_raw(papel)
 
     ## Fix 0
+    ## Build df by putting k/v together
+    keys = []
+    vals = []
+
     ## 'top header/summary'
     df = df_list[0]
     df[0] = from_pt_br( df[0] )
     df[2] = from_pt_br( df[2] )
+    keys = keys + list(df[0]) # Summary: Papel
+    vals = vals + list(df[1])
 
     ## Fix 1
+    keys = keys + list(df[2]) # Summary: Cotacao
+    vals = vals + list(df[3])
+
     ## Valor de mercado
     df = df_list[1]
     df[0] = from_pt_br( df[0] )
     df[2] = from_pt_br( df[2] )
+    keys = keys + list(df[0])
+    vals = vals + list(df[1])
 
     ## Fix 2
+    keys = keys + list(df[2])
+    vals = vals + list(df[3])
     ## 0/1: oscilacoes
     ## 2/3: indicadores
     df = df_list[2]
@@ -74,15 +87,28 @@ def get_detalhes(papel='WEGE3'):
     fmt_dec(df_list[2], 1) # oscilacoes
     fmt_dec(df_list[2], 3) # indicadores
     fmt_dec(df_list[2], 5) # indicadores
+    keys = keys + list(df[0]) # oscilacoes
+    vals = vals + list(df[1])
+
+    keys = keys + list(df[2]) # Indicadores 1
+    vals = vals + list(df[3])
 
     ## Fix 3
+    keys = keys + list(df[4]) # Indicadores 2
+    vals = vals + list(df[5])
+
     ## balanco patrimonial
     df = df_list[3]
     df[0] = from_pt_br( df[0] )
     df[2] = from_pt_br( df[2] )
 
+    keys = keys + list(df[0])
+    vals = vals + list(df[1])
+
     ## remove extra line
     df_list[3] = df_list[3].drop(0)
+    keys = keys + list(df[2])
+    vals = vals + list(df[3])
 
 
     ## Fix 4
@@ -97,32 +123,12 @@ def get_detalhes(papel='WEGE3'):
     ## remove extra line
     df_list[4] = df_list[4].drop(0)
     df_list[4] = df_list[4].drop(1)
+    keys = keys + list(df[0])
+    vals = vals + list(df[1])
 
-    keys = [] \
-         + list(df_list[0][0]) \
-         + list(df_list[0][2]) \
-         + list(df_list[1][0]) \
-         + list(df_list[1][2]) \
-         + list(df_list[2][0]) \
-         + list(df_list[2][2]) \
-         + list(df_list[2][4]) \
-         + list(df_list[3][0]) \
-         + list(df_list[3][2]) \
-         + list(df_list[4][0]) \
-         + list(df_list[4][2])
+    keys = keys + list(df[2])
+    vals = vals + list(df[3])
 
-    vals = [] \
-         + list(df_list[0][1]) \
-         + list(df_list[0][3]) \
-         + list(df_list[1][1]) \
-         + list(df_list[1][3]) \
-         + list(df_list[2][1]) \
-         + list(df_list[2][3]) \
-         + list(df_list[2][5]) \
-         + list(df_list[3][1]) \
-         + list(df_list[3][3]) \
-         + list(df_list[4][1]) \
-         + list(df_list[4][3])
 
     result = OrderedDict()
     for i, k in enumerate(keys):
