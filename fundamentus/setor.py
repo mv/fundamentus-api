@@ -24,6 +24,12 @@ def get_setor_data(setor=None):
     with requests_cache.enabled():
         content = requests.get(url, headers=hdr)
 
+        if content.from_cache:
+            pass
+        else:
+            time.sleep(.500) # 500 ms
+
+
     ## parse + load
     df = pd.read_html(content.text, decimal=",", thousands='.')[0]
 

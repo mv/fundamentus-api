@@ -12,6 +12,7 @@ from fundamentus.utils import fmt_dec
 import requests
 import requests_cache
 import pandas   as pd
+import time
 
 from collections import OrderedDict
 
@@ -22,14 +23,19 @@ def get_detalhes_list(lst=[]):
     """
 
     result = pd.DataFrame()
+    df = pd.DataFrame()
 
     # build result for each get
     for papel in lst:
+        print('Papel:',papel)
         df = get_detalhes(papel)
         result = result.append(df)
 
     # duplicate column (papel is the index already)
-    result.drop('Papel', axis='columns', inplace=True)
+    try:
+        result.drop('Papel', axis='columns', inplace=True)
+    except:
+        pass
 
     return result.sort_index()
 
@@ -46,6 +52,10 @@ def get_detalhes(papel='WEGE3'):
 
     ## raw
     tables = get_detalhes_raw(papel)
+    if len(tables) != 5:
+        # HTML tables not rendered as expected
+        return None
+
 
     ## Build df by putting k/v together
     keys = []
@@ -91,8 +101,8 @@ def get_detalhes(papel='WEGE3'):
     df[3] = fmt_dec(df[3])    # indicadores 1
     df[5] = fmt_dec(df[5])    # indicadores 2
 
-    keys = keys + list(df[0]) # oscilacoes
-    vals = vals + list(df[1])
+#   keys = keys + list(df[0]) # oscilacoes
+#   vals = vals + list(df[1]) # OBS: ignoring for now...
 
     keys = keys + list(df[2]) # Indicadores 1
     vals = vals + list(df[3])
@@ -145,7 +155,6 @@ def get_detalhes(papel='WEGE3'):
     hf['Data_ult_cot']           = dt_iso8601(hf['Data_ult_cot'])
     hf['Ult_balanco_processado'] = dt_iso8601(hf['Ult_balanco_processado'])
 
-
     result = pd.DataFrame(hf, index=[papel])
 
     return result
@@ -172,6 +181,11 @@ def get_detalhes_raw(papel='WEGE3'):
 
     with requests_cache.enabled():
         content = requests.get(url, headers=hdr)
+
+        if content.from_cache:
+            pass
+        else:
+            time.sleep(.500) # 500 ms
 
     ## parse
     tables_html = pd.read_html(content.text, decimal=",", thousands='.')
