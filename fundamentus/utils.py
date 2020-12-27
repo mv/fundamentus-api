@@ -49,23 +49,23 @@ def from_pt_br(val):
     return res
 
 
-def fmt_dec(df, column):
+def fmt_dec(val):
     """
     Fix percent:
-      - inplace: replace string in pt-br
+      - replace string in pt-br
       - from '45,56%' to '45.56%'
 
     Input: DataFrame, column_name
     """
 
-#   df[column] = df[column].str.rstrip('%')
-    df[column] = df[column].str.replace('.', '' )
-    df[column] = df[column].str.replace(',', '.')
-#   df[column] = df[column].astype(float)
-#   df[column] = df[column].astype(float) / 100
-#   df[column] = '{:4.2f}%'.format(df[column])
+    res = val
+    res = res.str.replace('.', '' )
+    res = res.str.replace(',', '.')
+#   res = res.astype(float)
+#   res = res.astype(float) / 100
+#   res = '{:4.2f}%'.format(res)
 
-    return
+    return res
 
 
 def perc_to_float(df, column):
