@@ -25,6 +25,7 @@ def get_detalhes_list(lst=[]):
 
     # build result for each get
     for papel in lst:
+        print('Papel:',papel)
         df = get_detalhes(papel)
         result = result.append(df)
 
