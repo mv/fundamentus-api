@@ -12,6 +12,7 @@ from fundamentus.utils import fmt_dec
 import requests
 import requests_cache
 import pandas   as pd
+import time
 
 from collections import OrderedDict
 
@@ -153,7 +154,6 @@ def get_detalhes(papel='WEGE3'):
     # Last fixes
     hf['Data_ult_cot']           = dt_iso8601(hf['Data_ult_cot'])
     hf['Ult_balanco_processado'] = dt_iso8601(hf['Ult_balanco_processado'])
-
 
     result = pd.DataFrame(hf, index=[papel])
 
