@@ -132,21 +132,22 @@ def get_detalhes(papel='WEGE3'):
     vals = vals + list(df[3])
 
 
-    result = OrderedDict()
+    # hash to filter out NaN...
+    hf = OrderedDict()
     for i, k in enumerate(keys):
         if pd.isna(k):
             # print('NaN!')
             pass
         else:
-            result[k] = vals[i]
+            hf[k] = vals[i]
 
     # Last fixes
-    result['Data_ult_cot']           = dt_iso8601(result['Data_ult_cot'])
-    result['Ult_balanco_processado'] = dt_iso8601(result['Ult_balanco_processado'])
+    hf['Data_ult_cot']           = dt_iso8601(hf['Data_ult_cot'])
+    hf['Ult_balanco_processado'] = dt_iso8601(hf['Ult_balanco_processado'])
 
-    result = pd.DataFrame( result , index=[papel])
 
-    ##
+    result = pd.DataFrame(hf, index=[papel])
+
     return result
 
 
