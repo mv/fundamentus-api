@@ -45,64 +45,63 @@ def get_detalhes(papel='WEGE3'):
     """
 
     ## raw
-    df_list = get_detalhes_raw(papel)
+    tables = get_detalhes_raw(papel)
 
-    ## Fix 0
     ## Build df by putting k/v together
     keys = []
     vals = []
 
+    ## Table 0
     ## 'top header/summary'
-    df = df_list[0]
     df[0] = from_pt_br( df[0] )
     df[2] = from_pt_br( df[2] )
+    df = tables[0]
     keys = keys + list(df[0]) # Summary: Papel
     vals = vals + list(df[1])
 
-    ## Fix 1
     keys = keys + list(df[2]) # Summary: Cotacao
     vals = vals + list(df[3])
 
+
+    ## Table 1
     ## Valor de mercado
-    df = df_list[1]
     df[0] = from_pt_br( df[0] )
     df[2] = from_pt_br( df[2] )
+    df = tables[1]
     keys = keys + list(df[0])
     vals = vals + list(df[1])
 
-    ## Fix 2
     keys = keys + list(df[2])
     vals = vals + list(df[3])
+
+
+    ## Table 2
     ## 0/1: oscilacoes
     ## 2/3: indicadores
-    df = df_list[2]
     df[0] = from_pt_br( df[0] )
     df[2] = from_pt_br( df[2] )
     df[4] = from_pt_br( df[4] )
+    df = tables[2].drop(0)      # remove extra header
 
     df[0] = 'Oscilacao_' + df[0]
 
     ## remove extra line
-    df_list[2] = df_list[2].drop(0)
 
-    ##
-    fmt_dec(df_list[2], 1) # oscilacoes
-    fmt_dec(df_list[2], 3) # indicadores
-    fmt_dec(df_list[2], 5) # indicadores
     keys = keys + list(df[0]) # oscilacoes
     vals = vals + list(df[1])
 
     keys = keys + list(df[2]) # Indicadores 1
     vals = vals + list(df[3])
 
-    ## Fix 3
     keys = keys + list(df[4]) # Indicadores 2
     vals = vals + list(df[5])
 
+
+    ## Table 3
     ## balanco patrimonial
-    df = df_list[3]
     df[0] = from_pt_br( df[0] )
     df[2] = from_pt_br( df[2] )
+    df = tables[3].drop(0)    # remove extra line/header
 
     keys = keys + list(df[0])
     vals = vals + list(df[1])
@@ -113,18 +112,17 @@ def get_detalhes(papel='WEGE3'):
     vals = vals + list(df[3])
 
 
-    ## Fix 4
+    ## Table 4
     ## DRE
-    df = df_list[4]
     df[0] = from_pt_br( df[0] )
     df[2] = from_pt_br( df[2] )
+    tables[4] = tables[4].drop(0)   # remove: line/header
+    tables[4] = tables[4].drop(1)   # remove: 'Ultimos x meses'
+    df = tables[4]
 
     df[0] = df[0] + '_12m'
     df[2] = df[2] + '_3m'
 
-    ## remove extra line
-    df_list[4] = df_list[4].drop(0)
-    df_list[4] = df_list[4].drop(1)
     keys = keys + list(df[0])
     vals = vals + list(df[1])
 
@@ -173,9 +171,9 @@ def get_detalhes_raw(papel='WEGE3'):
         content = requests.get(url, headers=hdr)
 
     ## parse
-    df_list = pd.read_html(content.text, decimal=",", thousands='.')
+    tables_html = pd.read_html(content.text, decimal=",", thousands='.')
 
-    return df_list
+    return tables_html
 
 
 ## res:[
