@@ -114,7 +114,7 @@ if __name__ == '__main__':
 
     # Magic Formula: create rankings
     magic = ranking(df2)
-    print_table(magic)
+    print_csv(magic)
 
 
 #   from IPython import embed
