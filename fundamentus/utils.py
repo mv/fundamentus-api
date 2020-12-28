@@ -11,15 +11,15 @@ import pandas   as pd
 
 from tabulate import tabulate
 from datetime import datetime
+from dateutil.parser import parse
 
 
 def dt_iso8601(val):
     """
-    Format dates: yyyy-mm-dd
+    Format dates to yyyy-mm-dd
     """
     try:
-        dt = datetime.strptime(val, '%d/%m/%Y')
-        dt = datetime.strftime(dt , '%Y-%m-%d')
+        dt = parse(val, dayfirst=True).strftime('%Y-%m-%d')
         return dt
     except:
         return
