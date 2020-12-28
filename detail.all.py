@@ -6,8 +6,7 @@ from fundamentus import get_detalhes_list
 from fundamentus import print_csv
 from fundamentus.papel import get_list_papel
 
-import datetime as datetime
-from   datetime import date
+from datetime import datetime, timedelta
 
 
 if __name__ == '__main__':
@@ -20,11 +19,10 @@ if __name__ == '__main__':
     df.index.name = 'papel'
 
     # skip older companies
-    _today = date.today()
-    _since = _today - datetime.timedelta(days=10)
-    _lastd = datetime.datetime.strftime(_since, '%Y-%m-%d')
+    dsince = datetime.today() - timedelta(days=10)
+    _since = dsince.strftime('%Y-%m-%d')
 
-    result = df[ df['Data_ult_cot'] > _lastd ]
+    result = df[ df['Data_ult_cot'] > _since ]
 
     # today's csv
     fname = 'bovespa.detalhes.{}.csv'.format(_today)
