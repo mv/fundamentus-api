@@ -5,6 +5,7 @@
 import requests
 import requests_cache
 import pandas   as pd
+import time, logging
 
 from   tabulate import tabulate
 
@@ -25,8 +26,9 @@ def get_setor_data(setor=None):
         content = requests.get(url, headers=hdr)
 
         if content.from_cache:
-            pass
+            logging.debug('.../resultado.php?setor={}: [CACHED]'.format(setor))
         else:
+            logging.debug('.../resultado.php?setor={}: sleeping...'.format(setor))
             time.sleep(.500) # 500 ms
 
 

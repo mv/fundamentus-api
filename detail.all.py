@@ -13,8 +13,8 @@ if __name__ == '__main__':
 
     my_list = get_list_papel()
 
-#   df = get_detalhes_list(my_list[80:110])
-    df = get_detalhes_list(my_list)
+    df = get_detalhes_list(my_list[:10])
+#   df = get_detalhes_list(my_list)
 
     df.index.name = 'papel'
 
@@ -25,6 +25,7 @@ if __name__ == '__main__':
     result = df[ df['Data_ult_cot'] > _since ]
 
     # today's csv
-    fname = 'bovespa.detalhes.{}.csv'.format(_today)
+    _today = datetime.today().strftime('%Y-%m-%d')
+    fname  = 'bovespa.detalhes.{}.csv'.format(_today)
     result.to_csv(fname)
 

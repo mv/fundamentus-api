@@ -8,6 +8,7 @@
 import requests
 import requests_cache
 import pandas   as pd
+import logging
 
 from tabulate import tabulate
 from datetime import datetime
@@ -22,6 +23,7 @@ def dt_iso8601(val):
         dt = parse(val, dayfirst=True).strftime('%Y-%m-%d')
         return dt
     except:
+        logging.debug('Error...')
         return
 
 

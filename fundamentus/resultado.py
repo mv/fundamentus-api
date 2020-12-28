@@ -13,6 +13,7 @@ from fundamentus.utils import perc_to_float
 import requests
 import requests_cache
 import pandas   as pd
+import time, logging
 
 from tabulate import tabulate
 
@@ -43,8 +44,9 @@ def get_resultado_raw():
         content = requests.get(url, headers=hdr)
 
         if content.from_cache:
-            pass
+            logging.debug('.../resultado.php: [CACHED]')
         else:
+            logging.debug('.../resultado.php: sleeping...')
             time.sleep(.500) # 500 ms
 
 
