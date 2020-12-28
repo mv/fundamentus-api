@@ -9,6 +9,8 @@ Papel:
 import requests
 import requests_cache
 import pandas   as pd
+import time
+import logging
 
 
 def get_list_papel():
@@ -44,8 +46,9 @@ def get_df_papel():
         content = requests.get(url, headers=hdr)
 
         if content.from_cache:
-            pass
+            logging.debug('.../detalhes.php: [CACHED]')
         else:
+            logging.debug('.../detalhes.php: sleeping...')
             time.sleep(.500) # 500 ms
 
 

@@ -13,6 +13,7 @@ import requests
 import requests_cache
 import pandas   as pd
 import time
+import logging, sys
 
 from collections import OrderedDict
 
@@ -27,7 +28,7 @@ def get_detalhes_list(lst=[]):
 
     # build result for each get
     for papel in lst:
-        print('Papel:',papel)
+        logging.info('get [Papel: {}]'.format(papel))
         df = get_detalhes(papel)
         result = result.append(df)
 
@@ -35,6 +36,7 @@ def get_detalhes_list(lst=[]):
     try:
         result.drop('Papel', axis='columns', inplace=True)
     except:
+        logging.error('drop column. Error=[{}].'.format(sys.exc_info()[1]))
         pass
 
     return result.sort_index()
@@ -53,7 +55,7 @@ def get_detalhes(papel='WEGE3'):
     ## raw
     tables = get_detalhes_raw(papel)
     if len(tables) != 5:
-        # HTML tables not rendered as expected
+        logging.debug('HTML tables not rendered as expected. Len={}. Skipped.'.format(len(tables)))
         return None
 
 
@@ -73,6 +75,8 @@ def get_detalhes(papel='WEGE3'):
     keys = keys + list(df[2]) # Summary: Cotacao
     vals = vals + list(df[3])
 
+#   logging.debug('HTML table: 0. Done.')
+
 
     ## Table 1
     ## Valor de mercado
@@ -86,6 +90,7 @@ def get_detalhes(papel='WEGE3'):
     keys = keys + list(df[2])
     vals = vals + list(df[3])
 
+#   logging.debug('HTML table: 1. Done.')
 
     ## Table 2
     ## 0/1: oscilacoes
@@ -110,6 +115,7 @@ def get_detalhes(papel='WEGE3'):
     keys = keys + list(df[4]) # Indicadores 2
     vals = vals + list(df[5])
 
+#   logging.debug('HTML table: 2. Done.')
 
     ## Table 3
     ## balanco patrimonial
@@ -123,6 +129,7 @@ def get_detalhes(papel='WEGE3'):
     keys = keys + list(df[2])
     vals = vals + list(df[3])
 
+#   logging.debug('HTML table: 3. Done.')
 
     ## Table 4
     ## DRE
@@ -141,12 +148,14 @@ def get_detalhes(papel='WEGE3'):
     keys = keys + list(df[2])
     vals = vals + list(df[3])
 
+#   logging.debug('HTML table: 4. Done.')
 
     # hash to filter out NaN...
     hf = OrderedDict()
     for i, k in enumerate(keys):
         if pd.isna(k):
             # print('NaN!')
+            logging.debug('NaN. Skipped.')
             pass
         else:
             hf[k] = vals[i]
@@ -183,8 +192,9 @@ def get_detalhes_raw(papel='WEGE3'):
         content = requests.get(url, headers=hdr)
 
         if content.from_cache:
-            pass
+            logging.debug('.../detalhes.php?papel={}: [CACHED]'.format(papel))
         else:
+            logging.debug('.../detalhes.php?papel={}: sleeping...'.format(papel))
             time.sleep(.500) # 500 ms
 
     ## parse
