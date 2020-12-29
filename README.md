@@ -11,10 +11,10 @@ Para obter a listagem completa de todos os dados:
 
 ```bash
 ## Direto
-$ ./fundamentus.csv.py
+$ bin/fundamentus.csv.py
 
 ## Alternativa
-$ ./fundamentus.csv.py > bovespa.csv
+$ bin/fundamentus.csv.py > bovespa.csv
 ```
 
 ## Aplicando um filtro
@@ -23,9 +23,9 @@ A página de **'Busca avançada por empresa'** permite o uso de filtros para pes
 
 ```bash
 ## Usando um filtro customizado:
-$ ./filter.example.py
+$ bin/filter.example.py
 
-$ ./filter.example.py > bovespa.filtered.csv
+$ bin/filter.example.py > bovespa.filtered.csv
 ```
 
 Os filtros são propriedades do DataFrame definido:
@@ -67,9 +67,9 @@ Obtendo uma lista filtrada dos dados, e aplicando o `ranking` da [**Magic Formul
 
 ```bash
 ## Magic Formula
-$ ./magic_formula.simple.py
+$ bin/magic_formula.simple.py
 
-$ ./magic_formula.simple.py > bovespa.ranking.csv
+$ bin/magic_formula.simple.py > bovespa.ranking.csv
 ```
 
 ## Disclaimer
