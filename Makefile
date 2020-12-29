@@ -79,14 +79,19 @@ clean:	## - Cleanup: pycache stuff
 	rm -rf .ipynb_checkpoints
 
 
-test:	## - Test: py.test -v
+#test:	## - Test: py.test -v
 	@if [ -f $(_config_default) ]; \
 	then   . $(_config_default) && pytest -v -s tests/ ; \
 	else echo "Error: must define env vars in $(_config_default)"  ; \
 	fi
 
 tst:	## - Test: using nose
-	nosetests tests
+	/usr/bin/time nosetests tests -v
+
+
+tst-sh:	## - Test: sample scripts
+	export LOGLEVEL=debug
+	/usr/bin/time ./tests/test-scripts.sh
 
 
 data:	## - Save generated files to data/
