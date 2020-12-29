@@ -1,11 +1,16 @@
 
-from fundamentus.utils import dt_iso8601
-from fundamentus.utils import from_pt_br
-from fundamentus.utils import fmt_dec
 """
 detalhes:
     Info from .../detalhes.php?papel=
 """
+
+from . import utils
+
+# import fundamentus.utils as utils
+
+# from fundamentus.utils import dt_iso8601
+# from fundamentus.utils import from_pt_br
+# from fundamentus.utils import fmt_dec
 
 import requests
 import requests_cache
@@ -64,8 +69,8 @@ def get_detalhes(papel='WEGE3'):
     ## Table 0
     ## 'top header/summary'
     df = tables[0]
-    df[0] = from_pt_br(df[0])
-    df[2] = from_pt_br(df[2])
+    df[0] = utils.from_pt_br(df[0])
+    df[2] = utils.from_pt_br(df[2])
 
     keys = keys + list(df[0]) # Summary: Papel
     vals = vals + list(df[1])
@@ -79,8 +84,8 @@ def get_detalhes(papel='WEGE3'):
     ## Table 1
     ## Valor de mercado
     df = tables[1]
-    df[0] = from_pt_br(df[0])
-    df[2] = from_pt_br(df[2])
+    df[0] = utils.from_pt_br(df[0])
+    df[2] = utils.from_pt_br(df[2])
 
     keys = keys + list(df[0])
     vals = vals + list(df[1])
@@ -94,15 +99,15 @@ def get_detalhes(papel='WEGE3'):
     ## 0/1: oscilacoes
     ## 2/3: indicadores
     df = tables[2].drop(0)      # remove extra header
-    df[0] = from_pt_br(df[0])
-    df[2] = from_pt_br(df[2])
-    df[4] = from_pt_br(df[4])
+    df[0] = utils.from_pt_br(df[0])
+    df[2] = utils.from_pt_br(df[2])
+    df[4] = utils.from_pt_br(df[4])
 
     df[0] = 'Oscilacao_' + df[0]  # more specific key name
 
-    df[1] = fmt_dec(df[1])    # oscilacoes
-    df[3] = fmt_dec(df[3])    # indicadores 1
-    df[5] = fmt_dec(df[5])    # indicadores 2
+    df[1] = utils.fmt_dec(df[1])    # oscilacoes
+    df[3] = utils.fmt_dec(df[3])    # indicadores 1
+    df[5] = utils.fmt_dec(df[5])    # indicadores 2
 
 #   keys = keys + list(df[0]) # oscilacoes
 #   vals = vals + list(df[1]) # OBS: ignoring for now...
@@ -118,8 +123,8 @@ def get_detalhes(papel='WEGE3'):
     ## Table 3
     ## balanco patrimonial
     df = tables[3].drop(0)    # remove extra line/header
-    df[0] = from_pt_br(df[0])
-    df[2] = from_pt_br(df[2])
+    df[0] = utils.from_pt_br(df[0])
+    df[2] = utils.from_pt_br(df[2])
 
     keys = keys + list(df[0])
     vals = vals + list(df[1])
@@ -134,8 +139,8 @@ def get_detalhes(papel='WEGE3'):
     tables[4] = tables[4].drop(0)   # remove: line/header
     tables[4] = tables[4].drop(1)   # remove: 'Ultimos x meses'
     df = tables[4]
-    df[0] = from_pt_br(df[0])
-    df[2] = from_pt_br(df[2])
+    df[0] = utils.from_pt_br(df[0])
+    df[2] = utils.from_pt_br(df[2])
 
     df[0] = df[0] + '_12m'
     df[2] = df[2] + '_3m'
@@ -159,8 +164,8 @@ def get_detalhes(papel='WEGE3'):
             hf[k] = vals[i]
 
     # Last fixes
-    hf['Data_ult_cot']           = dt_iso8601(hf['Data_ult_cot'])
-    hf['Ult_balanco_processado'] = dt_iso8601(hf['Ult_balanco_processado'])
+    hf['Data_ult_cot']           = utils.dt_iso8601(hf['Data_ult_cot'])
+    hf['Ult_balanco_processado'] = utils.dt_iso8601(hf['Ult_balanco_processado'])
 
     result = pd.DataFrame(hf, index=[papel])
 
