@@ -85,6 +85,9 @@ test:	## - Test: py.test -v
 	else echo "Error: must define env vars in $(_config_default)"  ; \
 	fi
 
+tst:	## - Test: using nose
+	nosetests tests
+
 
 data:	## - Save generated files to data/
 	/bin/mv -f *.csv *xls? *ods ?.txt ??.txt ???.txt data/ || true
