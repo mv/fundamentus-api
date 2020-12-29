@@ -39,3 +39,13 @@ def test_fmt_dec():
 
     pd.testing.assert_frame_equal(_test.to_frame(), _after)
 
+
+
+def test_perc_to_float():
+    _before =  pd.DataFrame( { 'data': [ '45,56%', '1.045,56%' ]} )
+    _after  =  pd.DataFrame( { 'data': [   0.4556, 10.4556     ]} )
+    _test   = utils.perc_to_float(_before['data'])
+
+    pd.testing.assert_frame_equal(_test.to_frame(), _after)
+
+

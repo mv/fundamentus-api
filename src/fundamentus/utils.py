@@ -77,7 +77,7 @@ def fmt_dec(val):
     return res
 
 
-def perc_to_float(df, column):
+def perc_to_float(val):
     """
     Percent to float
       - df inplace: replace string in pt-br
@@ -87,12 +87,13 @@ def perc_to_float(df, column):
         (DataFrame, column_name)
     """
 
-    df[column] = df[column].str.rstrip('%')
-    df[column] = df[column].str.replace('.', '' )
-    df[column] = df[column].str.replace(',', '.')
-    df[column] = df[column].astype(float) / 100
+    res = val
+    res = res.str.rstrip('%')
+    res = res.str.replace('.', '' )
+    res = res.str.replace(',', '.')
+    res = res.astype(float) / 100
 
-    return
+    return res
 
 
 def print_csv(data):
