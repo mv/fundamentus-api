@@ -1,9 +1,8 @@
-#!/usr/bin/env python3
-#
-# Fundamentus v2.0
-#   as a lib
-#   2.0: pandas/DataFrame based
-#
+
+"""
+utils:
+    Utility helpers.
+"""
 
 import requests
 import requests_cache
