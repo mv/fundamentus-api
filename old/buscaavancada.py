@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 #
 
-from old._fundamentus  import get_fundamentus
-from old._fundamentus  import print_csv
+from fundamentus  import get_fundamentus
+from fundamentus  import print_csv
 
 
 if __name__ == '__main__':
