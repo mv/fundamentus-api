@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 #
 
+import set_path_fundamentus
+
 from fundamentus import get_resultado
-from fundamentus import print_csv
+from fundamentus import print_table
 
 from fundamentus import get_setor_data
 
@@ -18,7 +20,7 @@ if __name__ == '__main__':
     data2 = data.T[ setor ]
     data2 = data2.T
 
-    print_csv( data2.sort_index() )
+    print_table( data2.sort_index() )
 
 
     ## Setores:

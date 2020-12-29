@@ -2,6 +2,8 @@
 #
 #
 
+import set_path_fundamentus
+
 from fundamentus import get_detalhes_list
 from fundamentus import print_csv
 

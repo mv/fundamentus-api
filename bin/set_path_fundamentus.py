@@ -1,11 +1,8 @@
-#
-# Ref:
-#   https://github.com/navdeep-G/samplemod/
-#
+#!/usr/bin/env python3
+
 
 import sys
 import os
-
 
 ## insert '..' one level above
 ## (so I can import my code...)
@@ -16,9 +13,6 @@ sys.path.insert(0,
                         os.path.dirname(__file__) , '../src/')
                     )
                 )
-
-for p in sys.path[:3]:
-    print(p)
 
 import fundamentus
 
