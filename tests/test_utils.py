@@ -30,3 +30,12 @@ def test_from_pt_br_02():
 
     pd.testing.assert_frame_equal(_test.to_frame(), _after)
 
+
+
+def test_fmt_dec():
+    _before =  pd.DataFrame( { 'data': [ '45,56%','1.045,56%' ]} )
+    _after  =  pd.DataFrame( { 'data': [ '45.56%','1045.56%' ]} )
+    _test   = utils.fmt_dec(_before['data'])
+
+    pd.testing.assert_frame_equal(_test.to_frame(), _after)
+
