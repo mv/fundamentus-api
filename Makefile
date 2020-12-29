@@ -56,12 +56,12 @@ venv-clean: ## - Clean: rm virtualenv
 	/bin/rm -rf $(_venv)
 
 
-pip:    ## - Pip install from requirements*.txt
+pip:    ## - Pip install from requirements.txt
 	. $(_venv)/bin/activate              && \
 	pip3 install -r requirements.txt
 
 
-pip-dev: ## - Pip install from requirements*.txt
+pip-dev: ## - Pip install from requirements-devtxt
 	. $(_venv)/bin/activate              && \
 	pip3 install -r requirements-dev.txt
 
