@@ -2,7 +2,7 @@
 """
 Fundamentus:
   Info:
-    Get data from http://fundamentus.com.br/ into Pandas.
+    Get data from http://fundamentus.com.br/ using Pandas.
 
   Ref:
     https://github.com/mv/fundamentus

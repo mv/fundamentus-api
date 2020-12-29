@@ -1,12 +1,8 @@
-#!/usr/bin/env python3
-#
-# Fundamentus v2.0
-#   as a lib
-#   2.0: pandas/DataFrame based
-#
-# Resultado:
-#   Info from http://fundamentus.com.br/resultado.php
-#
+"""
+resultado:
+    Info from http://fundamentus.com.br/resultado.php
+"""
+
 
 from fundamentus.utils import perc_to_float
 

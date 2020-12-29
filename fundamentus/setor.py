@@ -1,6 +1,8 @@
-#!/usr/bin/env python3
-#
-#
+
+"""
+setor:
+    Info from .../detalhes.php?setor=
+"""
 
 import requests
 import requests_cache

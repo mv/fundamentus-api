@@ -1,13 +1,11 @@
-#!/usr/bin/env python3
-#
-# Fundamentus v2.0
-#   as a lib
-#   2.0: pandas/DataFrame based
-#
 
 from fundamentus.utils import dt_iso8601
 from fundamentus.utils import from_pt_br
 from fundamentus.utils import fmt_dec
+"""
+detalhes:
+    Info from .../detalhes.php?papel=
+"""
 
 import requests
 import requests_cache

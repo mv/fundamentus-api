@@ -4,7 +4,6 @@ Logging:
     init logging.
 """
 
-
 import logging
 import os
 

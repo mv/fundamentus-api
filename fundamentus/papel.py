@@ -1,9 +1,7 @@
-#!/usr/bin/env python3
 
 """
-Papel:
-  Info results when acessing 'http://fundamentus.com.br/detalhes.php' with
-  no parameters
+papel:
+    Info from .../detalhes.php, i.e., with no parameters
 """
 
 import requests
