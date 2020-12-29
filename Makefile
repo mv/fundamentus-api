@@ -91,7 +91,7 @@ test-silent: ##   - Test: pytest most silent
 	pytest tests/ -q --color=yes --no-header --no-summary
 
 
-test-sh:    ##    - Test: sample scripts
+test-bash:    ##    - Test: bash calling sample scripts
 	export LOGLEVEL=debug
 	/usr/bin/time ./tests/test-scripts.sh
 
