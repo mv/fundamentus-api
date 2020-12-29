@@ -21,9 +21,38 @@ import logging, sys
 from collections import OrderedDict
 
 
-def get_detalhes_list(lst=[]):
+def get_detalhes(param):
+    """
+    Get detailed data from fundamentus:
+      URL:
+        http://fundamentus.com.br/detalhes.php?papel=WEGE3
+
+    Input:
+      - param: as str
+        or
+      - param: as list
+
+    Output:
+      - DataFrame
+    """
+
+    _type = str(type(param))
+    logging.debug('[param] is of type [{}]'.format(_type))
+
+    if _type == "<class 'list'>":
+        logging.info('detalhes: call: get..._list()')
+        return get_detalhes_list(param)
+    else:
+        logging.info('detalhes: call: get..._papel()')
+        return get_detalhes_papel(param)
+
+
+def get_detalhes_list(lst):
     """
     Get detailed data for a given list
+
+    Input: list
+    Output: DataFrame
     """
 
     result = pd.DataFrame()
@@ -31,8 +60,8 @@ def get_detalhes_list(lst=[]):
 
     # build result for each get
     for papel in lst:
-        logging.info('get [Papel: {}]'.format(papel))
-        df = get_detalhes(papel)
+        logging.info('get list: [Papel: {}]'.format(papel))
+        df = get_detalhes_papel(papel)
         result = result.append(df)
 
     # duplicate column (papel is the index already)
@@ -45,17 +74,16 @@ def get_detalhes_list(lst=[]):
     return result.sort_index()
 
 
-def get_detalhes(papel='WEGE3'):
+def get_detalhes_papel(papel):
     """
-    Get detailed data from fundamentus:
-      URL:
-        http://fundamentus.com.br/detalhes.php?papel=WEGE3
+    Get detailed data for a given 'papel'
 
-    Output:
-      df
+    Input: str
+    Output: DataFrame
     """
 
     ## raw
+    logging.debug('1: get raw [{}]'.format(papel))
     tables = get_detalhes_raw(papel)
     if len(tables) != 5:
         logging.debug('HTML tables not rendered as expected. Len={}. Skipped.'.format(len(tables)))
@@ -63,6 +91,7 @@ def get_detalhes(papel='WEGE3'):
 
 
     ## Build df by putting k/v together
+    logging.debug('2: cleanup raw')
     keys = []
     vals = []
 
@@ -169,6 +198,7 @@ def get_detalhes(papel='WEGE3'):
 
     result = pd.DataFrame(hf, index=[papel])
 
+    logging.debug('3: cleanup done')
     return result
 
 

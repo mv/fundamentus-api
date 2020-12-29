@@ -16,8 +16,9 @@ from fundamentus.resultado  import get_resultado
 from fundamentus.resultado  import get_resultado_raw
 
 from fundamentus.detalhes   import get_detalhes
-from fundamentus.detalhes   import get_detalhes_raw
+from fundamentus.detalhes   import get_detalhes_papel
 from fundamentus.detalhes   import get_detalhes_list
+from fundamentus.detalhes   import get_detalhes_raw
 
 from fundamentus.setor      import get_setor_data
 from fundamentus.setor      import get_setor_id
