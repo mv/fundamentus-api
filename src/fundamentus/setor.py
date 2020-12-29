@@ -14,6 +14,10 @@ from   tabulate import tabulate
 
 def get_setor_data(setor=None):
     """
+    Setor: ...
+
+    Output:
+      List
     """
 
     ## GET: setor

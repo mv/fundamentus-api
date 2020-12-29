@@ -56,7 +56,6 @@ def get_detalhes_list(lst):
     """
 
     result = pd.DataFrame()
-    df = pd.DataFrame()
 
     # build result for each get
     for papel in lst:

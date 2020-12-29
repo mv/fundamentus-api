@@ -50,12 +50,12 @@ def get_resultado_raw():
     df = pd.read_html(content.text, decimal=",", thousands='.')[0]
 
     ## Fix: percent string
-    perc_to_float(df,'Div.Yield'    )
-    perc_to_float(df,'Mrg Ebit'     )
-    perc_to_float(df,'Mrg. Líq.'    )
-    perc_to_float(df,'ROIC'         )
-    perc_to_float(df,'ROE'          )
-    perc_to_float(df,'Cresc. Rec.5a')
+    perc_to_float( df['Div.Yield']     )
+    perc_to_float( df['Mrg Ebit']      )
+    perc_to_float( df['Mrg. Líq.']     )
+    perc_to_float( df['ROIC']          )
+    perc_to_float( df['ROE']           )
+    perc_to_float( df['Cresc. Rec.5a'] )
 
     ## index by 'Papel', instead of 'int'
     df.index = df['Papel']
