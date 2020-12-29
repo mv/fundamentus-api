@@ -22,7 +22,7 @@ _dt = $(warning 'Invoking shell')$(shell date +%Y-%m-%d.%H:%M:%S)
 ### targets/tasks
 ###
 .DEFAULT_GOAL:= help
-.PHONY: help show pip clean venv venv_help venv_clear act deact init
+.PHONY: help show init clean pip pip-dev venv venv-clean venv-clear pyenv data data-clean
 
 help:   ## - Default goal: list of targets in Makefile
 help:   show
@@ -76,6 +76,7 @@ clean:	## - Cleanup: pycache stuff
 	find . -type d -name __py*cache__ -exec rm -rf {} \; 2>/dev/null
 	find . -type f | egrep -i '.pyc|.pyb' | xargs rm
 	rm -rf .pytest_cache
+	rm -rf .ipynb_checkpoints
 
 
 test:	## - Test: py.test -v
@@ -84,13 +85,11 @@ test:	## - Test: py.test -v
 	else echo "Error: must define env vars in $(_config_default)"  ; \
 	fi
 
-_test2:	## - Test2 is hidden
-	@echo Test2
 
-_test_3:	## - Test_3
-	@echo Test_3
+data:	## - Save generated files to data/
+	/bin/mv -f *.csv *xls? *ods ?.txt ??.txt ???.txt data/ || true
 
-_test-4:	## - Test-4
-	@echo Test-4
 
+data-clean: ## - Clean data/
+	/bin/rm -f data/*.*
 
