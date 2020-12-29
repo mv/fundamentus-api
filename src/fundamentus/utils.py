@@ -80,8 +80,8 @@ def fmt_dec(val):
 def perc_to_float(val):
     """
     Percent to float
-      - df inplace: replace string in pt-br
-      - from '45,56%' to '0.4556'
+      - replace string in pt-br to float
+      - from '45,56%' to 0.4556
 
     Input:
         (DataFrame, column_name)

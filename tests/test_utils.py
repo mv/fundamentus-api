@@ -33,19 +33,36 @@ def test_from_pt_br_02():
 
 
 def test_fmt_dec():
-    _before =  pd.DataFrame( { 'data': [ '45,56%','1.045,56%' ]} )
-    _after  =  pd.DataFrame( { 'data': [ '45.56%','1045.56%' ]} )
-    _test   = utils.fmt_dec(_before['data'])
+    more_data = { 'col1': [ 11,21],
+                  'col2': [ 12,22],
+                  'col3': [ 13,23]}
+    b = { 'data': [ '45,56%','1.045,56%' ]}
+    b.update(more_data)
+    a = { 'data': [ '45.56%','1045.56%'  ]}
+    a.update(more_data)
 
-    pd.testing.assert_frame_equal(_test.to_frame(), _after)
+    _before = pd.DataFrame(b)
+    _after  = pd.DataFrame(a)
+
+    _before['data'] = utils.fmt_dec(_before['data'])
+    pd.testing.assert_frame_equal(_before, _after)
 
 
 
 def test_perc_to_float():
-    _before =  pd.DataFrame( { 'data': [ '45,56%', '1.045,56%' ]} )
-    _after  =  pd.DataFrame( { 'data': [   0.4556, 10.4556     ]} )
-    _test   = utils.perc_to_float(_before['data'])
+    more_data = { 'col1': [ 11,21],
+                  'col2': [ 12,22],
+                  'col3': [ 13,23]}
+    b = { 'data': [ '45,56%','1.045,56%' ]}
+    b.update(more_data)
+    a = { 'data': [   0.4556, 10.4556    ]}
+    a.update(more_data)
 
-    pd.testing.assert_frame_equal(_test.to_frame(), _after)
+    _before = pd.DataFrame(b)
+    _after  = pd.DataFrame(a)
+
+
+    _before['data'] = utils.perc_to_float(_before['data'])
+    pd.testing.assert_frame_equal(_before, _after)
 
 
