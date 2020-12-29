@@ -5,8 +5,10 @@ echodo() {
     echo "### $@"
     echo "###"
     "$@" > /dev/null
+    echo
 }
 
+export LOGLEVEL=debug
 
 echodo python3 bin/detail.all.py
 echodo python3 bin/detail.my-list.py
