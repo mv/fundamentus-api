@@ -17,6 +17,8 @@ from dateutil.parser import parse
 def dt_iso8601(val):
     """
     Format dates to yyyy-mm-dd
+    Input:
+        scalar
     """
     try:
         dt = parse(val, dayfirst=True).strftime('%Y-%m-%d')
@@ -30,6 +32,8 @@ def dt_iso8601(val):
 def from_pt_br(val):
     """
     from_pt_br: fix key/label by removing pt-br stuff
+    Input:
+        DataFrame()
     """
     res = val
     res = res.str.strip('?')
@@ -59,7 +63,8 @@ def fmt_dec(val):
       - replace string in pt-br
       - from '45,56%' to '45.56%'
 
-    Input: DataFrame, column_name
+    Input:
+        DataFrame
     """
 
     res = val
@@ -78,7 +83,8 @@ def perc_to_float(df, column):
       - df inplace: replace string in pt-br
       - from '45,56%' to '0.4556'
 
-    Input: DataFrame, column_name
+    Input:
+        (DataFrame, column_name)
     """
 
     df[column] = df[column].str.rstrip('%')
