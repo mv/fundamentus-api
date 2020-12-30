@@ -21,7 +21,7 @@ import logging, sys
 from collections import OrderedDict
 
 
-def get_detalhes(param):
+def get_papel(param):
     """
     Get detailed data from fundamentus:
       URL:
@@ -233,6 +233,41 @@ def get_detalhes_raw(papel='WEGE3'):
     tables_html = pd.read_html(content.text, decimal=",", thousands='.')
 
     return tables_html
+
+
+def list_papel_all():
+    """
+    Get list of all companies, from 'detalhes' page
+      URL:
+        http://fundamentus.com.br/detalhes.php?papel=''
+
+    Output:
+      list
+    """
+
+    ##
+    url = 'http://fundamentus.com.br/detalhes.php?papel='
+    hdr = {'User-agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201',
+           'Accept': 'text/html, text/plain, text/css, text/sgml, */*;q=0.01',
+           'Accept-Encoding': 'gzip, deflate',
+           }
+
+    with requests_cache.enabled():
+        content = requests.get(url, headers=hdr)
+
+        if content.from_cache:
+            logging.debug('list .../detalhes.php?papel= : [CACHED]')
+        else:
+            logging.debug('list .../detalhes.php?papel= : sleeping...')
+            time.sleep(.500) # 500 ms
+
+    ## parse
+    df = pd.read_html(content.text, decimal=",", thousands='.')[0]
+
+    lst = list(df['Papel'])
+    logging.info('members in list = {}'.format(len(lst)))
+
+    return lst
 
 
 ## res:[

@@ -4,19 +4,19 @@
 
 import set_path_fundamentus
 
-from fundamentus import get_detalhes_list
+from fundamentus import get_papel
+from fundamentus import list_papel_all
 from fundamentus import print_csv
-from fundamentus.papel import get_list_papel
 
 from datetime import datetime, timedelta
 
 
 if __name__ == '__main__':
 
-    my_list = get_list_papel()
+    my_list = list_papel_all()
 
-    df = get_detalhes_list(my_list[:10])
-#   df = get_detalhes_list(my_list)
+    df = get_papel(my_list[:10])
+#   df = get_papel(my_list)
 
     df.index.name = 'papel'
 
