@@ -4,8 +4,8 @@ from fundamentus import setor
 import pandas as pd
 
 
-def test_get_setor_data():
-    lst = setor.get_setor_data(35)
+def test_list_papel_setor():
+    lst = setor.list_papel_setor(35)
     assert len(lst) > 0
 
 
@@ -14,8 +14,8 @@ def test_get_setor_id():
     assert setor.get_setor_id('previdencia') == 38
     assert setor.get_setor_id('seguros'    ) == 38
 
-def test_list_setor(capfd):
-    setor.list_setor()
+def test_print_setores(capfd):
+    setor.print_setores()
     out, err = capfd.readouterr()
 
     msg = out.split('\n')

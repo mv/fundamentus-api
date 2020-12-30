@@ -6,7 +6,7 @@ import set_path_fundamentus
 from fundamentus import get_resultado
 from fundamentus import print_csv
 
-from fundamentus import get_setor_data
+from fundamentus import list_papel_setor
 
 
 if __name__ == '__main__':
@@ -16,7 +16,7 @@ if __name__ == '__main__':
     # Filter by 'row'
     #   transpose 1: filter by row
     #   transpose 2: print by column
-    setor = get_setor_data(35)
+    setor = list_papel_setor(35)
     data2 = data.T[ setor ]
     data2 = data2.T
 

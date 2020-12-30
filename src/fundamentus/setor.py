@@ -12,7 +12,7 @@ import time, logging
 from   tabulate import tabulate
 
 
-def get_setor_data(setor=None):
+def list_papel_setor(setor=None):
     """
     Setor: ...
 
@@ -48,7 +48,7 @@ def get_setor_data(setor=None):
 def get_setor_id(label):
     return df.T[label]['id']
 
-def list_setor():
+def print_setores():
     print( tabulate(df, headers=['label','desc','id'], tablefmt='presto') )
     return
 

@@ -6,9 +6,9 @@ import set_path_fundamentus
 import pandas as pd
 
 from fundamentus import get_resultado
-from fundamentus import get_setor_data
 from fundamentus import get_setor_id
-from fundamentus import list_setor
+from fundamentus import list_papel_setor
+
 from fundamentus import print_csv
 from fundamentus import print_table
 
@@ -24,8 +24,8 @@ def filter_out(data):
 
     df = data
     lst = []
-    lst = lst + get_setor_data( get_setor_id('financeiro') )
-    lst = lst + get_setor_data( get_setor_id('seguros'   ) )
+    lst = lst + list_papel_setor( get_setor_id('financeiro') )
+    lst = lst + list_papel_setor( get_setor_id('seguros'   ) )
 
     for idx in lst:
         try:
@@ -118,13 +118,4 @@ if __name__ == '__main__':
     magic = ranking(df2)
     print_csv(magic)
 
-
-#   from IPython import embed
-#   embed()
-
-#   id_fin = get_setor_id('financeiro')
-#   id_seg = get_setor_id('seguros'   )
-
-#   idx_fin = get_setor_data( get_setor_id('financeiro') )
-#   idx_seg = get_setor_data( get_setor_id('seguros'   ) )
 
