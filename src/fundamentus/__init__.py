@@ -28,8 +28,7 @@ from fundamentus.utils      import print_csv
 from fundamentus.utils      import print_table
 
 
-from fundamentus.logging    import log_init
-
-log_init()
+# log setup/init
+fundamentus.logging.log_init()
 
 
