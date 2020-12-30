@@ -6,8 +6,8 @@ Python code to load data from **[Fundamentus](ww.fundamentus.com.br)** website.
 ## API usage
 
 Main functions are named after each website functionality:
-* `resultado` - https://www.fundamentus.com.br/resultado.php
-* `papel`     - https://www.fundamentus.com.br/detalhes.php?papel=WEGE3
+* `get_resultado` - https://www.fundamentus.com.br/resultado.php
+* `get_papel`     - https://www.fundamentus.com.br/detalhes.php?papel=WEGE3
 
 A specific `list` function is built from the following `setor` parameter:
 * `list_papel_setor` - https://www.fundamentus.com.br/resultado.php?setor=27
@@ -15,7 +15,7 @@ A specific `list` function is built from the following `setor` parameter:
 
 ## Examples
 
-### `resultado`
+### `get_resultado`
 
 `Return: -> DataFrame`
 
@@ -50,7 +50,7 @@ df = df[ df.pl  < 100 ]
 df = df[ df.pvp > 0   ]
 ```
 
-### `resultado_raw`
+### `get_resultado_raw`
 
 `Return: -> DataFrame`
 
@@ -88,7 +88,7 @@ df = df[ df['P/VP'] > 0  ]
 
 The renaming list can be found [**here**](https://github.com/mv/fundamentus/blob/8075a6f7efc2aa29578624518ea79fa385444a35/src/fundamentus/resultado.py#L114).
 
-### `papel`
+### `get_papel`
 
 `Return: -> DataFrame`
 
