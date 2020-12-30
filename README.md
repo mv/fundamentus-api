@@ -46,9 +46,9 @@ Columns names were simplified from the original web page to allow DataFrame filt
 
 ```python
 # filter on DataFrame
-data = data[ data.pl   > 0   ]
-data = data[ data.pl   < 100 ]
-data = data[ data.pvp  > 0   ]
+df = df[ df.pl  > 0   ]
+df = df[ df.pl  < 100 ]
+df = df[ df.pvp > 0   ]
 ```
 
 ### `resultado_raw`
@@ -68,23 +68,23 @@ Index(['Cotação', 'P/L', 'P/VP', 'PSR', 'Div.Yield', 'P/Ativo', 'P/Cap.Giro',
 
 >>> print( df[ df['P/L'] > 0] )
 
-    papel   cotacao     pl   pvp  ...  divbpatr     c5y
-    ABCB4     15.81   9.66  0.83  ...      0.00 -0.5287
-    ABEV3     15.95  28.87  3.22  ...      0.09  0.0455
-    AEDU11    37.35  20.13  1.13  ...      0.30  0.2090
-    ...         ...    ...   ...  ...       ...     ...
-    WIZS3      7.95   5.96  3.61  ...      0.00  0.1737
-    WSON33    45.45  34.29  1.34  ...      1.11  0.0131
-    YDUQ3     33.26  39.71  3.10  ...      1.45  0.0449
+    papel   Cotação    P/L  P/VP  ...  Dív.Brut/ Patrim.  Cresc. Rec.5a
+    ABCB4     15.81   9.66  0.83  ...               0.00        -0.5287
+    ABEV3     15.95  28.87  3.22  ...               0.09         0.0455
+    AEDU11    37.35  20.13  1.13  ...               0.30         0.2090
+    ...         ...    ...   ...  ...                ...            ...
+    WIZS3      7.95   5.96  3.61  ...               0.00         0.1737
+    WSON33    45.45  34.29  1.34  ...               1.11         0.0131
+    YDUQ3     33.26  39.71  3.10  ...               1.45         0.0449
 ```
 
 In the `_raw` function, columns names are preserved as captured from the web page. Be aware that names are in `pt-br` and contain spaces and accents. Filtering must be made explicitly:
 
 ```python
 # filter on DataFrame
-data = data[ data['P/L'  > 0   ]
-data = data[ data['P/L'  < 100 ]
-data = data[ data['P/VP' > 0   ]
+df = df[ df['P/L'  > 0   ] ]
+df = df[ df['P/L'  < 100 ] ]
+df = df[ df['P/VP' > 0   ] ]
 ```
 
 The renaming list can be found [**here**](https://github.com/mv/fundamentus/blob/8075a6f7efc2aa29578624518ea79fa385444a35/src/fundamentus/resultado.py#L114).
@@ -94,12 +94,12 @@ The renaming list can be found [**here**](https://github.com/mv/fundamentus/blob
 Return: `-> DataFrame`
 
 ```python
-import fundamentus
+>>> import fundamentus
 
-df = fundamentus.get_papel('WEGE3')
-df = fundamentus.get_papel(['ITSA4','WEGE3'])
+>>> df = fundamentus.get_papel('WEGE3')  ## or...
+>>> df = fundamentus.get_papel(['ITSA4','WEGE3'])
 
-print(df)
+>>> print(df)
 
         Tipo       Empresa        Setor ... Receita_Liquida_3m    EBIT_3m Lucro_Liquido_3m
 ITSA4  PN N1  ITAÚSA PN N1  Financeiros ...         1778000000  257000000       1784000000
