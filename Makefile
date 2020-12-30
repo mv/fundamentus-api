@@ -92,8 +92,7 @@ test-silent: ##   - Test: pytest most silent
 
 
 test-bash:    ##    - Test: bash calling sample scripts
-	export LOGLEVEL=debug
-	/usr/bin/time ./tests/test-scripts.sh
+	LOGLEVEL=info /usr/bin/time ./tests/test-scripts.sh
 
 
 data:	## - Save generated files to data/
