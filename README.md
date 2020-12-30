@@ -5,20 +5,19 @@ Python code to load data from **[Fundamentus](ww.fundamentus.com.br)** website.
 
 ## API usage
 
-Functions are named after each website functionality:
+Main functions are named after each website functionality:
 * `resultado` - https://www.fundamentus.com.br/resultado.php
-* `setor`     - https://www.fundamentus.com.br/resultado.php?setor=27
 * `papel`     - https://www.fundamentus.com.br/detalhes.php?papel=WEGE3
 
+A specific `list` function is built from the following `setor` parameter:
+* `list_papel_setor` - https://www.fundamentus.com.br/resultado.php?setor=27
 
-One exception is the `detalhes` page, where it return the list of all companies when no parameters are given:
-* `list_papel` - https://www.fundamentus.com.br/detalhes.php?papel=
 
 ## Examples
 
 ### `resultado`
 
-Return: `-> DataFrame`
+`Return: -> DataFrame`
 
 ```python
 >>> import fundamentus
@@ -53,7 +52,7 @@ df = df[ df.pvp > 0   ]
 
 ### `resultado_raw`
 
-Return: `-> DataFrame`
+`Return: -> DataFrame`
 
 ```python
 >>> import fundamentus
@@ -82,16 +81,16 @@ In the `_raw` function, columns names are preserved as captured from the web pag
 
 ```python
 # filter on DataFrame
-df = df[ df['P/L'  > 0   ] ]
-df = df[ df['P/L'  < 100 ] ]
-df = df[ df['P/VP' > 0   ] ]
+df = df[ df['P/L'] > 0   ]
+df = df[ df['P/L'] < 100 ]
+df = df[ df['P/VP'] > 0  ]
 ```
 
 The renaming list can be found [**here**](https://github.com/mv/fundamentus/blob/8075a6f7efc2aa29578624518ea79fa385444a35/src/fundamentus/resultado.py#L114).
 
 ### `papel`
 
-Return: `-> DataFrame`
+`Return: -> DataFrame`
 
 ```python
 >>> import fundamentus
@@ -107,6 +106,24 @@ WEGE3  ON N1  WEG SA ON N1  Máquinas e  ...         4801260000  946670000      
 
 ```
 
+### `list_papel_setor`
+
+`Return: -> list`
+
+```python
+>>> import fundamentus
+
+>>> fin = fundamentus.list_papel_setor(35)  # finance
+>>> seg = fundamentus.list_papel_setor(38)  # seguradoras
+
+>>> print(fin)
+   ['ABCB4', 'BBAS3', 'BBDC3', 'BBDC4', ... ]
+
+>>> print(seg)
+   ['BBSE3', 'IRBR3', 'SULA4', 'WIZS3', ... ]
+```
+
+The full list of companies by `setor` can be found [here](https://github.com/mv/fundamentus/blob/1cab1cf965d99c02d05faa90807ebe7381cbc784/src/fundamentus/setor.py#L56)
 
 
 ## License
