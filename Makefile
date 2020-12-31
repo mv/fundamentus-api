@@ -65,7 +65,7 @@ pip:    ## - Pip install from requirements.txt
 
 pip-dev: ## - Pip install from requirements-dev.txt
 	. $(_venv)/bin/activate              && \
-	pip3 install -r requirements-dev.txt
+	pip3 install -r requirements_dev.txt
 
 
 pyenv:  ## - Pyenv Install + set local
