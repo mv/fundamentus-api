@@ -6,7 +6,7 @@
 language: python
 
 install:
-  - pip install -r requirements.txt -r requirements-dev.txt
+  - pip install -r requirements.txt
 
 script:
   - make test-detailed test-bash
