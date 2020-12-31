@@ -1,0 +1,15 @@
+#
+# Ref:
+#   https://docs.travis-ci.com/user/languages/python/
+#
+
+language: python
+
+install:
+  - pip install -r requirements.txt
+  - pip install -r requirements-dev.txt
+
+script:
+  - make test-detailed
+  - make test-bash
+

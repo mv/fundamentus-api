@@ -2,6 +2,8 @@
 
 Python API to load data from **[Fundamentus](ww.fundamentus.com.br)** website.
 
+![TravisCI](https://travis-ci.org/mv/fundamentus.svg?branch=master)
+
 
 ## API usage
 
