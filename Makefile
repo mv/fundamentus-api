@@ -104,3 +104,22 @@ data:	## - Save generated files to data/
 data-clean: ## - Clean data/
 	/bin/rm -f data/*.*
 
+
+pkg:	##  - Package dist: create in dist/
+	python setup.py sdist bdist_wheel
+
+pkg-src: ##  - Package src: install from src/ (development)
+	pip install .
+
+pkg-install: ## - Package dist: install from dist/
+	pip install --no-index --find-links=./dist fundamentus
+
+pkg-uninstall: ## - Package uninstall
+	pip uninstall -y fundamentus
+
+pkg-test-install: ## - PyPI: install from Test
+	pip install --index-url https://test.pypi.org/simple/ fundamentus
+
+pkg-test-upload: ##  - PyPI: upload to Test
+	twine upload --repository testpypi dist/*
+

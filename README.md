@@ -1,6 +1,6 @@
 # Python Fundamentus
 
-Python code to load data from **[Fundamentus](ww.fundamentus.com.br)** website.
+Python API to load data from **[Fundamentus](ww.fundamentus.com.br)** website.
 
 
 ## API usage

@@ -16,6 +16,8 @@ __all__ = [
         'list_papel_setor',
         ]
 
+__version__ = '0.0.0'
+
 
 from fundamentus.resultado  import get_resultado
 from fundamentus.resultado  import get_resultado_raw
