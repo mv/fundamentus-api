@@ -45,8 +45,10 @@ init:   venv pip
 
 
 venv:   ## - Create virtualenv
-	pip3 install virtualenv
-	virtualenv $(_venv)
+	pip3 install virtualenv	   && \
+	virtualenv $(_venv)        && \
+	source venv/bin/activate   && \
+	pip install --upgrade pip
 
 venv-clear: ## - Reinstall virtualenv (--clear)
 	@echo "Reinstalling..."
