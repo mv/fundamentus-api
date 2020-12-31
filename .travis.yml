@@ -5,6 +5,11 @@
 
 language: python
 
+before_install:
+  - pip install coveralls
+  - pip install -r requirements-dev.txt
+  - pip install -r requirements_dev.txt
+
 install:
   - pip install -r requirements.txt
 
