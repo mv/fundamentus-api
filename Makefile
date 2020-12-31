@@ -61,7 +61,7 @@ pip:    ## - Pip install from requirements.txt
 	pip3 install -r requirements.txt
 
 
-pip-dev: ## - Pip install from requirements-devtxt
+pip-dev: ## - Pip install from requirements-dev.txt
 	. $(_venv)/bin/activate              && \
 	pip3 install -r requirements-dev.txt
 
