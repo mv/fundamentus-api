@@ -82,11 +82,15 @@ clean:	## - Cleanup: pycache stuff
 
 
 test:   ##    - Test: pytest
-	pytest tests/ -v --color=yes --no-header --no-summary
+	coverage run --source=fundamentus -m \
+	  pytest tests/ -v --color=yes --no-header --no-summary && \
+	coverage report
 
 
 test-detailed: ## - Test: pytest many details
-	pytest tests/ -v --color=yes
+	coverage run --source=fundamentus -m \
+	  pytest tests/ -v --color=yes && \
+	coverage report
 
 
 test-silent: ##   - Test: pytest most silent

@@ -11,3 +11,6 @@ install:
 script:
   - make test-detailed test-bash
 
+after_success:
+  - coveralls
+

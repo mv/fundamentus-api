@@ -1,5 +1,7 @@
 # Python Fundamentus
 [![TravisCI](https://travis-ci.org/mv/fundamentus.svg?branch=master)](https://travis-ci.org/github/mv/fundamentus)
+[![Coverage Status](https://coveralls.io/repos/github/mv/fundamentus/badge.svg?branch=master)](https://coveralls.io/github/mv/fundamentus?branch=master)
+
 
 Python API to load data from **[Fundamentus](ww.fundamentus.com.br)** website.
 
