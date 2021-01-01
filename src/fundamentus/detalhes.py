@@ -66,7 +66,7 @@ def get_detalhes_list(lst):
     # duplicate column (papel is the index already)
     try:
         result.drop('Papel', axis='columns', inplace=True)
-    except:
+    except: # pragma: no cover
         logging.error('drop column. Error=[{}].'.format(sys.exc_info()[1]))
         pass
 
@@ -225,7 +225,7 @@ def get_detalhes_raw(papel='WEGE3'):
 
         if content.from_cache:
             logging.debug('.../detalhes.php?papel={}: [CACHED]'.format(papel))
-        else:
+        else: # pragma: no cover
             logging.debug('.../detalhes.php?papel={}: sleeping...'.format(papel))
             time.sleep(.500) # 500 ms
 
@@ -257,7 +257,7 @@ def list_papel_all():
 
         if content.from_cache:
             logging.debug('list .../detalhes.php?papel= : [CACHED]')
-        else:
+        else: # pragma: no cover
             logging.debug('list .../detalhes.php?papel= : sleeping...')
             time.sleep(.500) # 500 ms
 

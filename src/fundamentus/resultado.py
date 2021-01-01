@@ -41,7 +41,7 @@ def get_resultado_raw():
 
         if content.from_cache:
             logging.debug('.../resultado.php: [CACHED]')
-        else:
+        else: # pragma: no cover
             logging.debug('.../resultado.php: sleeping...')
             time.sleep(.500) # 500 ms
 

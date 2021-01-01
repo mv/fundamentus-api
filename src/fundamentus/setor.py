@@ -33,7 +33,7 @@ def list_papel_setor(setor=None):
 
         if content.from_cache:
             logging.debug('.../resultado.php?setor={}: [CACHED]'.format(setor))
-        else:
+        else: # pragma: no cover
             logging.debug('.../resultado.php?setor={}: sleeping...'.format(setor))
             time.sleep(.500) # 500 ms
 

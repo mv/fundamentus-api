@@ -31,7 +31,7 @@ def dt_iso8601(val):
     try:
         dt = parse(val, dayfirst=True).strftime('%Y-%m-%d')
         return dt
-    except:
+    except: # pragma: no cover
         logging.debug('Error...')
         return
 

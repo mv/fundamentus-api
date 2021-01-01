@@ -45,7 +45,7 @@ def get_df_papel():
 
         if content.from_cache:
             logging.debug('.../detalhes.php: [CACHED]')
-        else:
+        else: # pragma: no cover
             logging.debug('.../detalhes.php: sleeping...')
             time.sleep(.500) # 500 ms
 
