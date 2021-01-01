@@ -1,7 +1,9 @@
 
 from fundamentus import detalhes
 
+import pytest
 import pandas as pd
+
 
 
 def test_get_detalhes_raw():
@@ -86,24 +88,18 @@ def test_get_papel__as_list():
     assert df.index[0]   == 'ITSA4'
     assert df.index[1]   == 'WEGE3'
 
-def test_get_papel__as_papel_1():
-    df = detalhes.get_papel('ITSA4')
-    assert df['Papel'][0] == 'ITSA4'
-
-def test_get_papel__as_papel_2():
-    df = detalhes.get_papel('WEGE3')
-    assert df['Papel'][0] == 'WEGE3'
+@pytest.mark.parametrize('papel',['ABEV3','ITSA4','WEGE3',])
+def test_get_papel__as_papel(papel):
+    df = detalhes.get_papel(papel)
+    assert df['Papel'][0] == papel
 
 
 def test_list_papel_all__len():
     lst = detalhes.list_papel_all()
     assert len(lst) > 5
 
-def test_list_papel_all__ITSA():
+@pytest.mark.parametrize('papel',['ABEV3','ITSA4','WEGE3'])
+def test_list_papel_all__in(papel):
     lst = detalhes.list_papel_all()
-    assert 'ITSA4' in lst
-
-def test_list_papel_all__WEGE():
-    lst = detalhes.list_papel_all()
-    assert 'WEGE3' in lst
+    assert papel in lst
 
