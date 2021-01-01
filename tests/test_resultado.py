@@ -4,6 +4,8 @@ from fundamentus import resultado
 import pytest
 import pandas as pd
 
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
 def test_get_resultado_raw_len():
