@@ -1,7 +1,9 @@
 
 from fundamentus import utils
 
+import fundamentus
 import pandas as pd
+import pytest
 
 
 def test_dt_iso8601_10_10():
@@ -64,5 +66,36 @@ def test_perc_to_float():
 
     _before['data'] = utils.perc_to_float(_before['data'])
     pd.testing.assert_frame_equal(_before, _after)
+
+
+###
+@pytest.fixture(name='get_df', scope='session')
+def _get_df_resultado():
+    df = fundamentus.get_resultado()
+    return df
+
+def test_print_csv(capfd, get_df):
+    # GIVEN calling 'print_csv()'
+    # THEN  output must be a csv with many lines
+    fundamentus.print_csv(get_df)
+    out, err = capfd.readouterr()
+
+    msg = out.split('\n')
+    typ = type(msg)
+
+    # output csv
+    assert len(msg) > 5
+
+def test_print_table(capfd, get_df):
+    # GIVEN calling 'print_table()'
+    # THEN  output must be a table with many lines
+    fundamentus.print_table(get_df)
+    out, err = capfd.readouterr()
+
+    msg = out.split('\n')
+    typ = type(msg)
+
+    # output table
+    assert len(msg) > 5
 
 
