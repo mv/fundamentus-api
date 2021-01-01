@@ -51,15 +51,13 @@ def _get_resultado():
 
 
 ###
-def test_get_resultado_len():
-    df = resultado.get_resultado()
-    assert len(df) > 0
+def test_get_resultado_len(_get_resultado):
+    assert len(_get_resultado) > 0
 
 
 ###
-def test_get_resultado_index_name():
-    df = resultado.get_resultado()
-    assert df.index.name == 'papel'
+def test_get_resultado_index_name(_get_resultado):
+    assert _get_resultado.index.name == 'papel'
 
 
 ###
