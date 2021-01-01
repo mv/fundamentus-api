@@ -84,7 +84,9 @@ def get_detalhes_papel(papel):
     ## raw
     logging.debug('1: get raw [{}]'.format(papel))
     tables = get_detalhes_raw(papel)
-    if len(tables) != 5:
+    if len(tables) == 5:
+        pass
+    else: # pragma: no cover
         logging.debug('HTML tables not rendered as expected. Len={}. Skipped.'.format(len(tables)))
         return None
 
@@ -184,12 +186,10 @@ def get_detalhes_papel(papel):
     # hash to filter out NaN...
     hf = OrderedDict()
     for i, k in enumerate(keys):
-        if pd.isna(k):
-            # print('NaN!')
-            logging.debug('NaN. Skipped.')
-            pass
-        else:
+        if pd.notna(k):
             hf[k] = vals[i]
+        else: # pragma: no cover
+            logging.debug('NaN. Skipped.')
 
     # Last fixes
     hf['Data_ult_cot']           = utils.dt_iso8601(hf['Data_ult_cot'])
