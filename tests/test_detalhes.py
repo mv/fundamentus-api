@@ -9,31 +9,36 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
 @pytest.fixture()
-def _get_detalhes_raw
+def _get_detalhes_raw_WEGE3():
+    # html_tables
+    # 'ht' is a list of dataframe for each HTML table in the page
+    ht = detalhes.get_detalhes_raw('WEGE3')
+    return ht
 
-def test_get_detalhes_raw():
+
+def test_get_detalhes_raw(_get_detalhes_raw_WEGE3):
     # GIVEN a 'raw' 'detalhes' page
     # WHEN  papel is 'WEGE3'
     # THEN  pd.read_html() must return 5 html tables
-    ht = detalhes.get_detalhes_raw('WEGE3')
+    ht = _get_detalhes_raw_WEGE3
     assert len(ht) == 5
 
-def test_get_detalhes_raw_df0():
+def test_get_detalhes_raw_df0(_get_detalhes_raw_WEGE3):
     # GIVEN a 'raw' 'detalhes' page
     # WHEN  papel is 'WEGE3'
     # THEN  first df must be 4x5
-    ht = detalhes.get_detalhes_raw('WEGE3')
+    ht = _get_detalhes_raw_WEGE3
     df = ht[0]
     assert len(df)         == 5
     assert len(df.columns) == 4
     assert df.iloc[0][1]   == 'WEGE3'
 
 
-def test_get_detalhes_raw_df1():
+def test_get_detalhes_raw_df1(_get_detalhes_raw_WEGE3):
     # GIVEN a 'raw' 'detalhes' page
     # WHEN  papel is 'WEGE3'
     # THEN  second df must be 4x2
-    ht = detalhes.get_detalhes_raw('WEGE3')
+    ht = _get_detalhes_raw_WEGE3
     df = ht[1]
     assert len(df)         == 2
     assert len(df.columns) == 4
@@ -41,11 +46,11 @@ def test_get_detalhes_raw_df1():
     assert df.iloc[1][0]   == '?Valor da firma'
 
 
-def test_get_detalhes_raw_df2():
+def test_get_detalhes_raw_df2(_get_detalhes_raw_WEGE3):
     # GIVEN a 'raw' 'detalhes' page
     # WHEN  papel is 'WEGE3'
     # THEN  third df must be 6x5
-    ht = detalhes.get_detalhes_raw('WEGE3')
+    ht = _get_detalhes_raw_WEGE3
     df = ht[2]
     assert len(df)         > 5
     assert len(df.columns) == 6
@@ -53,11 +58,11 @@ def test_get_detalhes_raw_df2():
     assert df.iloc[1][4]   == '?LPA'
 
 
-def test_get_detalhes_raw_df3():
+def test_get_detalhes_raw_df3(_get_detalhes_raw_WEGE3):
     # GIVEN a 'raw' 'detalhes' page
     # WHEN  papel is 'WEGE3'
     # THEN  forth df must be 4x4
-    ht = detalhes.get_detalhes_raw('WEGE3')
+    ht = _get_detalhes_raw_WEGE3
     df = ht[3]
     assert len(df)         == 4
     assert len(df.columns) == 4
@@ -65,11 +70,11 @@ def test_get_detalhes_raw_df3():
     assert df.iloc[3][2]   == '?Patrim. Líq'
 
 
-def test_get_detalhes_raw_df4():
+def test_get_detalhes_raw_df4(_get_detalhes_raw_WEGE3):
     # GIVEN a 'raw' 'detalhes' page
     # WHEN  papel is 'WEGE3'
     # THEN  last df must be 4x5
-    ht = detalhes.get_detalhes_raw('WEGE3')
+    ht = _get_detalhes_raw_WEGE3
     df = ht[4]
     assert len(df)         == 5
     assert len(df.columns) == 4
