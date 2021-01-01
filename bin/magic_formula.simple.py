@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 
-import set_path_fundamentus
+# import set_path_fundamentus
 
 import pandas as pd
 

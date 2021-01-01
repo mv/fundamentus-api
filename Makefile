@@ -109,8 +109,11 @@ data-clean: ## - Clean data/
 	/bin/rm -f data/*.*
 
 
-pkg:	##  - Package dist: create in dist/
-	python setup.py sdist bdist_wheel
+pkg-dev: ## - Package dev.: install from src/ (dev/editable)
+	pip install -e .
+	@echo
+	pip list | egrep -i '^Package|^---|^fundamentus'
+	@echo
 
 pkg-dist-create: ##  - Package dist: create in dist/
 	python setup.py sdist bdist_wheel

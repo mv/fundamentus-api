@@ -13,6 +13,14 @@ from tabulate import tabulate
 from datetime import datetime
 from dateutil.parser import parse
 
+# ignore '.replace()' msgs for pandas
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
+# TODO:
+#   https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.replace.html
+#
+
 
 def dt_iso8601(val):
     """

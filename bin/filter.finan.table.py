@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 
-import set_path_fundamentus
+# import set_path_fundamentus
 
 from fundamentus import get_resultado
 from fundamentus import print_table

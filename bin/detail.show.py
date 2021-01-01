@@ -2,7 +2,8 @@
 #
 #
 
-import set_path_fundamentus
+# import set_path_fundamentus
+
 import fundamentus
 
 
