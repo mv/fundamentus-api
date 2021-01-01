@@ -8,37 +8,37 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
-@pytest.fixture(scope='session')
-def _get_detalhes_raw_WEGE3():
-    # html_tables
-    # 'ht' is a list of dataframe for each HTML table in the page
-    ht = detalhes.get_detalhes_raw('WEGE3')
-    return ht
+###
+lst_papel = ['ABEV3','ITSA4','WEGE3']
+
+@pytest.fixture(params=lst_papel)
+def each_papel(request):
+    return request.param
 
 
-def test_get_detalhes_raw(_get_detalhes_raw_WEGE3):
+def test_get_detalhes_raw_len(each_papel):
     # GIVEN a 'raw' 'detalhes' page
     # WHEN  papel is 'WEGE3'
     # THEN  pd.read_html() must return 5 html tables
-    ht = _get_detalhes_raw_WEGE3
+    ht = detalhes.get_detalhes_raw(each_papel)
     assert len(ht) == 5
 
-def test_get_detalhes_raw_df0(_get_detalhes_raw_WEGE3):
+def test_get_detalhes_raw_df0(each_papel):
     # GIVEN a 'raw' 'detalhes' page
     # WHEN  papel is 'WEGE3'
     # THEN  first df must be 4x5
-    ht = _get_detalhes_raw_WEGE3
+    ht = detalhes.get_detalhes_raw(each_papel)
     df = ht[0]
     assert len(df)         == 5
     assert len(df.columns) == 4
-    assert df.iloc[0][1]   == 'WEGE3'
+    assert df.iloc[0][1]   == each_papel
 
 
-def test_get_detalhes_raw_df1(_get_detalhes_raw_WEGE3):
+def test_get_detalhes_raw_df1(each_papel):
     # GIVEN a 'raw' 'detalhes' page
     # WHEN  papel is 'WEGE3'
     # THEN  second df must be 4x2
-    ht = _get_detalhes_raw_WEGE3
+    ht = detalhes.get_detalhes_raw(each_papel)
     df = ht[1]
     assert len(df)         == 2
     assert len(df.columns) == 4
@@ -46,11 +46,11 @@ def test_get_detalhes_raw_df1(_get_detalhes_raw_WEGE3):
     assert df.iloc[1][0]   == '?Valor da firma'
 
 
-def test_get_detalhes_raw_df2(_get_detalhes_raw_WEGE3):
+def test_get_detalhes_raw_df2(each_papel):
     # GIVEN a 'raw' 'detalhes' page
     # WHEN  papel is 'WEGE3'
     # THEN  third df must be 6x5
-    ht = _get_detalhes_raw_WEGE3
+    ht = detalhes.get_detalhes_raw(each_papel)
     df = ht[2]
     assert len(df)         > 5
     assert len(df.columns) == 6
@@ -58,11 +58,11 @@ def test_get_detalhes_raw_df2(_get_detalhes_raw_WEGE3):
     assert df.iloc[1][4]   == '?LPA'
 
 
-def test_get_detalhes_raw_df3(_get_detalhes_raw_WEGE3):
+def test_get_detalhes_raw_df3(each_papel):
     # GIVEN a 'raw' 'detalhes' page
     # WHEN  papel is 'WEGE3'
     # THEN  forth df must be 4x4
-    ht = _get_detalhes_raw_WEGE3
+    ht = detalhes.get_detalhes_raw(each_papel)
     df = ht[3]
     assert len(df)         == 4
     assert len(df.columns) == 4
@@ -70,11 +70,11 @@ def test_get_detalhes_raw_df3(_get_detalhes_raw_WEGE3):
     assert df.iloc[3][2]   == '?Patrim. Líq'
 
 
-def test_get_detalhes_raw_df4(_get_detalhes_raw_WEGE3):
+def test_get_detalhes_raw_df4(each_papel):
     # GIVEN a 'raw' 'detalhes' page
     # WHEN  papel is 'WEGE3'
     # THEN  last df must be 4x5
-    ht = _get_detalhes_raw_WEGE3
+    ht = detalhes.get_detalhes_raw(each_papel)
     df = ht[4]
     assert len(df)         == 5
     assert len(df.columns) == 4
@@ -82,7 +82,7 @@ def test_get_detalhes_raw_df4(_get_detalhes_raw_WEGE3):
     assert df.iloc[3][2]   == '?EBIT'
 
 
-def test_get_detalhes_papel():
+def test_get_detalhes_papel(each_papel):
     # GIVEN a final 'detalhes' dataframe
     # WHEN  papel is 'WEGE3'
     # THEN  columns must be the following
@@ -98,13 +98,14 @@ def test_get_detalhes_papel():
        'Patrim_Liq', 'Receita_Liquida_12m', 'EBIT_12m', 'Lucro_Liquido_12m',
        'Receita_Liquida_3m', 'EBIT_3m', 'Lucro_Liquido_3m']
 
-    df = detalhes.get_detalhes_papel('WEGE3')
+    df = detalhes.get_detalhes_papel(each_papel)
 
     assert len(df) > 0
     assert list(df.columns) == cols
-    assert df['Papel'][0]   == 'WEGE3'
+    assert df['Papel'][0]   == each_papel
 
 
+###
 def test_get_detalhes_list():
     # GIVEN calling 'detalhes_list()' explicitly
     # WHEN  list is 'ITSA4' and 'WEGE3'
@@ -126,10 +127,9 @@ def test_get_papel__as_list():
 
 
 ###
-@pytest.mark.parametrize('papel',['ABEV3','ITSA4','WEGE3',])
-def test_get_papel__as_papel(papel):
-    df = detalhes.get_papel(papel)
-    assert df['Papel'][0] == papel
+def test_get_papel__as_papel(each_papel):
+    df = detalhes.get_papel(each_papel)
+    assert df['Papel'][0] == each_papel
 
 
 ###
@@ -141,12 +141,11 @@ def test_list_papel_all__len():
 
 
 ###
-@pytest.mark.parametrize('papel',['ABEV3','ITSA4','WEGE3'])
-def test_list_papel_all__in(papel):
+def test_list_papel_all__in(each_papel):
     # GIVEN calling 'list_papel_all()'
     # THEN  list must contain at least
     #       'ABEV3','ITSA4','WEGE3'
     lst = detalhes.list_papel_all()
-    assert papel in lst
+    assert each_papel in lst
 
 
