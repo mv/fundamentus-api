@@ -32,3 +32,6 @@ echo "=== Count: Success = ${exe_count}/${tot_count}"
 echo "==="
 echo
 
+# Fail if all scripts failed
+[ "${exe_count}" == 0 ] && exit 1
+
