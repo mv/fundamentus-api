@@ -12,11 +12,16 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 def _get_detalhes_raw
 
 def test_get_detalhes_raw():
-    # html_tables
+    # GIVEN a 'raw' 'detalhes' page
+    # WHEN  papel is 'WEGE3'
+    # THEN  pd.read_html() must return 5 html tables
     ht = detalhes.get_detalhes_raw('WEGE3')
     assert len(ht) == 5
 
 def test_get_detalhes_raw_df0():
+    # GIVEN a 'raw' 'detalhes' page
+    # WHEN  papel is 'WEGE3'
+    # THEN  first df must be 4x5
     ht = detalhes.get_detalhes_raw('WEGE3')
     df = ht[0]
     assert len(df)         == 5
@@ -25,6 +30,9 @@ def test_get_detalhes_raw_df0():
 
 
 def test_get_detalhes_raw_df1():
+    # GIVEN a 'raw' 'detalhes' page
+    # WHEN  papel is 'WEGE3'
+    # THEN  second df must be 4x2
     ht = detalhes.get_detalhes_raw('WEGE3')
     df = ht[1]
     assert len(df)         == 2
@@ -34,6 +42,9 @@ def test_get_detalhes_raw_df1():
 
 
 def test_get_detalhes_raw_df2():
+    # GIVEN a 'raw' 'detalhes' page
+    # WHEN  papel is 'WEGE3'
+    # THEN  third df must be 6x5
     ht = detalhes.get_detalhes_raw('WEGE3')
     df = ht[2]
     assert len(df)         > 5
@@ -43,6 +54,9 @@ def test_get_detalhes_raw_df2():
 
 
 def test_get_detalhes_raw_df3():
+    # GIVEN a 'raw' 'detalhes' page
+    # WHEN  papel is 'WEGE3'
+    # THEN  forth df must be 4x4
     ht = detalhes.get_detalhes_raw('WEGE3')
     df = ht[3]
     assert len(df)         == 4
@@ -52,6 +66,9 @@ def test_get_detalhes_raw_df3():
 
 
 def test_get_detalhes_raw_df4():
+    # GIVEN a 'raw' 'detalhes' page
+    # WHEN  papel is 'WEGE3'
+    # THEN  last df must be 4x5
     ht = detalhes.get_detalhes_raw('WEGE3')
     df = ht[4]
     assert len(df)         == 5
@@ -61,6 +78,9 @@ def test_get_detalhes_raw_df4():
 
 
 def test_get_detalhes_papel():
+    # GIVEN a final 'detalhes' dataframe
+    # WHEN  papel is 'WEGE3'
+    # THEN  columns must be the following
 
     cols = ['Papel', 'Tipo', 'Empresa', 'Setor', 'Subsetor', 'Cotacao',
        'Data_ult_cot', 'Min_52_sem', 'Max_52_sem', 'Vol_med_2m',
@@ -81,6 +101,9 @@ def test_get_detalhes_papel():
 
 
 def test_get_detalhes_list():
+    # GIVEN calling 'detalhes_list()' explicitly
+    # WHEN  list is 'ITSA4' and 'WEGE3'
+    # THEN  list must contain 2 x 'papel' in sorted order
     df = detalhes.get_detalhes_list(['ITSA4','WEGE3'])
     assert len(df) == 2
     assert df.index[0]   == 'ITSA4'
@@ -88,6 +111,9 @@ def test_get_detalhes_list():
 
 
 def test_get_papel__as_list():
+    # GIVEN calling 'get_papel()' with a list
+    # WHEN  list is 'ITSA4' and 'WEGE3'
+    # THEN  list must contain 2 x 'papel' in sorted order
     df = detalhes.get_papel(['ITSA4','WEGE3'])
     assert len(df) == 2
     assert df.index[0]   == 'ITSA4'
@@ -103,6 +129,8 @@ def test_get_papel__as_papel(papel):
 
 ###
 def test_list_papel_all__len():
+    # GIVEN calling 'list_papel_all()'
+    # THEN  list must contain more than 5 elements
     lst = detalhes.list_papel_all()
     assert len(lst) > 5
 
@@ -110,6 +138,10 @@ def test_list_papel_all__len():
 ###
 @pytest.mark.parametrize('papel',['ABEV3','ITSA4','WEGE3'])
 def test_list_papel_all__in(papel):
+    # GIVEN calling 'list_papel_all()'
+    # THEN  list must contain at least
+    #       'ABEV3','ITSA4','WEGE3'
     lst = detalhes.list_papel_all()
     assert papel in lst
+
 

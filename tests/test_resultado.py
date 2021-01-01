@@ -16,11 +16,15 @@ def _get_resultado_raw():
 
 ###
 def test_get_resultado_raw_len(_get_resultado_raw):
+    # GIVEN a 'resultado_raw' df
+    # THEN  it must have '> 0' rows
     assert len(_get_resultado_raw) > 0
 
 
 ###
 def test_get_resultado_raw_index_name(_get_resultado_raw):
+    # GIVEN a 'resultado_raw' df
+    # THEN  it must have 'papel' as the df index name
     assert _get_resultado_raw.index.name == 'papel'
 
 
@@ -39,6 +43,8 @@ def _get_cols_raw(_get_resultado_raw):
 
 @pytest.mark.parametrize('param', lst1)
 def test_get_resultado_raw_has_col(_get_cols_raw, param):
+    # GIVEN a 'resultado_raw' df
+    # THEN  column names must be the HTML literal version
     my_chk = _get_cols_raw
     assert my_chk[param] == True
 
@@ -52,11 +58,15 @@ def _get_resultado():
 
 ###
 def test_get_resultado_len(_get_resultado):
+    # GIVEN a 'resultado' df
+    # THEN  it must have '> 0' rows
     assert len(_get_resultado) > 0
 
 
 ###
 def test_get_resultado_index_name(_get_resultado):
+    # GIVEN a 'resultado' df
+    # THEN  it must have 'papel' as the df index name
     assert _get_resultado.index.name == 'papel'
 
 
@@ -74,6 +84,8 @@ def _get_cols_final(_get_resultado):
 
 @pytest.mark.parametrize('param', lst2)
 def test_get_resultado_has_col(_get_cols_final, param):
+    # GIVEN a 'resultado' df
+    # THEN  column names must be the final version
     my_chk = _get_cols_final
     assert my_chk[param] == True
 
