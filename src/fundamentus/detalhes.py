@@ -68,7 +68,6 @@ def get_detalhes_list(lst):
         result.drop('Papel', axis='columns', inplace=True)
     except: # pragma: no cover
         logging.error('drop column. Error=[{}].'.format(sys.exc_info()[1]))
-        pass
 
     return result.sort_index()
 
