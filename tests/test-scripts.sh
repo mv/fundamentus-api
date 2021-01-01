@@ -33,5 +33,9 @@ echo "==="
 echo
 
 # Fail if all scripts failed
-[ "${exe_count}" == 0 ] && exit 1
+if [ "${exe_count}" -gt "0" ]
+then exit 0
+else exit 1  # fail
+fi
+
 
