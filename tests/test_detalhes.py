@@ -8,7 +8,7 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
-@pytest.fixture()
+@pytest.fixture(scope='session')
 def _get_detalhes_raw_WEGE3():
     # html_tables
     # 'ht' is a list of dataframe for each HTML table in the page

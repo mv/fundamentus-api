@@ -11,7 +11,11 @@ import pytest
 import fundamentus
 
 
-@pytest.fixture()
+# Scope:
+#   - function < module < class < session
+#   - scope of SETUP/TEARDOWN
+#
+@pytest.fixture(scope='session')
 def set_log_level():
     pass
 

@@ -5,7 +5,7 @@ import pandas as pd
 import pytest
 
 
-@pytest.fixture()
+@pytest.fixture(scope='session')
 def _get_list_papel():
     lst = papel.get_list_papel()
     return lst
@@ -26,7 +26,7 @@ def test_get_list_papel__len(_get_list_papel, param):
 
 
 ###
-@pytest.fixture()
+@pytest.fixture(scope='session')
 def _get_df_papel():
     df = papel.get_df_papel()
     return df

@@ -8,7 +8,7 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
-@pytest.fixture()
+@pytest.fixture(scope='session')
 def _get_resultado_raw():
     df = resultado.get_resultado_raw()
     return df
@@ -36,7 +36,8 @@ lst1 = ['Cotação', 'P/L', 'P/VP', 'PSR', 'Div.Yield', 'P/Ativo', 'P/Cap.Giro',
        'Mrg. Líq.', 'Liq. Corr.', 'ROIC', 'ROE', 'Liq.2meses', 'Patrim. Líq',
        'Dív.Brut/ Patrim.', 'Cresc. Rec.5a']
 
-@pytest.fixture()
+
+@pytest.fixture(scope='session')
 def _get_cols_raw(_get_resultado_raw):
     chk = { x: True for x in _get_resultado_raw.columns }
     return chk
@@ -50,7 +51,7 @@ def test_get_resultado_raw_has_col(_get_cols_raw, param):
 
 
 ###
-@pytest.fixture()
+@pytest.fixture(scope='session')
 def _get_resultado():
     df = resultado.get_resultado()
     return df
@@ -77,7 +78,7 @@ lst2 = ['cotacao', 'pl', 'pvp', 'psr', 'dy', 'pa', 'pcg', 'pebit', 'pacl',
        'evebit', 'evebitda', 'mrgebit', 'mrgliq', 'roic', 'roe', 'liqc',
        'liq2m', 'patrliq', 'divbpatr', 'c5y']
 
-@pytest.fixture()
+@pytest.fixture(scope='session')
 def _get_cols_final(_get_resultado):
     chk = { x: True for x in _get_resultado.columns }
     return chk
