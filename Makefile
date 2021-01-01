@@ -112,18 +112,18 @@ data-clean: ## - Clean data/
 pkg:	##  - Package dist: create in dist/
 	python setup.py sdist bdist_wheel
 
-pkg-src: ##  - Package src: install from src/ (development)
-	pip install .
+pkg-dist-create: ##  - Package dist: create in dist/
+	python setup.py sdist bdist_wheel
 
-pkg-install: ## - Package dist: install from dist/
+pkg-dist-install: ## - Package dist: install from dist/
 	pip install --no-index --find-links=./dist fundamentus
 
-pkg-uninstall: ## - Package uninstall
+pkg-uninstall: ##    - Package uninstall
 	pip uninstall -y fundamentus
 
-pkg-test-install: ## - PyPI: install from Test
+pypi-test-install: ## - PyPI: install from Test
 	pip install --index-url https://test.pypi.org/simple/ fundamentus
 
-pkg-test-upload: ##  - PyPI: upload to Test
+pypi-test-upload: ##  - PyPI: upload to Test
 	twine upload --repository testpypi dist/*
 
