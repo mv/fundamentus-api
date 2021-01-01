@@ -14,6 +14,12 @@ def test_get_resultado_raw_len():
 
 
 ###
+def test_get_resultado_raw_index_name():
+    df = resultado.get_resultado_raw()
+    assert df.index.name == 'papel'
+
+
+###
 cols = ['Cotação', 'P/L', 'P/VP', 'PSR', 'Div.Yield', 'P/Ativo', 'P/Cap.Giro',
        'P/EBIT', 'P/Ativ Circ.Liq', 'EV/EBIT', 'EV/EBITDA', 'Mrg Ebit',
        'Mrg. Líq.', 'Liq. Corr.', 'ROIC', 'ROE', 'Liq.2meses', 'Patrim. Líq',
@@ -29,6 +35,12 @@ def test_get_resultado_raw_has_col(col_name):
 def test_get_resultado_len():
     df = resultado.get_resultado()
     assert len(df) > 0
+
+
+###
+def test_get_resultado_index_name():
+    df = resultado.get_resultado()
+    assert df.index.name == 'papel'
 
 
 ###
