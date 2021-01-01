@@ -8,24 +8,24 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(name='df_resultado_raw', scope='session')
 def _get_resultado_raw():
     df = resultado.get_resultado_raw()
     return df
 
 
 ###
-def test_get_resultado_raw_len(_get_resultado_raw):
+def test_get_resultado_raw_len(df_resultado_raw):
     # GIVEN a 'resultado_raw' df
     # THEN  it must have '> 0' rows
-    assert len(_get_resultado_raw) > 0
+    assert len(df_resultado_raw) > 0
 
 
 ###
-def test_get_resultado_raw_index_name(_get_resultado_raw):
+def test_get_resultado_raw_index_name(df_resultado_raw):
     # GIVEN a 'resultado_raw' df
     # THEN  it must have 'papel' as the df index name
-    assert _get_resultado_raw.index.name == 'papel'
+    assert df_resultado_raw.index.name == 'papel'
 
 
 ###
@@ -38,8 +38,8 @@ lst1 = ['Cotação', 'P/L', 'P/VP', 'PSR', 'Div.Yield', 'P/Ativo', 'P/Cap.Giro',
 
 
 @pytest.fixture(scope='session')
-def _get_cols_raw(_get_resultado_raw):
-    chk = { x: True for x in _get_resultado_raw.columns }
+def _get_cols_raw(df_resultado_raw):
+    chk = { x: True for x in df_resultado_raw.columns }
     return chk
 
 @pytest.mark.parametrize('param', lst1)
@@ -51,24 +51,24 @@ def test_get_resultado_raw_has_col(_get_cols_raw, param):
 
 
 ###
-@pytest.fixture(scope='session')
+@pytest.fixture(name='df_resultado', scope='session')
 def _get_resultado():
     df = resultado.get_resultado()
     return df
 
 
 ###
-def test_get_resultado_len(_get_resultado):
+def test_get_resultado_len(df_resultado):
     # GIVEN a 'resultado' df
     # THEN  it must have '> 0' rows
-    assert len(_get_resultado) > 0
+    assert len(df_resultado) > 0
 
 
 ###
-def test_get_resultado_index_name(_get_resultado):
+def test_get_resultado_index_name(df_resultado):
     # GIVEN a 'resultado' df
     # THEN  it must have 'papel' as the df index name
-    assert _get_resultado.index.name == 'papel'
+    assert df_resultado.index.name == 'papel'
 
 
 ###
@@ -79,8 +79,8 @@ lst2 = ['cotacao', 'pl', 'pvp', 'psr', 'dy', 'pa', 'pcg', 'pebit', 'pacl',
        'liq2m', 'patrliq', 'divbpatr', 'c5y']
 
 @pytest.fixture(scope='session')
-def _get_cols_final(_get_resultado):
-    chk = { x: True for x in _get_resultado.columns }
+def _get_cols_final(df_resultado):
+    chk = { x: True for x in df_resultado.columns }
     return chk
 
 @pytest.mark.parametrize('param', lst2)
