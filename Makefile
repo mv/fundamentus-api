@@ -94,7 +94,7 @@ test-detailed: ## - Test: pytest many details
 
 
 test-silent: ##   - Test: pytest most silent
-	pytest tests/ -q --color=yes --no-header --no-summary
+	pytest tests/ -q --color=yes --no-header --no-summary --disable-warnings
 
 
 test-bash:    ##    - Test: bash calling sample scripts
