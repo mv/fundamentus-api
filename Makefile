@@ -68,10 +68,10 @@ pip-dev: ## - Pip install from requirements-dev.txt
 	pip3 install -r requirements_dev.txt
 
 
-pyenv:  ## - Pyenv Install + set local
-	@pyenv install $(_python_verson) || :
-	@pyenv local   $(_python_verson)
-	@pyenv version
+#pyenv:  ## - Pyenv Install + set local
+#	@pyenv install $(_python_verson) || :
+#	@pyenv local   $(_python_verson)
+#	@pyenv version
 
 
 clean:	## - Cleanup: pycache stuff
