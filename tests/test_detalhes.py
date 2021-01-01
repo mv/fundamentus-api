@@ -8,6 +8,9 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
+@pytest.fixture()
+def _get_detalhes_raw
+
 def test_get_detalhes_raw():
     # html_tables
     ht = detalhes.get_detalhes_raw('WEGE3')

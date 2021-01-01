@@ -2,17 +2,40 @@
 from fundamentus import papel
 
 import pandas as pd
+import pytest
 
 
-def test_get_list_papel():
+@pytest.fixture()
+def _get_list_papel():
     lst = papel.get_list_papel()
-    assert len(lst) > 10
+    return lst
 
-def test_get_df_papel():
 
-    cols = ['Papel', 'Nome Comercial', 'Razão Social']
+def test_get_list_papel__len(_get_list_papel):
+    assert len(_get_list_papel) > 10
+
+
+lst = ['ABEV3','ITSA4','WEGE3']
+@pytest.mark.parametrize('param', lst)
+def test_get_list_papel__len(_get_list_papel, param):
+    assert param in _get_list_papel
+
+
+###
+@pytest.fixture()
+def _get_df_papel():
     df = papel.get_df_papel()
+    return df
 
-    assert len(df) > 0
-    assert list(df.columns) == cols
+
+def test_get_df_papel__len(_get_df_papel):
+    assert len(_get_df_papel) > 0
+
+
+cols = ['Papel', 'Nome Comercial', 'Razão Social']
+
+@pytest.mark.parametrize('param', cols)
+def test_get_df_papel__col(_get_df_papel, param):
+    assert param in list(_get_df_papel.columns)
+
 
