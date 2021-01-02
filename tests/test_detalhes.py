@@ -4,9 +4,6 @@ from fundamentus import detalhes
 import pytest
 import pandas as pd
 
-import warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
-
 
 ###
 lst_papel = ['ABEV3','ITSA4','WEGE3']

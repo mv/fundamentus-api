@@ -13,12 +13,11 @@ from tabulate import tabulate
 from datetime import datetime
 from dateutil.parser import parse
 
-# ignore '.replace()' msgs for pandas
-import warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
 
-# TODO:
+#
+# Ref:
 #   https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.replace.html
+#   https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.replace.html
 #
 
 
@@ -41,26 +40,27 @@ def from_pt_br(val):
     """
     from_pt_br: fix key/label by removing pt-br stuff
     Input:
-        DataFrame()
+        Series, i.e., a DataFrame column
     """
     res = val
-    res = res.str.strip('?')
-    res = res.str.replace('(','')
-    res = res.str.replace(')','')
-    res = res.str.replace('$','')
-    res = res.str.replace('.','')
-    res = res.str.replace('/','')
-    res = res.str.replace('ç','c')
-    res = res.str.replace('ã','a')
-    res = res.str.replace('é','e')
-    res = res.str.replace('ê','e')
-    res = res.str.replace('ó','o')
-    res = res.str.replace('õ','o')
-    res = res.str.replace('í','i')
-    res = res.str.replace('ú','u')
-    res = res.str.replace('Ú','U')
-    res = res.str.replace(' ','_')
-    res = res.str.replace('__','_')
+
+    res.replace( to_replace=r'[?]'  , value=''  , regex=True, inplace=True )
+    res.replace( to_replace=r'[(]'  , value=''  , regex=True, inplace=True )
+    res.replace( to_replace=r'[)]'  , value=''  , regex=True, inplace=True )
+    res.replace( to_replace=r'[$]'  , value=''  , regex=True, inplace=True )
+    res.replace( to_replace=r'[.]'  , value=''  , regex=True, inplace=True )
+    res.replace( to_replace=r'[/]'  , value=''  , regex=True, inplace=True )
+
+    res.replace( to_replace=r'[ç]'  , value='c' , regex=True, inplace=True )
+    res.replace( to_replace=r'[âáã]', value='a' , regex=True, inplace=True )
+    res.replace( to_replace=r'[ôóõ]', value='o' , regex=True, inplace=True )
+    res.replace( to_replace=r'[êé]' , value='e' , regex=True, inplace=True )
+    res.replace( to_replace=r'[îí]' , value='i' , regex=True, inplace=True )
+    res.replace( to_replace=r'[ûú]' , value='u' , regex=True, inplace=True )
+    res.replace( to_replace=r'[ÛÚ]' , value='U' , regex=True, inplace=True )
+
+    res.replace( to_replace=r'[ ]'  , value='_' , regex=True, inplace=True )
+    res.replace( to_replace=r'__'   , value='_' , regex=True, inplace=True )
 
     return res
 
@@ -72,12 +72,12 @@ def fmt_dec(val):
       - from '45,56%' to '45.56%'
 
     Input:
-        DataFrame
+        Series, i.e., a DataFrame column
     """
 
     res = val
-    res = res.str.replace('.', '' )
-    res = res.str.replace(',', '.')
+    res = res.replace( to_replace=r'[.]', value='' , regex=True )
+    res = res.replace( to_replace=r'[,]', value='.', regex=True )
 #   res = res.astype(float)
 #   res = res.astype(float) / 100
 #   res = '{:4.2f}%'.format(res)
@@ -96,9 +96,9 @@ def perc_to_float(val):
     """
 
     res = val
-    res = res.str.rstrip('%')
-    res = res.str.replace('.', '' )
-    res = res.str.replace(',', '.')
+    res = res.replace( to_replace=r'[%]', value='' , regex=True )
+    res = res.replace( to_replace=r'[.]', value='' , regex=True )
+    res = res.replace( to_replace=r'[,]', value='.', regex=True )
     res = res.astype(float) / 100
 
     return res

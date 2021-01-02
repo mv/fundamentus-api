@@ -4,9 +4,6 @@ from fundamentus import resultado
 import pytest
 import pandas as pd
 
-import warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
-
 
 @pytest.fixture(name='df_resultado_raw', scope='session')
 def _get_resultado_raw():

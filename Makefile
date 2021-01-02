@@ -90,11 +90,11 @@ test:   ##    - Test: pytest
 test-detailed: ## - Test: pytest many details
 	coverage run --source=fundamentus -m \
 	  pytest tests/ -v --color=yes && \
-	coverage report
+	coverage report -m
 
 
 test-silent: ##   - Test: pytest most silent
-	pytest tests/ -q --color=yes --no-header --no-summary --disable-warnings
+	pytest tests/ -q --color=yes --no-header --no-summary
 
 
 test-bash:    ##    - Test: bash calling sample scripts
