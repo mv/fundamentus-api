@@ -49,7 +49,7 @@ def test_get_detalhes_raw_df2(each_papel):
     # THEN  third df must be 6x5
     ht = detalhes.get_detalhes_raw(each_papel)
     df = ht[2]
-    assert len(df)         == 11
+    assert len(df)         == 12
     assert len(df.columns) == 6
     assert df.iloc[1][2]   == '?P/L'
     assert df.iloc[1][4]   == '?LPA'
