@@ -9,12 +9,11 @@ language: python
 #   - only used/installed on TravisCI
 #
 before_install:
-  - pip install coveralls
   - pip install -r requirements_dev.txt
+  - pipenv sync
 
 install:
   - pip install -e .
-  - pip install -r requirements.txt
 
 script:
   - make test-detailed test-bash
