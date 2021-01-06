@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Moved repo to https://github.com/mv/fundamentus-api/
 - Moved git branch from 'master' to 'main'
+- Published in PyPI.
 
 
 ## [0.0.2] - 2021-01-06

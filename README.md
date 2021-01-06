@@ -1,4 +1,8 @@
 # Python Fundamentus
+
+[![version](https://img.shields.io/pypi/v/fundamentus.svg)](https://pypi.org/project/fundamentus/)
+[![pyversions](https://img.shields.io/pypi/pyversions/fundamentus.svg)](https://pypi.org/project/fundamentus/)
+[![license](https://img.shields.io/github/license/mv/fundamentus-api.svg)](https://pypi.org/project/fundamentus/)
 [![TravisCI](https://travis-ci.org/mv/fundamentus-api.svg?branch=main)](https://travis-ci.org/github/mv/fundamentus-api)
 [![Coverage](https://coveralls.io/repos/github/mv/fundamentus-api/badge.png?branch=main)](https://coveralls.io/github/mv/fundamentus-api?branch=main)
 
