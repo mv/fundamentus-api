@@ -105,15 +105,12 @@ pkg-dev: ## - Package dev.: install from src/ (dev/editable)
 pkg-dist-create: ##  - Package dist: create in dist/
 	python setup.py sdist bdist_wheel
 
-pkg-dist-install: ## - Package dist: install from dist/
-	pip3 install --no-index --find-links=./dist fundamentus
-
-pkg-uninstall: ##    - Package uninstall
-	pip3 uninstall -y fundamentus
-
 pypi-test-install: ## - PyPI: install from Test
 	pip3 install --index-url https://test.pypi.org/simple/ fundamentus
 
 pypi-test-upload: ##  - PyPI: upload to Test
 	twine upload --repository testpypi dist/*
+
+pypi-upload: ##  - PyPI: upload to Test
+	twine upload --repository pypi dist/*
 
