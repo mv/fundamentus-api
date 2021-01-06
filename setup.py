@@ -18,7 +18,7 @@ setup(
         'bin/magic_formula.simple.py',
     ],
 
-    url='https://github.com/mv/fundamentus/',
+    url='https://github.com/mv/fundamentus-api/',
     author='Mv-Marcus Vinicius Ferreira',
     author_email='ferreira.mv@gmail.com',
 

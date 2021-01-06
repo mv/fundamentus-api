@@ -1,6 +1,6 @@
 # Python Fundamentus
-[![TravisCI](https://travis-ci.org/mv/fundamentus.svg?branch=master)](https://travis-ci.org/github/mv/fundamentus)
-[![Coverage](https://coveralls.io/repos/github/mv/fundamentus/badge.png?branch=master)](https://coveralls.io/github/mv/fundamentus?branch=master)
+[![TravisCI](https://travis-ci.org/mv/fundamentus-api.svg?branch=main)](https://travis-ci.org/github/mv/fundamentus-api)
+[![Coverage](https://coveralls.io/repos/github/mv/fundamentus-api/badge.png?branch=main)](https://coveralls.io/github/mv/fundamentus-api?branch=main)
 
 
 Python API to load data from **[Fundamentus](ww.fundamentus.com.br)** website.
