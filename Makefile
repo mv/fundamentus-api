@@ -45,7 +45,7 @@ venv:   ## - Create virtualenv
 	pip3 install virtualenv	   && \
 	virtualenv $(_venv)        && \
 	source venv/bin/activate   && \
-	pip install --upgrade pip
+	pip3 install --upgrade pip wheel setuptools pipenv
 
 venv-clean: ## - Clean: rm virtualenv
 	/bin/rm -rf $(_venv)
@@ -59,12 +59,6 @@ pip:    ## - Pip install from requirements.txt
 pip-dev: ## - Pip install from requirements-dev.txt
 	. $(_venv)/bin/activate              && \
 	pip3 install -r requirements_dev.txt
-
-
-#pyenv:  ## - Pyenv Install + set local
-#	@pyenv install $(_python_version) || :
-#	@pyenv local   $(_python_version)
-#	@pyenv version
 
 
 clean:	## - Cleanup: pycache stuff
@@ -103,22 +97,22 @@ data-clean: ## - Clean data/
 
 
 pkg-dev: ## - Package dev.: install from src/ (dev/editable)
-	pip install -e .
+	pip3 install -e .
 	@echo
-	pip list | egrep -i '^Package|^---|^fundamentus'
+	pip3 list | egrep -i '^Package|^---|^fundamentus'
 	@echo
 
 pkg-dist-create: ##  - Package dist: create in dist/
 	python setup.py sdist bdist_wheel
 
 pkg-dist-install: ## - Package dist: install from dist/
-	pip install --no-index --find-links=./dist fundamentus
+	pip3 install --no-index --find-links=./dist fundamentus
 
 pkg-uninstall: ##    - Package uninstall
-	pip uninstall -y fundamentus
+	pip3 uninstall -y fundamentus
 
 pypi-test-install: ## - PyPI: install from Test
-	pip install --index-url https://test.pypi.org/simple/ fundamentus
+	pip3 install --index-url https://test.pypi.org/simple/ fundamentus
 
 pypi-test-upload: ##  - PyPI: upload to Test
 	twine upload --repository testpypi dist/*

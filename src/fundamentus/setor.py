@@ -53,8 +53,15 @@ def print_setores():
     return
 
 
+def _init_setor():
+    data = pd.DataFrame(_setor, columns=['label','desc','id'])
+    data.index = data['label']
+
+    return data[['desc','id']]
+
+
 ## Setores:
-setor = [
+_setor = [
    [ 'agro'            , 'Agropecuária'                       , 42 ] ,
    [ 'saneamento'      , 'Água e Saneamento'                  , 33 ] ,
    [ 'alimentos'       , 'Alimentos'                          , 15 ] ,
@@ -105,8 +112,8 @@ setor = [
    [ 'viagens'         , 'Viagens e Lazer'                    , 25 ] ,
 ]
 ##
-df = pd.DataFrame(setor, columns=['label','desc','id'])
-df.index = df['label']
-df = df[ ['desc','id']]
-# return df
+
+# setup/load
+df = _init_setor()
+
 
