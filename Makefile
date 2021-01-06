@@ -11,7 +11,8 @@
 # My vars: simple
 _this := $(shell uname -sr)
 _venv := venv
-_python_verson := 3.7.4
+#python_version := 3.7.1
+_python_version := $(shell python -V)
 
 # My vars: recursive
 
@@ -22,7 +23,7 @@ _dt = $(warning 'Invoking shell')$(shell date +%Y-%m-%d.%H:%M:%S)
 ### targets/tasks
 ###
 .DEFAULT_GOAL:= help
-.PHONY: help show init clean pip pip-dev venv venv-clean venv-clear pyenv data data-clean
+.PHONY: help show clean pip pip-dev venv venv-clean data data-clean #pyenv
 
 help:   ## - Default goal: list of targets in Makefile
 help:   show
@@ -36,12 +37,8 @@ show:   ## - Show my vars
 	@echo
 	@echo "  This: [$(_this)]"
 	@echo "  Virtualenv: [$(_venv)]"
-	@echo "  Python Version: [$(_python_verson)]"
+	@echo "  Python Version: [$(_python_version)]"
 	@echo
-
-
-init:   ## - Virtualenv install + pip install
-init:   venv pip
 
 
 venv:   ## - Create virtualenv
@@ -49,10 +46,6 @@ venv:   ## - Create virtualenv
 	virtualenv $(_venv)        && \
 	source venv/bin/activate   && \
 	pip install --upgrade pip
-
-venv-clear: ## - Reinstall virtualenv (--clear)
-	@echo "Reinstalling..."
-	virtualenv $(_venv) --clear
 
 venv-clean: ## - Clean: rm virtualenv
 	/bin/rm -rf $(_venv)
@@ -69,8 +62,8 @@ pip-dev: ## - Pip install from requirements-dev.txt
 
 
 #pyenv:  ## - Pyenv Install + set local
-#	@pyenv install $(_python_verson) || :
-#	@pyenv local   $(_python_verson)
+#	@pyenv install $(_python_version) || :
+#	@pyenv local   $(_python_version)
 #	@pyenv version
 
 
