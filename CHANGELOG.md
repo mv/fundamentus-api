@@ -13,12 +13,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -
 
 
-## [0.0.1] - 2021-01-06
+## [0.0.2] - 2021-01-06
+
+### Changed
+
+- CHANGELOG to CHANGELOG.md
+
+
+ ## [0.0.1] - 2021-01-06
 
 ### Added
 
 - Using 'tbump' to manage version control.
-
 
 
 ## [0.0.0] - 2020-12-20
