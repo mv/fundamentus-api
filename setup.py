@@ -11,7 +11,7 @@ setup(
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
 
-    version='0.0.0',
+    version='0.0.1',
 
     scripts=[
         'bin/fundamentus.csv.py',
