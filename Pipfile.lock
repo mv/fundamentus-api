@@ -150,7 +150,7 @@
                 "sha256:f10fc41ee3c75a474d3bdf68d396f10782d013d7f67db99c0efbfd0acb99701b"
             ],
             "index": "pypi",
-            "version": "==1.1.5,<2.0"
+            "version": "==1.1.5"
         },
         "python-dateutil": {
             "hashes": [
