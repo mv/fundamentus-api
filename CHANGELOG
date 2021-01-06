@@ -1,12 +1,24 @@
 CHANGELOG
 ---------
 
-0.0.0
------
+All notable changes to this project will be documented in this file.
 
-Changes: 
-========
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+
+
 
 - Initial version.
 - Ref: https://keepachangelog.com/en/1.0.0/
+## [0.0.0] - 2020-12-20
+
+### Added
+
+- README.md
+- Created package structure.
+- Created 'pytest' scripts.
+- Created testing coverage.
+- Using TravisCI and Coveralls
+- Using 'twine' to create and publish a package.
 
