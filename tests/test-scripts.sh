@@ -17,15 +17,15 @@ export LOGLEVEL=${LOGLEVEL:-debug}
 let exe_count=0
 let tot_count=0
 
-echodo python3 bin/detail.all.py
-echodo python3 bin/detail.my-list.py
-echodo python3 bin/detail.show.py
-echodo python3 bin/filter.example.py
-echodo python3 bin/filter.finan.csv.py
-echodo python3 bin/filter.finan.table.py
-echodo python3 bin/filter.top-10-DivYield.py
-echodo python3 bin/fundamentus.csv.py
-echodo python3 bin/magic_formula.simple.py
+echodo python3 examples/detail.all.py
+echodo python3 examples/detail.my-list.py
+echodo python3 examples/detail.show.py
+echodo python3 examples/filter.example.py
+echodo python3 examples/filter.finan.csv.py
+echodo python3 examples/filter.finan.table.py
+echodo python3 examples/filter.top-10-DivYield.py
+echodo python3 examples/fundamentus.csv.py
+echodo python3 examples/magic_formula.simple.py
 
 echo "==="
 echo "=== Count: Success = ${exe_count}/${tot_count}"

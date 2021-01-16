@@ -15,10 +15,10 @@ setup(
 
     version='0.1.0',
 
-    scripts=[
-        'bin/fundamentus.csv.py',
-        'bin/magic_formula.simple.py',
-    ],
+#   scripts=[
+#       'bin/fundamentus.csv.py',
+#       'bin/magic_formula.simple.py',
+#   ],
 
     url='https://github.com/mv/fundamentus-api/',
     author='Mv-Marcus Vinicius Ferreira',

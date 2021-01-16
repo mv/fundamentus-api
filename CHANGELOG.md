@@ -13,6 +13,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -
 
 
+## [0.2.0] - 2021-01-16
+
+### Changed
+
+- Upgraded to pandas 1.2.0
+- Dropping Python versions 3.5, 3.6
+- Covering Python version  3.9
+- Moved scripts from bin/ to examples/
+
+### Added
+
+- Github Actions as an alternative to TravisCI
+- Dependabot setup
+
+
 ## [0.1.0] - 2021-01-06
 
 ### Changed
