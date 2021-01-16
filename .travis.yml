@@ -4,14 +4,14 @@
 #
 
 language: python
+python:
+  - "3.7"
+  - "3.8"
+  - "3.9"
 
-# coveralls:
-#   - only used/installed on TravisCI
-#
 before_install:
-  - pip install pandas==1.2.0 -v --no-cache-dir --force-reinstall
   - pip install -r requirements_dev.txt
-  - pip install -v -r requirements.txt --no-cache-dir
+  - pip install -r requirements.txt
 # - pipenv sync
 
 install:
@@ -22,4 +22,3 @@ script:
 
 after_success:
   - coveralls
-
