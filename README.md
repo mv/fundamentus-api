@@ -1,11 +1,11 @@
 # Python Fundamentus
 
-[![version](https://img.shields.io/pypi/v/fundamentus.svg)](https://pypi.org/project/fundamentus/)
+[![version](https://img.shields.io/pypi/v/fundamentus.svg?color=blue)](https://pypi.org/project/fundamentus/)
 [![pyversions](https://img.shields.io/pypi/pyversions/fundamentus.svg)](https://pypi.org/project/fundamentus/)
-[![license](https://img.shields.io/github/license/mv/fundamentus-api.svg)](https://pypi.org/project/fundamentus/)
-[![TravisCI](https://travis-ci.org/mv/fundamentus-api.svg?branch=main)](https://travis-ci.org/github/mv/fundamentus-api)
+[![license](https://img.shields.io/github/license/mv/fundamentus-api.svg?color=blue)](https://pypi.org/project/fundamentus/)
+[![TravisCI](https://img.shields.io/travis/mv/fundamentus-api/main?label=TravisCI&logo=travis)](https://travis-ci.org/github/mv/fundamentus-api)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mv/fundamentus-api/python-testing?label=actions&logo=github)](https://github.com/mv/fundamentus-api/actions?query=workflow%3Apython-testing)
 [![Coverage](https://coveralls.io/repos/github/mv/fundamentus-api/badge.png?branch=main)](https://coveralls.io/github/mv/fundamentus-api?branch=main)
-
 
 Python API to load data from **[Fundamentus](ww.fundamentus.com.br)** website.
 
