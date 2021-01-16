@@ -34,13 +34,17 @@ jobs:
       run: |
         pip install -e .
 
-    - name: Test
+    - name: Test: Detailed
       run: |
         make test-detailed
-        make test-bash
 
-    - name: Coverage
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Coveralls
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        coveralls
+
+    - name: Test: Examples
+      run: |
+        make test-bash
 
