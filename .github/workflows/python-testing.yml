@@ -1,6 +1,6 @@
 # vim:ft=yaml
 
-name: Python Testing
+name: python-testing
 
 on: [push]
 

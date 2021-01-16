@@ -10,7 +10,7 @@ hypothesis>=5.43.4
 pytest-sugar>=0.9.4,<1.0
 
 coverage>=5.3.1
-coveralls>=2.2.0,<3.0
+coveralls>=3.0.0,<4.0
 
 twine>=3.3.0,<4.0
 pipenv>=2020.11.15
