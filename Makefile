@@ -53,13 +53,18 @@ venv-clean: ## - Clean: rm virtualenv
 pip:    ## - Install/upgrade Pip stuff
 	pip3 install --upgrade pip wheel setuptools pipenv
 
+pip-src: ## - Pip install src/ (dev/editable)
+	pip3 install -e .
+	@echo
+	pip3 list | egrep -i '^Package|^---|^fundamentus'
+	@echo
 
 req:    ## - Pip install from requirements.txt
 	. $(_venv)/bin/activate              && \
 	pip3 install -r requirements.txt
 
 
-req-dev: ## - Pip install from requirements-dev.txt
+req-dev: ## - Pip install from requirements_dev.txt
 	. $(_venv)/bin/activate              && \
 	pip3 install -r requirements_dev.txt
 
@@ -69,6 +74,7 @@ clean:	## - Cleanup: pycache stuff
 	find . -type f | egrep -i '.pyc|.pyb' | xargs rm
 	rm -rf .pytest_cache
 	rm -rf .ipynb_checkpoints
+	rm -rf dist/*
 
 
 test:   ##    - Test: pytest
@@ -99,21 +105,12 @@ data-clean: ## - Clean data/
 	/bin/rm -f data/*.*
 
 
-pkg-dev: ## - Package dev.: install from src/ (dev/editable)
-	pip3 install -e .
-	@echo
-	pip3 list | egrep -i '^Package|^---|^fundamentus'
-	@echo
-
-pkg-dist-create: ##  - Package dist: create in dist/
+pkg:	## - Package dist: create in dist/
 	python setup.py sdist bdist_wheel
 
-pypi-test-install: ## - PyPI: install from Test
-	pip3 install --index-url https://test.pypi.org/simple/ fundamentus
-
-pypi-test-upload: ##  - PyPI: upload to Test
+pkg-upload-test: ##  - PyPI: upload to Test
 	twine upload --repository testpypi dist/*
 
-pypi-upload: ##  - PyPI: upload to Test
+pkg-upload-pypi: ##  - PyPI: upload to Test
 	twine upload --repository pypi dist/*
 
