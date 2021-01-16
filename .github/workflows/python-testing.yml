@@ -34,7 +34,7 @@ jobs:
       run: |
         pip install -e .
 
-    - name: Test: Detailed
+    - name: Test Detailed
       run: |
         make test-detailed
 
@@ -44,7 +44,7 @@ jobs:
       run: |
         coveralls
 
-    - name: Test: Examples
+    - name: Test Examples
       run: |
         make test-bash
 
