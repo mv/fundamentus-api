@@ -1,16 +1,17 @@
 # vim:ft=yaml
 
-name: Python package
+name: Python Testing
 
 on: [push]
 
 jobs:
   build:
 
+###
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.5, 3.6, 3.7, 3.8]
+        python-version: [3.6, 3.7, 3.8]
 
     steps:
     - uses: actions/checkout@v2
@@ -23,16 +24,20 @@ jobs:
       run: |
         python -c "import sys; print(sys.version)"
 
+
+###
     - name: Install dependencies
       run: |
         make pip
         pip install -r requirements.txt
         pip install -r requirements_dev.txt
 
-    - name: Install current source
+    - name: Install source
       run: |
         pip install -e .
 
+
+###
     - name: Test Detailed
       run: |
         make test-detailed
@@ -43,6 +48,7 @@ jobs:
       run: |
         coveralls
 
+###
     - name: Test Examples
       run: |
         make test-bash
