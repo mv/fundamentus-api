@@ -1,0 +1,55 @@
+# vim:ft=yaml
+
+name: python-testing
+
+on: [push]
+
+jobs:
+  build:
+
+###
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Display Python version
+      run: |
+        python -c "import sys; print(sys.version)"
+
+
+###
+    - name: Install dependencies
+      run: |
+        make pip
+        pip install -r requirements.txt
+        pip install -r requirements_dev.txt
+
+    - name: Install source
+      run: |
+        pip install -e .
+
+
+###
+    - name: Test Detailed
+      run: |
+        make test-detailed
+
+    - name: Coveralls
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        coveralls
+
+###
+    - name: Test Examples
+      run: |
+        make test-bash
+

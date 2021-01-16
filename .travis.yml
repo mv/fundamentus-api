@@ -9,8 +9,10 @@ language: python
 #   - only used/installed on TravisCI
 #
 before_install:
+  - pip install pandas==1.2.0 -v --no-cache-dir --force-reinstall
   - pip install -r requirements_dev.txt
-  - pipenv sync
+  - pip install -v -r requirements.txt --no-cache-dir
+# - pipenv sync
 
 install:
   - pip install -e .

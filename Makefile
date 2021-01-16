@@ -50,13 +50,16 @@ venv:   ## - Create virtualenv
 venv-clean: ## - Clean: rm virtualenv
 	/bin/rm -rf $(_venv)
 
+pip:    ## - Install/upgrade Pip stuff
+	pip3 install --upgrade pip wheel setuptools pipenv
 
-pip:    ## - Pip install from requirements.txt
+
+req:    ## - Pip install from requirements.txt
 	. $(_venv)/bin/activate              && \
 	pip3 install -r requirements.txt
 
 
-pip-dev: ## - Pip install from requirements-dev.txt
+req-dev: ## - Pip install from requirements-dev.txt
 	. $(_venv)/bin/activate              && \
 	pip3 install -r requirements_dev.txt
 
