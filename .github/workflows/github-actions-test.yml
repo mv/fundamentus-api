@@ -26,10 +26,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        make pip
-        pip install pandas==1.2.0 -v --no-cache-dir --force-reinstall
-        pip install -r requirements_dev.txt
-        pip install -r requirements.txt
+        make pip req-dev req
 
     - name: Install current source
       run: |
