@@ -22,6 +22,8 @@ __version__ = '0.2.0'
 from fundamentus.resultado  import get_resultado
 from fundamentus.resultado  import get_resultado_raw
 
+from fundamentus.fii import get_fii
+
 from fundamentus.detalhes   import get_papel
 from fundamentus.detalhes   import get_detalhes_papel
 from fundamentus.detalhes   import get_detalhes_raw
