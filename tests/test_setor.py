@@ -7,14 +7,13 @@ import pytest
 
 ###
 @pytest.mark.parametrize(
-    'param',[ pytest.param(35, id='fin' )
-            , pytest.param(38, id='seg' )
+    'param',[ pytest.param(38, id='seg' )
             , pytest.param(38, id='prev')
             ])
 def test_list_papel_setor__len(param):
     # GIVEN calling 'list_papel_setor()'
-    # WHEN  'setor' is 35 or 38
-    # THEN  list must contain more than on 'papel'
+    # WHEN  'setor' is 38
+    # THEN  list must contain more than one 'papel'
     lst = setor.list_papel_setor(param)
     assert len(lst) > 0
 
