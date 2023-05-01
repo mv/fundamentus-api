@@ -3,7 +3,7 @@
 utils:
     Utility helpers.
 """
-
+import numpy
 import requests
 import requests_cache
 import pandas   as pd
@@ -76,7 +76,8 @@ def fmt_dec(val):
     """
 
     res = val
-    res = res.replace( to_replace=r'[.]', value='' , regex=True )
+
+    res = res.apply(lambda value: value.replace('.', '') if value is not numpy.NAN and '%' in value else value)
     res = res.replace( to_replace=r'[,]', value='.', regex=True )
 #   res = res.astype(float)
 #   res = res.astype(float) / 100
