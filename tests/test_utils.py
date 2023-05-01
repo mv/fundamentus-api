@@ -46,12 +46,12 @@ def test_from_pt_br_02():
 
 ###
 def test_fmt_dec():
-    more_data = { 'col1': [ 11,21],
-                  'col2': [ 12,22],
-                  'col3': [ 13,23]}
-    b = { 'data': [ '45,56%','1.045,56%' ]}
+    more_data = { 'col1': [ 11,21,31],
+                  'col2': [ 12,22,32],
+                  'col3': [ 13,23,33]}
+    b = { 'data': [ '45,56%','1.045,56%', '0.14' ]}
     b.update(more_data)
-    a = { 'data': [ '45.56%','1045.56%'  ]}
+    a = { 'data': [ '45.56%','1045.56%', '0.14' ]}
     a.update(more_data)
 
     _before = pd.DataFrame(b)
