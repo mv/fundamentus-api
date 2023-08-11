@@ -14,9 +14,10 @@ from . import utils
 
 import requests
 import requests_cache
-import pandas   as pd
+import pandas as pd
 import time
 import logging, sys
+from concurrent.futures import ThreadPoolExecutor
 
 from collections import OrderedDict
 
@@ -55,13 +56,9 @@ def get_detalhes_list(lst):
     Output: DataFrame
     """
 
-    result = pd.DataFrame()
-
-    # build result for each get
-    for papel in lst:
-        logging.info('get list: [Papel: {}]'.format(papel))
-        df = get_detalhes_papel(papel)
-        result = result.append(df)
+    with ThreadPoolExecutor() as executor:
+        result = executor.map(get_papel, lst)
+    result = pd.concat(result)
 
     # duplicate column (papel is the index already)
     try:
