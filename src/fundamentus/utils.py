@@ -6,12 +6,13 @@ utils:
 
 import requests
 import requests_cache
-import pandas   as pd
+import pandas as pd
 import logging
 
 from tabulate import tabulate
 from datetime import datetime
 from dateutil.parser import parse
+from pandas import Series
 
 
 #
@@ -65,7 +66,7 @@ def from_pt_br(val):
     return res
 
 
-def fmt_dec(val):
+def fmt_dec(val: Series):
     """
     Fix percent:
       - replace string in pt-br
@@ -74,34 +75,34 @@ def fmt_dec(val):
     Input:
         Series, i.e., a DataFrame column
     """
-
-    res = val
-    res = res.replace( to_replace=r'[.]', value='' , regex=True )
-    res = res.replace( to_replace=r'[,]', value='.', regex=True )
-#   res = res.astype(float)
-#   res = res.astype(float) / 100
-#   res = '{:4.2f}%'.format(res)
-
-    return res
+    return pd.to_numeric(val.apply(parse_number_in_portuguese_locale))
 
 
-def perc_to_float(val):
+def parse_number_in_portuguese_locale(no: str) -> float:
+    """
+    Parse numbers to float
+    Percentages also will be parsed to float (3% to 3e-2)
+
+    Input:
+        A number string
+    """
+    try:
+        no = no.replace('%', 'e-2').replace(".", "").replace(",", ".")
+        return float(no)
+    except:
+        logging.error(f"Error: Unable to parse the number. {no}")
+        return None
+
+def perc_to_float(val: Series):
     """
     Percent to float
       - replace string in pt-br to float
       - from '45,56%' to 0.4556
 
     Input:
-        (DataFrame, column_name)
+        Series
     """
-
-    res = val
-    res = res.replace( to_replace=r'[%]', value='' , regex=True )
-    res = res.replace( to_replace=r'[.]', value='' , regex=True )
-    res = res.replace( to_replace=r'[,]', value='.', regex=True )
-    res = res.astype(float) / 100
-
-    return res
+    return fmt_dec(val)
 
 
 def print_csv(data):

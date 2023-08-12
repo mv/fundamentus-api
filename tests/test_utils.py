@@ -51,7 +51,7 @@ def test_fmt_dec():
                   'col3': [ 13,23]}
     b = { 'data': [ '45,56%','1.045,56%' ]}
     b.update(more_data)
-    a = { 'data': [ '45.56%','1045.56%'  ]}
+    a = { 'data': [ 45.56e-2,1045.56e-2  ]}
     a.update(more_data)
 
     _before = pd.DataFrame(b)
@@ -68,7 +68,7 @@ def test_perc_to_float():
                   'col3': [ 13,23]}
     b = { 'data': [ '45,56%','1.045,56%' ]}
     b.update(more_data)
-    a = { 'data': [   0.4556, 10.4556    ]}
+    a = { 'data': [45.56e-2, 1045.56e-2]}
     a.update(more_data)
 
     _before = pd.DataFrame(b)
