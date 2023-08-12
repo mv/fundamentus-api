@@ -33,6 +33,21 @@ class Test_from_pt_br(unittest.TestCase):
 
         pd.testing.assert_frame_equal(_test.to_frame(), _after)
 
+constants = [
+            ("1.000.000", 1000000),
+            ("1,23", 1.23),
+            ("1.234,56", 1234.56),
+            ("1,23%", 1.23e-2)
+        ]
+
+class Test_parse_numbers(unittest.TestCase):
+    def test_numbers(self):
+        for tuples in constants:
+            self.assertAlmostEqual(
+                utils.parse_number_in_portuguese_locale(tuples[0]),
+                tuples[1])
+
+
 
 if __name__ == '__main__':
 

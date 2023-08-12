@@ -7,7 +7,7 @@ import pytest
 
 ###
 @pytest.mark.parametrize(
-    'param',[ pytest.param(35, id='fin' )
+    'param',[ pytest.param(36, id='div' )
             , pytest.param(38, id='seg' )
             , pytest.param(38, id='prev')
             ])
