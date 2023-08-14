@@ -56,12 +56,15 @@ def get_detalhes_list(lst):
     """
 
     result = pd.DataFrame()
-
+    list_dfs = [] # Empty list
     # build result for each get
     for papel in lst:
         logging.info('get list: [Papel: {}]'.format(papel))
         df = get_detalhes_papel(papel)
-        result = result.append(df)
+        list_dfs.append(df) # Add dataframes to list
+    
+    # Concat all dfs
+    result = pd.concat(list_dfs, ignore_index=False)
 
     # duplicate column (papel is the index already)
     try:
