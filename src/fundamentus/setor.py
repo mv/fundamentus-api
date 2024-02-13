@@ -4,6 +4,7 @@ setor:
     Info from .../detalhes.php?setor=
 """
 
+from io import StringIO
 import requests
 import requests_cache
 import pandas   as pd
@@ -39,7 +40,7 @@ def list_papel_setor(setor=None):
 
 
     ## parse + load
-    df = pd.read_html(content.text, decimal=",", thousands='.')[0]
+    df = pd.read_html(StringIO(content.text), decimal=",", thousands='.')[0]
 
     ##
     return list(df['Papel'])

@@ -4,6 +4,7 @@ papel:
     Info from .../detalhes.php, i.e., with no parameters
 """
 
+from io import StringIO
 import requests
 import requests_cache
 import pandas   as pd
@@ -51,7 +52,7 @@ def get_df_papel():
 
 
     ## parse
-    df = pd.read_html(content.text)[0]
+    df = pd.read_html(StringIO(content.text))[0]
 
     return df
 
