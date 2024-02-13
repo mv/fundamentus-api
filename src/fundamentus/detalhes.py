@@ -4,6 +4,7 @@ detalhes:
     Info from .../detalhes.php?papel=
 """
 
+from io import StringIO
 from . import utils
 
 # import fundamentus.utils as utils
@@ -229,7 +230,7 @@ def get_detalhes_raw(papel='WEGE3'):
             time.sleep(.500) # 500 ms
 
     ## parse
-    tables_html = pd.read_html(content.text, decimal=",", thousands='.')
+    tables_html = pd.read_html(StringIO(content.text), decimal=",", thousands='.')
 
     return tables_html
 
@@ -261,7 +262,7 @@ def list_papel_all():
             time.sleep(.500) # 500 ms
 
     ## parse
-    df = pd.read_html(content.text, decimal=",", thousands='.')[0]
+    df = pd.read_html(StringIO(content.text), decimal=",", thousands='.')[0]
 
     lst = list(df['Papel'])
     logging.info('members in list = {}'.format(len(lst)))

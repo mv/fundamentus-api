@@ -4,6 +4,7 @@ resultado:
 """
 
 
+from io import StringIO
 import fundamentus.utils as utils
 
 import requests
@@ -47,7 +48,7 @@ def get_resultado_raw():
 
 
     ## parse + load
-    df = pd.read_html(content.text, decimal=",", thousands='.')[0]
+    df = pd.read_html(StringIO(content.text), decimal=",", thousands='.')[0]
 
     ## Fix: percent string
     df['Div.Yield']     = utils.perc_to_float( df['Div.Yield']     )
