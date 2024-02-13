@@ -61,7 +61,7 @@ def get_detalhes_list(lst):
     for papel in lst:
         logging.info('get list: [Papel: {}]'.format(papel))
         df = get_detalhes_papel(papel)
-        result = result.append(df)
+        result = pd.concat([result, df])
 
     # duplicate column (papel is the index already)
     try:

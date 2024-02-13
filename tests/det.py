@@ -21,8 +21,8 @@ detalhes.get_detalhes_papel('ITSA4')
 detalhes.get_detalhes_papel('WEGE3')
 detalhes.get_detalhes_list(['ITSA4','WEGE3'])
 
-detalhes.get_detalhes('ITSA4')
-detalhes.get_detalhes('WEGE3')
-detalhes.get_detalhes(['ITSA4','WEGE3'])
+detalhes.get_detalhes_raw('ITSA4')
+detalhes.get_detalhes_raw('WEGE3')
+detalhes.get_detalhes_list(['ITSA4','WEGE3'])
 
 
