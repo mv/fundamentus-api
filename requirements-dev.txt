@@ -1,0 +1,18 @@
+#
+# Ref:
+#   virtualenv .venv
+#   source .venv/bin/activate
+#   pip install -r requirements-dev.txt
+#
+
+pytest>=8.4.1
+hypothesis>=6.135.16
+pytest-sugar
+
+coverage>=5.5.0
+#coveralls==2.2.0
+
+twine>=3.8.0
+tbump>=6.11.0
+
+#pipenv>=2025.11.15
