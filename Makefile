@@ -64,9 +64,10 @@ req:    ## - Pip install from requirements.txt
 	pip3 install -r requirements.txt
 
 
-req-dev: ## - Pip install from requirements_dev.txt
+.PHONY: req-dev
+req-dev: ## - Pip install from requirements-dev.txt
 	. $(_venv)/bin/activate              && \
-	pip3 install -r requirements_dev.txt
+	pip3 install -r requirements-dev.txt
 
 
 clean:	## - Cleanup: pycache stuff
