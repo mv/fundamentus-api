@@ -7,9 +7,10 @@ import pytest
 
 ###
 @pytest.mark.parametrize(
-    'param',[ pytest.param(35, id='fin' )
-            , pytest.param(38, id='seg' )
-            , pytest.param(38, id='prev')
+    'param',[ pytest.param(20, id='fin' )
+            , pytest.param(37, id='fin-diversos' )
+#           , pytest.param(35, id='seg-rec' )
+            , pytest.param(31, id='prev-seg')
             ])
 def test_list_papel_setor__len(param):
     # GIVEN calling 'list_papel_setor()'
@@ -21,9 +22,9 @@ def test_list_papel_setor__len(param):
 
 ###
 @pytest.mark.parametrize(
-    'param',[ pytest.param( ['financeiro' , 35], id='fin' )
-            , pytest.param( ['seguros'    , 38], id='seg' )
-            , pytest.param( ['previdencia', 38], id='prev')
+    'param',[ pytest.param( ['financeiro'  , 20], id='fin' )
+            , pytest.param( ['fin-diversos', 37], id='fin-diversos' )
+            , pytest.param( ['prev-seguros', 31], id='prev-seg')
             ])
 def test_get_setor_id__setor(param):
     # GIVEN calling 'get_setor_id()'
@@ -42,7 +43,7 @@ def test_print_setores(capfd):
     msg = out.split('\n')
     typ = type(msg)
 
-    # output table: 51 lines
-    assert len(msg) == 51
+    # output table: 46 lines
+    assert len(msg) == 46
 
 

@@ -4,6 +4,7 @@ setor:
     Info from .../detalhes.php?setor=
 """
 
+import io
 import requests
 import requests_cache
 import pandas   as pd
@@ -39,7 +40,7 @@ def list_papel_setor(setor=None):
 
 
     ## parse + load
-    df = pd.read_html(content.text, decimal=",", thousands='.')[0]
+    df = pd.read_html(io.StringIO(content.text), decimal=",", thousands='.')[0]
 
     ##
     return list(df['Papel'])
@@ -61,55 +62,60 @@ def _init_setor():
 
 
 ## Setores:
+## Ref:
+##   view-source:https://fundamentus.com.br/buscaavancada.php
+##
+##   <select name="setor">
+##     <option value="" selected></option>
+##     <option value="1">Agropecuária</option>
+##     ..
+##     <option value="43">Viagens e Lazer</option>
+##   </select>
+
 _setor = [
-   [ 'agro'            , 'Agropecuária'                       , 42 ] ,
-   [ 'saneamento'      , 'Água e Saneamento'                  , 33 ] ,
-   [ 'alimentos'       , 'Alimentos'                          , 15 ] ,
-   [ 'bebidas'         , 'Bebidas'                            , 16 ] ,
-   [ 'com1'            , 'Comércio'                           , 27 ] ,
-   [ 'com2'            , 'Comércio'                           , 12 ] ,
-   [ 'com3'            , 'Comércio e Distribuição'            , 20 ] ,
-   [ 'computadores'    , 'Computadores e Equipamentos'        , 28 ] ,
-   [ 'construcao'      , 'Construção e Engenharia'            , 13 ] ,
-   [ 'engenharia'      , 'Construção e Engenharia'            , 13 ] ,
-   [ 'diversos'        , 'Diversos'                           , 26 ] ,
-   [ 'embalagens'      , 'Embalagens'                         , 6  ] ,
-   [ 'energia'         , 'Energia Elétrica'                   , 32 ] ,
-   [ 'equipamentos'    , 'Equipamentos Elétricos'             , 9  ] ,
-   [ 'imoveis'         , 'Exploração de Imóveis'              , 39 ] ,
-   [ 'financeiro'      , 'Financeiros'                        , 35 ] ,
-   [ 'fumo'            , 'Fumo'                               , 17 ] ,
-   [ 'gas'             , 'Gás'                                , 34 ] ,
-   [ 'holdings'        , 'Holdings Diversificadas'            , 40 ] ,
-   [ 'hoteis'          , 'Hoteis e Restaurantes'              , 24 ] ,
-   [ 'restaurantes'    , 'Hoteis e Restaurantes'              , 24 ] ,
-   [ 'papel'           , 'Madeira e Papel'                    , 5  ] ,
-   [ 'maquinas'        , 'Máquinas e Equipamentos'            , 10 ] ,
-   [ 'materiais'       , 'Materiais Diversos'                 , 7  ] ,
-   [ 'transporte'      , 'Material de Transporte'             , 8  ] ,
-   [ 'midia'           , 'Mídia'                              , 23 ] ,
-   [ 'mineracao'       , 'Mineração'                          , 2  ] ,
-   [ 'outros'          , 'Outros'                             , 41 ] ,
-   [ 'petroleo'        , 'Petróleo, Gás e Biocombustíveis'    , 1  ] ,
-   [ 'previdencia'     , 'Previdência e Seguros'              , 38 ] ,
-   [ 'seguros'         , 'Previdência e Seguros'              , 38 ] ,
-   [ 'usopessoal'      , 'Prods. de Uso Pessoal e de Limpeza' , 18 ] ,
-   [ 'limpeza'         , 'Prods. de Uso Pessoal e de Limpeza' , 18 ] ,
-   [ 'programas'       , 'Programas e Serviços'               , 29 ] ,
-   [ 'quimicos'        , 'Químicos'                           , 4  ] ,
-   [ 'saude'           , 'Saúde'                              , 19 ] ,
-   [ 'securitizadoras' , 'Securitizadoras de Recebíveis'      , 36 ] ,
-   [ 'servicos'        , 'Serviços'                           , 11 ] ,
-   [ 'finandiversos'   , 'Serviços Financeiros Diversos'      , 37 ] ,
-   [ 'siderurgia'      , 'Siderurgia e Metalurgia'            , 3  ] ,
-   [ 'tecidos'         , 'Tecidos, Vestuário e Calçados'      , 21 ] ,
-   [ 'vestuario'       , 'Tecidos, Vestuário e Calçados'      , 21 ] ,
-   [ 'telecom'         , 'Telecomunicações'                   , 43 ] ,
-   [ 'telefoniafixa'   , 'Telefonia Fixa'                     , 30 ] ,
-   [ 'telefoniamovel'  , 'Telefonia Móvel'                    , 31 ] ,
-   [ 'transporte'      , 'Transporte'                         , 14 ] ,
-   [ 'utilidades'      , 'Utilidades Domésticas'              , 22 ] ,
-   [ 'viagens'         , 'Viagens e Lazer'                    , 25 ] ,
+   [ 'agro'               , 'Agropecuária'                             ,  1 ] ,
+   [ 'saneamento'         , 'Água e Saneamento'                        ,  2 ] ,
+   [ 'alimentos'          , 'Alimentos Processados'                    ,  3 ] ,
+   [ 'autos'              , 'Automóveis e Motocicletas'                ,  5 ] ,
+   [ 'bebidas'            , 'Bebidas'                                  ,  6 ] ,
+   [ 'comercio'           , 'Comércio'                                 ,  7 ] ,
+   [ 'comercio-distro'    , 'Comércio e Distribuição'                  ,  8 ] ,
+   [ 'computadores'       , 'Computadores e Equipamentos'              ,  9 ] ,
+   [ 'construcao'         , 'Construção Civil'                         , 10 ] ,
+   [ 'engenharia'         , 'Construção e Engenharia'                  , 11 ] ,
+   [ 'diversos'           , 'Diversos'                                 , 12 ] ,
+   [ 'embalagens'         , 'Embalagens'                               , 13 ] ,
+   [ 'energia'            , 'Energia Elétrica'                         , 14 ] ,
+   [ 'equipamentos'       , 'Equipamentos'                             , 15 ] ,
+   [ 'imoveis'            , 'Exploração de Imóveis'                    , 16 ] ,
+   [ 'gas'                , 'Gás'                                      , 17 ] ,
+   [ 'holdings'           , 'Holdings Diversificadas'                  , 18 ] ,
+   [ 'hoteis-restaurantes', 'Hoteis e Restaurantes'                    , 19 ] ,
+   [ 'financeiro'         , 'Intermediários Financeiros'               , 20 ] ,
+   [ 'papel'              , 'Madeira e Papel'                          , 21 ] ,
+   [ 'maquinas'           , 'Máquinas e Equipamentos'                  , 22 ] ,
+   [ 'materiais'          , 'Materiais Diversos'                       , 23 ] ,
+   [ 'transporte'         , 'Material de Transporte'                   , 24 ] ,
+   [ 'medicamentos'       , 'Medicamentos e Outros Produtos'           , 25 ] ,
+   [ 'midia'              , 'Mídia'                                    , 26 ] ,
+   [ 'mineracao'          , 'Mineração'                                , 27 ] ,
+   [ 'outros'             , 'Outros'                                   , 28 ] ,
+   [ 'outros-tit'         , 'Outros Títulos'                           , 29 ] ,
+   [ 'petroleo'           , 'Petróleo, Gás e Biocombustíveis'          , 30 ] ,
+   [ 'prev-seguros'       , 'Previdência e Seguros'                    , 31 ] ,
+   [ 'uso-pessoal'        , 'Produtos de Uso Pessoal e de Limpeza'     , 32 ] ,
+   [ 'programas-serv'     , 'Programas e Serviços'                     , 33 ] ,
+   [ 'quimicos'           , 'Químicos'                                 , 34 ] ,
+   [ 'securitizadoras'    , 'Securitizadoras de Recebíveis'            , 35 ] ,
+   [ 'saude'              , 'Serv.Méd.Hospit. Análises e Diagnósticos' ,  4 ] ,
+   [ 'servicos-diversos'  , 'Serviços Diversos'                        , 36 ] ,
+   [ 'fin-diversos'       , 'Serviços Financeiros Diversos'            , 37 ] ,
+   [ 'siderurgia'         , 'Siderurgia e Metalurgia'                  , 38 ] ,
+   [ 'tecidos'            , 'Tecidos, Vestuário e Calçados'            , 39 ] ,
+   [ 'telecom'            , 'Telecomunicações'                         , 40 ] ,
+   [ 'transporte'         , 'Transporte'                               , 41 ] ,
+   [ 'utilidades'         , 'Utilidades Domésticas'                    , 42 ] ,
+   [ 'viagens'            , 'Viagens e Lazer'                          , 43 ] ,
 ]
 ##
 

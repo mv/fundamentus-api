@@ -13,6 +13,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -
 
 
+## [0.3.0] - 2025-06-26
+
+### Changed
+
+- Upgraded to pandas 2.3.0
+- Upgraded versions in 'requirements.txt'
+- Covering Python version  3.13
+- Removed Pandas deprecation warnings.
+- Updated 'setor' ids from the latest page source at
+  'view-source:https://fundamentus.com.br/buscaavancada.php'
+
+### Added
+
+- notes/setor.select.html.md
+
+
 ## [0.2.0] - 2021-01-16
 
 ### Changed

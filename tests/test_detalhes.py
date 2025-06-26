@@ -99,7 +99,8 @@ def test_get_detalhes_papel(each_papel):
 
     assert len(df) > 0
     assert list(df.columns) == cols
-    assert df['Papel'][0]   == each_papel
+#   assert df['Papel'][0]   == each_papel
+    assert df['Papel'].iloc[0]   == each_papel
 
 
 ###
@@ -126,7 +127,8 @@ def test_get_papel__as_list():
 ###
 def test_get_papel__as_papel(each_papel):
     df = detalhes.get_papel(each_papel)
-    assert df['Papel'][0] == each_papel
+
+    assert df['Papel'].iloc[0]   == each_papel
 
 
 ###
