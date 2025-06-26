@@ -25,7 +25,7 @@ def filter_out(data):
     df = data
     lst = []
     lst = lst + list_papel_setor( get_setor_id('financeiro') )
-    lst = lst + list_papel_setor( get_setor_id('seguros'   ) )
+    lst = lst + list_papel_setor( get_setor_id('prev-seguros') )
 
     for idx in lst:
         try:
