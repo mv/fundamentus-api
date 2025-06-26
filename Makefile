@@ -23,7 +23,7 @@ _dt = $(warning 'Invoking shell')$(shell date +%Y-%m-%d.%H:%M:%S)
 ### targets/tasks
 ###
 .DEFAULT_GOAL:= help
-.PHONY: help show clean pip pip-dev venv venv-clean data data-clean #pyenv
+.PHONY: help show clean venv venv-clean
 
 help:   ## - Default goal: list of targets in Makefile
 help:   show
@@ -50,15 +50,19 @@ venv:   ## - Create virtualenv
 venv-clean: ## - Clean: rm virtualenv
 	/bin/rm -rf $(_venv)
 
+
+.PHONY: pip
 pip:    ## - Install/upgrade Pip stuff
 	pip3 install --upgrade pip wheel setuptools pipenv
 
+.PHONY: pip-src
 pip-src: ## - Pip install src/ (dev/editable)
 	pip3 install -e .
 	@echo
 	pip3 list | egrep -i '^Package|^---|^fundamentus'
 	@echo
 
+.PHONY: req
 req:    ## - Pip install from requirements.txt
 	. $(_venv)/bin/activate              && \
 	pip3 install -r requirements.txt
@@ -70,6 +74,7 @@ req-dev: ## - Pip install from requirements-dev.txt
 	pip3 install -r requirements-dev.txt
 
 
+.PHONY: clean
 clean:	## - Cleanup: pycache stuff
 	find . -type d -name __py*cache__ -exec rm -rf {} \; 2>/dev/null
 	find . -type f | egrep -i '.pyc|.pyb' | xargs rm
@@ -98,20 +103,25 @@ test-bash:    ##    - Test: bash calling sample scripts
 	LOGLEVEL=info /usr/bin/time ./tests/test-scripts.sh
 
 
+.PHONY: data
 data:	## - Save generated files to data/
 	/bin/mv -f *.csv *xls? *ods ?.txt ??.txt ???.txt data/ || true
 
 
+.PHONY: data-clean
 data-clean: ## - Clean data/
 	/bin/rm -f data/*.*
 
 
+.PHONY: pkg
 pkg:	## - Package dist: create in dist/
 	python setup.py sdist bdist_wheel
 
-pkg-upload-test: ##  - PyPI: upload to Test
+.PHONY: pkg-upload-test
+pkg-upload-test: ## - PyPI: upload to Test
 	twine upload --repository testpypi dist/*
 
-pkg-upload-pypi: ##  - PyPI: upload to Test
+.PHONY: pkg-upload-pypi
+pkg-upload-pypi: ## - PyPI: upload to Test
 	twine upload --repository pypi dist/*
 
