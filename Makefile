@@ -28,7 +28,7 @@ _dt = $(warning 'Invoking shell')$(shell date +%Y-%m-%d.%H:%M:%S)
 help:   ## - Default goal: list of targets in Makefile
 help:   show
 	@grep -E '^[a-zA-Z][a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
-	    | awk 'BEGIN {FS = ":.*?## "}; {printf "  make \033[01;33m%-10s\033[0m %s\n", $$1, $$2}' \
+	    | awk 'BEGIN {FS = ":.*?## "}; {printf "  make \033[01;33m%-18s\033[0m %s\n", $$1, $$2}' \
 	    | sort
 	@echo
 
@@ -83,23 +83,19 @@ clean:	## - Cleanup: pycache stuff
 	rm -rf dist/*
 
 
-test:   ##    - Test: pytest
-	coverage run --source=fundamentus -m \
-	  pytest tests/ -v --color=yes --no-header --no-summary && \
-	coverage report
+.PHONY: test
+test:   ## - Test: pytest
+	pytest tests/ -q --color=yes
 
 
-test-detailed: ## - Test: pytest many details
+.PHONY: testd
+testd: ## - Test: pytest many details
 	coverage run --source=fundamentus -m \
 	  pytest tests/ -v --color=yes && \
 	coverage report -m
 
-
-test-silent: ##   - Test: pytest most silent
-	pytest tests/ -q --color=yes --no-header --no-summary
-
-
-test-bash:    ##    - Test: bash calling sample scripts
+.PHONY: test-bash
+test-bash:   ## - Test: bash calling sample scripts
 	LOGLEVEL=info /usr/bin/time ./tests/test-scripts.sh
 
 
