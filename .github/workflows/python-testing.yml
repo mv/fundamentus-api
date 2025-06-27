@@ -68,4 +68,5 @@ jobs:
 ###
     - name: Test Examples in Bash
       run: |
+        pip install -e .
         make test-bash
