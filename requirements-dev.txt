@@ -6,13 +6,16 @@
 #
 
 pytest>=8.4.1
-hypothesis>=6.135.16
 pytest-sugar
-
 coverage>=5.5.0
-#coveralls==2.2.0
 
+# publish coverage stats to coveralls.io:
+coveralls==2.2.0
+
+# CLI: PyPi pkg upload
 twine>=6.1.0
+
+# CLI: update 'version' in files
 tbump>=6.11.0
 
 #pipenv>=2025.11.15
