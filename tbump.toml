@@ -27,6 +27,9 @@ search = "version='{current_version}',"
 src = "src/fundamentus/__init__.py"
 search = "__version__ = '{current_version}'"
 
+[[file]]
+src = "pyproject.toml"
+search = "version = '{current_version}'"
 
 
 # You can specify a list of commands to

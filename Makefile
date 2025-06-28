@@ -122,6 +122,25 @@ pkg-upload-pypi: ## - PyPI: upload
 pkg-upload-testpypi: ## - PyPI: upload to Test
 	twine upload --repository testpypi --verbose dist/*
 
+################################################################################
+##@ Version
+
+
+.PHONY: version
+version: ## - tbump: --only-patch: from 'tbump.toml' > to all files
+	_version=$$(awk -F= '/^current =/ {print $$2}' tbump.toml | tr -d '" ') && \
+	tbump --non-interactive --only-patch $${_version}
+
+.PHONY: version-dry-run
+version-dry-run: ## - tbump: --dry-run
+	_version=$$(awk -F= '/^current =/ {print $$2}' tbump.toml | tr -d '" ') && \
+	tbump --dry-run $${_version} || true
+
+.PHONY: version-push
+version-tag: ## - tbump: version > tag > commit > push
+	_version=$$(awk -F= '/^current =/ {print $$2}' tbump.toml | tr -d '" ') && \
+	tbump --non-interactive $${_version}
+
 
 
 ################################################################################
