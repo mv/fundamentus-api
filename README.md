@@ -3,7 +3,7 @@
 [![version   ](https://img.shields.io/pypi/v/fundamentus.svg?color=blue)](https://pypi.org/project/fundamentus/)
 [![pyversions](https://img.shields.io/pypi/pyversions/fundamentus.svg)](https://pypi.org/project/fundamentus/)
 [![license   ](https://img.shields.io/github/license/mv/fundamentus-api.svg?color=blue)](https://pypi.org/project/fundamentus/)
-[![Actions   ](https://img.shields.io/github/workflow/status/mv/fundamentus-api/python-testing?label=actions&logo=github)](https://github.com/mv/fundamentus-api/actions?query=workflow%3Apython-testing)
+[![Actions   ](https://img.shields.io/github/actions/workflow/status/mv/fundamentus-api/python-testing.yml?label=Testing&logo=github)](https://img.shields.io/github/actions/workflow/status/mv/fundamentus-api/python-testing.yml)
 [![Coverage  ](https://img.shields.io/coveralls/github/mv/fundamentus-api)](https://coveralls.io/github/mv/fundamentus-api?branch=main)
 [![Dependabot](https://badgen.net/github/dependabot/mv/fundamentus-api?icon=dependabot&label)](https://github.com/mv/fundamentus-api/network/updates)
 
