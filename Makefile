@@ -113,11 +113,11 @@ data-clean: ## - Clean data/
 pkg:	## - Package dist: create in dist/
 	python setup.py sdist bdist_wheel
 
-.PHONY: pkg-upload-test
+.PHONY: pkg-upload-testpypi
 pkg-upload-test: ## - PyPI: upload to Test
-	twine upload --repository testpypi dist/*
+	twine upload --repository testpypi --verbose dist/*
 
 .PHONY: pkg-upload-pypi
 pkg-upload-pypi: ## - PyPI: upload to Test
-	twine upload --repository pypi dist/*
+	twine upload --repository pypi     --verbose dist/*
 
