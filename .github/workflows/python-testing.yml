@@ -36,7 +36,6 @@ jobs:
 
     - name: Install dependencies
       run: |
-        make pip
         pip install -r requirements.txt
         pip install -r requirements-tst.txt
 
