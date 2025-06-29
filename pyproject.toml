@@ -1,11 +1,49 @@
+## Ref:
+##   https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#writing-pyproject-toml
+##
+
+# [build-system]
+# requires = ["hatchling"]
+# build-backend = "hatchling.build"
+
+# [build-system]
+# requires = ["uv_build>=0.7.17,<0.8.0"]
+# build-backend = "uv_build"
+
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "fundamentus"
 dynamic = ["version"]
-#version = "0.3.3"
+# version = "0.3.7"
+
+authors = [
+    { name = "Mv-Marcus Vinicius Ferreira", email = "ferreira.mv@gmail.com" },
+]
+description = "Fundamentus: API to load data from Fundamentus website: https://www.fundamentus.com.br/"
+readme = "README.md"
+license = "MIT"
+
+keywords = ["fundamentus", "bovespa"]
+
+# https://pypi.org/classifiers/
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 
 requires-python = ">=3.9"
 dependencies = [
@@ -16,33 +54,47 @@ dependencies = [
     "tabulate >= 0.9.0",
 ]
 
-authors = [
-    { name = "Mv-Marcus Vinicius Ferreira", email = "ferreira.mv@gmail.com" },
-]
-description = "Fundamentus: API to load data from Fundamentus website: https://www.fundamentus.com.br/"
-readme = "README.md"
-license = "MIT"
-classifiers = [
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-]
-
 [project.urls]
 Homepage = "https://github.com/mv/fundamentus-api/"
+# Issues = ""
+# Documentation = ""
+# Repository = ""
+# Changelog = ""
+
+[project.optional-dependencies]
+dev = [
+    "uv",
+#   "hatch",
+#   "pdm",
+]
+tst = [
+    "pytest",
+    "pytest-sugar",
+    "coverage",
+#   "coveralls",
+]
+pkg = [
+    "build",
+    "twine",
+    "tbump",
+]
 
 # [project.scripts]
 # my-script = "my_package.module:function"
 
-[tool.hatch.version]
-path = "src/fundamentus/__init__.py"
+# https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
+[tool.setuptools.packages.find]
+where = ["src"]
 
-[tool.hatch.build.targets.sdist]
-include = [
-    "src/",
-]
+[tool.setuptools.dynamic]
+version = {attr = "fundamentus.__version__"}
+
+
+
+# default:   PyPI: uv publish ...
+# other: TestPyPI: uv publish --index testpypi ...
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
