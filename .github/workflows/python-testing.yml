@@ -9,7 +9,7 @@ name: Python testing
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "update" ]
   pull_request:
     branches: [ "main" ]
 
