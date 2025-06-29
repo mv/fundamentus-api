@@ -72,39 +72,6 @@ pip-edit: ## - Pip install editable
 	@echo
 
 
-
-################################################################################
-##@ Data: csv files et al.
-
-.PHONY: data
-data:	## - Save generated files to data/
-	/bin/mv -f *.csv *xls? *ods ?.txt ??.txt ???.txt data/ || true
-
-
-.PHONY: data-clean
-data-clean: ## - Clean data/
-	/bin/rm -f data/*.*
-
-################################################################################
-##@ Test
-
-
-.PHONY: test
-test:   ## - Test: Silent
-	pytest tests/ -q --color=yes
-
-
-.PHONY: testd
-testd: ## - Test: Detailed
-	coverage run --source=fundamentus -m \
-	  pytest tests/ -v --color=yes && \
-	coverage report -m
-
-.PHONY: test-bash
-test-bash:   ## - Test: bash calling sample scripts
-	LOGLEVEL=info /usr/bin/time ./tests/test-scripts.sh
-
-
 ################################################################################
 ##@ PyPi Package
 
@@ -142,6 +109,24 @@ version-tag: ## - tbump: version > tag > commit > push
 	tbump --non-interactive $${_version}
 
 
+################################################################################
+##@ Test
+
+.PHONY: test
+test:   ## - Test: Silent
+	pytest tests/ -q --color=yes
+
+
+.PHONY: testd
+testd: ## - Test: Detailed
+	coverage run --source=fundamentus -m \
+	  pytest tests/ -v --color=yes && \
+	coverage report -m
+
+.PHONY: test-bash
+test-bash:   ## - Test: bash calling sample scripts
+	LOGLEVEL=info /usr/bin/time ./tests/test-scripts.sh
+
 
 ################################################################################
 ##@ Others
@@ -153,3 +138,13 @@ clean:	## - Cleanup: pycache stuff
 	rm -rf .pytest_cache
 	rm -rf .ipynb_checkpoints
 	rm -rf dist/*
+
+.PHONY: data
+data:	## - Save generated files to data/
+	/bin/mv -f *.csv *xls? *ods ?.txt ??.txt ???.txt data/ || true
+
+
+.PHONY: data-clean
+data-clean: ## - Clean data/
+	/bin/rm -f data/*.*
+
