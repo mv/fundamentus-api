@@ -4,9 +4,8 @@
 ### Reference Makefile for Python stuff
 ###
 ### Mv: ferreira.mv[ at ]gmail.com
-### 2019-07
+### 2016-06
 ###
-
 
 # My vars: simple
 _os             := $(shell uname -sr)
@@ -41,33 +40,32 @@ show:   ## - Show header vars
 	@echo "  ## Pkg Version    [${_pkg_version}]"
 	@echo
 
+
 ################################################################################
 ##@ Virtualenv
 
-venv:   ## - Create virtualenv
-	virtualenv $(_venv)        && \
-	source $(_venv)/bin/activate   && \
+venv:   ## - virtualenv: create
+	virtualenv $(_venv) && \
+	source     $(_venv)/bin/activate   && \
 	pip3 install --upgrade pip wheel setuptools pipenv
 
-venv-clean: ## - Clean: rm virtualenv
+venv-clean: ## - virtualenv: clean
 	/bin/rm -rf $(_venv)
-
 
 .PHONY: pip
 pip:    ## - Pip install from requirements.txt
-	. $(_venv)/bin/activate              && \
-	pip3 install --upgrade pip wheel setuptools pipenv && \
+	. $(_venv)/bin/activate && \
 	pip3 install -r requirements.txt
 
 .PHONY: pip-dev
 pip-dev: ## - Pip install from requirements-dev.txt
-	. $(_venv)/bin/activate              && \
+	. $(_venv)/bin/activate && \
 	pip3 install -r requirements-dev.txt
 
-.PHONY: pip-src
-pip-src: ## - Pip install src/ (dev/editable)
-	. $(_venv)/bin/activate              && \
-	pip3 install -e .
+.PHONY: pip-edit
+pip-edit: ## - Pip install editable
+	. $(_venv)/bin/activate && \
+	python -m pip install --editable .
 
 	@echo
 	@pip3 list | egrep -i -A1 -B1 '^Package|^---|^fundamentus'
@@ -110,35 +108,37 @@ test-bash:   ## - Test: bash calling sample scripts
 ################################################################################
 ##@ PyPi Package
 
-.PHONY: pkg
-pkg:	## - Package dist: create in dist/
-	python setup.py sdist bdist_wheel
+.PHONY: build
+build: ## - PyPI: build package
+#	python setup.py sdist bdist_wheel
+#	python -m build
+	hatch build
 
-.PHONY: pkg-upload-pypi
-pkg-upload-pypi: ## - PyPI: upload
+.PHONY: upload-pypi
+upload-pypi: ## - PyPI: upload
 	twine upload --repository pypi     --verbose dist/*
 
-.PHONY: pkg-upload-testpypi
-pkg-upload-testpypi: ## - PyPI: upload to Test
+.PHONY: upload-testpypi
+upload-testpypi: ## - PyPI: upload to Test
 	twine upload --repository testpypi --verbose dist/*
+
 
 ################################################################################
 ##@ Version
 
-
 .PHONY: version
 version: ## - tbump: --only-patch: from 'tbump.toml' > to all files
-	_version=$$(awk -F= '/^current =/ {print $$2}' tbump.toml | tr -d '" ') && \
+	_version=$$(awk -F= '/version =/ {print $$2}' pyproject.toml | tr -d '" ') && \
 	tbump --non-interactive --only-patch $${_version}
 
 .PHONY: version-dry-run
 version-dry-run: ## - tbump: --dry-run
-	_version=$$(awk -F= '/^current =/ {print $$2}' tbump.toml | tr -d '" ') && \
+	_version=$$(awk -F= '/version =/ {print $$2}' pyproject.toml | tr -d '" ') && \
 	tbump --dry-run $${_version} || true
 
 .PHONY: version-push
 version-tag: ## - tbump: version > tag > commit > push
-	_version=$$(awk -F= '/^current =/ {print $$2}' tbump.toml | tr -d '" ') && \
+	_version=$$(awk -F= '/version =/ {print $$2}' pyproject.toml | tr -d '" ') && \
 	tbump --non-interactive $${_version}
 
 
