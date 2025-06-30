@@ -45,9 +45,9 @@ show:   ## - Show header vars
 ##@ Virtualenv
 
 venv:   ## - virtualenv: create
-	virtualenv $(_venv) && \
-	source     $(_venv)/bin/activate   && \
-	pip3 install --upgrade pip wheel setuptools pipenv
+	python3 -m venv $(_venv) && \
+	source $(_venv)/bin/activate   && \
+	pip3 install --upgrade pip
 
 venv-clean: ## - virtualenv: clean
 	/bin/rm -rf $(_venv)
@@ -133,11 +133,11 @@ test-bash:   ## - Test: bash calling sample scripts
 
 .PHONY: clean
 clean:	## - Cleanup: pycache stuff
-	find . -type d -name __py*cache__ -exec rm -rf {} \; 2>/dev/null
-	find . -type f | egrep -i '.pyc|.pyb' | xargs rm
-	rm -rf .pytest_cache
-	rm -rf .ipynb_checkpoints
-	rm -rf dist/*
+	find . -type d -name __py*cache__ -exec rm -rf {} \; 2>/dev/null || true
+	find . -type f | egrep -i '.pyc|.pyb' | xargs rm || true
+	rm -rf .pytest_cache      || true
+	rm -rf .ipynb_checkpoints || true
+	rm -rf dist/*             || true
 
 .PHONY: data
 data:	## - Save generated files to data/
