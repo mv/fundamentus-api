@@ -5,21 +5,15 @@
 #   pip install -r requirements-dev.txt
 #
 
-pytest>=8.4.1
+pytest       #>=8.4.1
 pytest-sugar
-coverage>=5.5.0
+coverage     #>=5.5.0
 
 # publish coverage stats to coveralls.io:
-coveralls==2.2.0
-
-# CLI: PyPi pkg upload
-twine>=6.1.0
-
-# CLI: update 'version' in files
-tbump>=6.11.0
+coveralls #==2.2.0
 
 # Build
-build >= 1.2.0
-uv >= 0.7.16
-#hatch>=1.14.1
+build #>= 1.2.0
+uv    #>= 0.7.16
+hatch #>=1.14.1
 
