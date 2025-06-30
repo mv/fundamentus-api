@@ -1,6 +1,11 @@
 ## Ref:
+##   https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
 ##   https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#writing-pyproject-toml
 ##
+
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
 
 # [build-system]
 # requires = ["hatchling"]
@@ -9,10 +14,6 @@
 # [build-system]
 # requires = ["uv_build>=0.7.17,<0.8.0"]
 # build-backend = "uv_build"
-
-[build-system]
-requires = ["setuptools", "setuptools-scm"]
-build-backend = "setuptools.build_meta"
 
 [project]
 name = "fundamentus"
@@ -55,33 +56,19 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/mv/fundamentus-api/"
-# Issues = ""
+Repository = "https://github.com/mv/fundamentus-api.git"
+Changelog = "https://github.com/mv/fundamentus-api/CHANGELOG.md"
+Issues = "https://github.com/mv/fundamentus-api/issues"
 # Documentation = ""
-# Repository = ""
-# Changelog = ""
 
-[project.optional-dependencies]
-dev = [
-    "uv",
-#   "hatch",
-#   "pdm",
-]
-tst = [
-    "pytest",
-    "pytest-sugar",
-    "coverage",
-#   "coveralls",
-]
-pkg = [
-    "build",
-    "twine",
-    "tbump",
-]
 
 # [project.scripts]
 # my-script = "my_package.module:function"
 
-# https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
+
+# Build: setuptools
+#   https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
+#
 [tool.setuptools.packages.find]
 where = ["src"]
 
