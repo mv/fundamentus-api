@@ -67,6 +67,33 @@ pip-edit: ## - Pip install editable
 	. $(_venv)/bin/activate && \
 	python -m pip install --editable .
 
+	@make _pip-show
+
+.PHONY: pip-from-sdist
+pip-from-sdist: ## - Pip install tar.gz
+	export _ver=$$( cat src/$(_pkg_name)/__init__.py  | awk -F' = ' '/__version__/ {print $$2}' | tr -d "'" ) && \
+	pip3 uninstall -y $(_pkg_name) && \
+	pip3 install ./dist/$(_pkg_name)-$${_ver}.tar.gz
+
+	@make _pip-show
+
+.PHONY: pip-from-testpypi
+pip-from-testpypi: ## - Pip install latest from TestPyPI
+	pip3 uninstall -y $(_pkg_name) && \
+	pip install --index-url https://test.pypi.org/simple/ $(_pkg_name)
+
+	@make _pip-show
+
+.PHONY: pip-from-pypi
+pip-from-pypi: ## - Pip install latest from PyPI
+	pip3 uninstall -y $(_pkg_name) && \
+	pip install $(_pkg_name)
+
+	@make _pip-show
+
+## __internal__
+.PHONY: _pip-show
+_pip-show:
 	@echo
 	@pip3 list | egrep -i -A1 -B1 '^Package|^---|^fundamentus'
 	@echo
