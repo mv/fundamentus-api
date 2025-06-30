@@ -136,3 +136,7 @@ The full list of companies by `setor` can be found [here](https://github.com/mv/
 ## License
 
 The MIT License (MIT)
+
+## Version
+
+Release version 0.3.8.

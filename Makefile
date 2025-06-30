@@ -137,21 +137,25 @@ publish-pypi: ## - PyPI: publish
 
 
 ################################################################################
-##@ Version
+##@ Release Version
 
-.PHONY: version
-version: ## - tbump: --only-patch: from 'tbump.toml' > to all files
-	_version=$$(awk -F= '/version =/ {print $$2}' pyproject.toml | tr -d '" ') && \
-	tbump --non-interactive --only-patch $${_version}
+#	_version=$$(awk -F= '/current =/ {print $$2}' tbump.toml | tr -d '" ') &&
+#	_version=$$(awk -F= '/version__ =/ {print $$2}' ./src/fundamentus/__init__.py | tr -d "' ") &&
+#	_version=$$(awk -F= '/# version =/ {print $$2}' pyproject.toml | tr -d '" ') &&
 
-.PHONY: version-dry-run
-version-dry-run: ## - tbump: --dry-run
-	_version=$$(awk -F= '/version =/ {print $$2}' pyproject.toml | tr -d '" ') && \
+.PHONY: release
+release: ## - tbump: --dry-run
+	_version=$$(awk -F= '/version__ =/ {print $$2}' ./src/fundamentus/__init__.py | tr -d "' ") && \
 	tbump --dry-run $${_version} || true
 
-.PHONY: version-push
-version-tag: ## - tbump: version > tag > commit > push
-	_version=$$(awk -F= '/version =/ {print $$2}' pyproject.toml | tr -d '" ') && \
+.PHONY: release-patch
+release-patch: ## - tbump: --only-patch
+	_version=$$(awk -F= '/version__ =/ {print $$2}' ./src/fundamentus/__init__.py | tr -d "' ") && \
+	tbump --non-interactive --only-patch $${_version}
+
+.PHONY: release-tag
+release-tag: ## - tbump: release > tag > commit > push
+	_version=$$(awk -F= '/version__ =/ {print $$2}' ./src/fundamentus/__init__.py | tr -d "' ") && \
 	tbump --non-interactive $${_version}
 
 
