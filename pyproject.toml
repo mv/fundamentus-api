@@ -89,6 +89,17 @@ where = ["src"]
 version = {attr = "fundamentus.__version__"}
 
 
+# Build: Hatch
+#   https://hatch.pypa.io/latest/config/build/
+#   https://hatch.pypa.io/latest/config/metadata/
+#   https://hatch.pypa.io/latest/version/
+
+[tool.hatch.build.targets.sdist]
+only-include = ["src/", "tests/"]
+
+[tool.hatch.version]
+path = "src/fundamentus/__init__.py"
+
 
 # default:   PyPI: uv publish ...
 # other: TestPyPI: uv publish --index testpypi ...
