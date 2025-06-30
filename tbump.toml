@@ -2,7 +2,7 @@
 # github_url = https://github.com/<user or organization>/<project>/
 
 [version]
-current = "0.3.3"
+current = "0.3.8"
 
 # Example of a semver regexp.
 regex = '''
@@ -19,17 +19,21 @@ tag_template = "v{new_version}"
 
 # For each file to patch, add a [[file]] config section containing
 # the path of the file, relative to the tbump.toml location.
-[[file]]
-src = "src/fundamentus/__init__.py"
-search = "__version__ = '{current_version}'"
 
+# Skip: __init__.py is the source
 # [[file]]
-# src = "setup.py"
-# search = "version='{current_version}',"
-#
-#[[file]]
-#src = "pyproject.toml"
-#search = "version = '{current_version}'"
+# src = "src/fundamentus/__init__.py"
+# search = "__version__ = '{current_version}'"
+
+# Skip: pyproject is now dynamic
+# [[file]]
+# src = "pyproject.toml"
+#  search = '# version = "{current_version}"'
+
+# New: placeholder
+[[file]]
+src = "README.md"
+search = 'Release version {current_version}'
 
 
 # You can specify a list of commands to
