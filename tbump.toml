@@ -2,7 +2,7 @@
 # github_url = https://github.com/<user or organization>/<project>/
 
 [version]
-current = "0.3.8"
+current = "0.3.5"
 
 # Example of a semver regexp.
 regex = '''

@@ -145,7 +145,10 @@ publish-pypi: ## - PyPI: publish
 
 .PHONY: release
 release: ## - tbump: --dry-run
-	_version=$$(awk -F= '/version__ =/ {print $$2}' ./src/fundamentus/__init__.py | tr -d "' ") && \
+	@echo
+	@echo This is a 'dry-run'...
+	@echo
+	@_version=$$(awk -F= '/version__ =/ {print $$2}' ./src/fundamentus/__init__.py | tr -d "' ") && \
 	tbump --dry-run $${_version} || true
 
 .PHONY: release-patch
