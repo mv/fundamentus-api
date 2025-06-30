@@ -102,11 +102,25 @@ _pip-show:
 ################################################################################
 ##@ PyPi Package
 
+# https://packaging.python.org/en/latest/overview/#python-source-distributions
+#   sdist: source distribution: Pure Python code
+#   wheel: binary distribution: Python + [Compiled C | Other languages]
 .PHONY: build
-build: ## - PyPI: build package
-#	python setup.py sdist bdist_wheel
-#	python -m build
-	hatch build
+build: ## - Pkg: build package
+	@echo
+	python3 -m build
+#	hatch build
+#	uv build
+
+.PHONY: builds
+builds: ## - Pkg: build --sdist
+	@echo
+	python3 -m build --sdist
+
+.PHONY: buildw
+buildw: ## - Pkg: build --wheel
+	@echo
+	python3 -m build --wheel
 
 .PHONY: upload-pypi
 upload-pypi: ## - PyPI: upload
