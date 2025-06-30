@@ -122,13 +122,18 @@ buildw: ## - Pkg: build --wheel
 	@echo
 	python3 -m build --wheel
 
-.PHONY: upload-pypi
-upload-pypi: ## - PyPI: upload
-	twine upload --repository pypi     --verbose dist/*
+.PHONY: publish
+publish: ## - TestPyPI: publish
+#	twine upload --repository testpypi --verbose dist/*
+	export UV_PUBLISH_PASSWORD=$$(cat ~/.pypirc | awk '/\[testpypi\]/,/^$$/' | awk -F= '/password/ {print $$2}') && \
+	uv publish --index testpypi --username __token__
 
-.PHONY: upload-testpypi
-upload-testpypi: ## - PyPI: upload to Test
-	twine upload --repository testpypi --verbose dist/*
+.PHONY: publish-pypi
+publish-pypi: ## - PyPI: publish
+#	twine upload --repository pypi     --verbose dist/*
+	export UV_PUBLISH_PASSWORD=$$(cat ~/.pypirc | awk '/\[pypi\]/,/^$$/' | awk -F= '/password/ {print $$2}') && \
+	echo uv publish --username __token__
+
 
 
 ################################################################################
