@@ -13,7 +13,7 @@ setup(
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
 
-    version='0.2.0',
+    version='0.3.2',
 
 #   scripts=[
 #       'bin/fundamentus.csv.py',
@@ -30,21 +30,23 @@ setup(
     long_description_content_type="text/markdown",
 
     install_requires=[
-       'requests >= 2.25.1',
-       'requests-cache >= 0.5.2',
-       'pandas >= 1.1.5',
-       'lxml >= 4.6.2',
-       'tabulate >= 0.8.7',
+       'requests >= 2.32.4',
+       'requests-cache >= 1.2.1',
+       'pandas >= 2.3.0',
+       'lxml >= 5.4.0',
+       'tabulate >= 0.9.0',
     ],
 
-    python_requires='>=3.7',
+    python_requires='>=3.9',
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
     ],
 
 

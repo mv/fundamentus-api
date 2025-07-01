@@ -4,6 +4,7 @@ detalhes:
     Info from .../detalhes.php?papel=
 """
 
+import io
 from . import utils
 
 # import fundamentus.utils as utils
@@ -61,7 +62,9 @@ def get_detalhes_list(lst):
     for papel in lst:
         logging.info('get list: [Papel: {}]'.format(papel))
         df = get_detalhes_papel(papel)
-        result = result.append(df)
+#       result = result.append(df)
+#       result = pd.concat([result, df], ignore_index=True)
+        result = pd.concat([result, df], ignore_index=False)
 
     # duplicate column (papel is the index already)
     try:
@@ -229,7 +232,7 @@ def get_detalhes_raw(papel='WEGE3'):
             time.sleep(.500) # 500 ms
 
     ## parse
-    tables_html = pd.read_html(content.text, decimal=",", thousands='.')
+    tables_html = pd.read_html(io.StringIO(content.text), decimal=",", thousands='.')
 
     return tables_html
 
@@ -261,7 +264,7 @@ def list_papel_all():
             time.sleep(.500) # 500 ms
 
     ## parse
-    df = pd.read_html(content.text, decimal=",", thousands='.')[0]
+    df = pd.read_html(io.StringIO(content.text), decimal=",", thousands='.')[0]
 
     lst = list(df['Papel'])
     logging.info('members in list = {}'.format(len(lst)))

@@ -56,7 +56,6 @@ __pycache__/
 
 # This project
 *.csv
-*.txt
 *.ods
 *.xls
 *.xlsx
