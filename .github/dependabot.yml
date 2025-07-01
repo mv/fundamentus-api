@@ -1,8 +1,11 @@
+## Reference:
+##   https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
+##   https://www.hacksoft.io/blog/managing-dependencies-with-github-dependabot-and-actions
+##
 version: 2
 updates:
 - package-ecosystem: pip
   directory: "/"
   schedule:
-    interval: daily
-    time: "08:00"
-  open-pull-requests-limit: 10
+    interval: weekly
+  target-branch: "update"
