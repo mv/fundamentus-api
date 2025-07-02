@@ -10,11 +10,18 @@
 ## doc/*.txt    # ignore doc/notes.txt, but not doc/server/arch.txt
 ##
 
+# dot files: ignore most
 .*
+.env
+
+# local config: ensure to keep
 !.gitignore
 !.github
-!.travis.yml
+!.gitkeep
+!.envrc
+!.env.sample
 
+# gcc/services/vim
 *.[oa]
 *.log
 *.tmp
@@ -23,7 +30,7 @@
 *.sw?
 *~
 
-# Binary packages
+# Binary stuff
 *.rpm
 *.deb
 *.gem
@@ -34,19 +41,19 @@
 *.jar
 
 # Compressed
-*tar
-*z
-*bz2
-*zip
-*arj
-*a[0-9][0-9]
-*lha
+*.tar
+*.z
+*.bz2
+*.zip
+*.arj
+*.a[0-9][0-9]
+*.lha
 
 # textfiles
 *.buf
 *.lst
-*.log
 *.csv
+?.*
 
 # directories
 tmp/
@@ -55,13 +62,13 @@ log/
 __pycache__/
 
 # This project
-*.csv
+!.travis.yml
+
 *.ods
 *.xls
 *.xlsx
 *.ipynb
 Untitled*
-?.*
 venv/
 data/
 *.sqlite
