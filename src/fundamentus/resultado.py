@@ -58,6 +58,12 @@ def get_resultado_raw():
     df['ROE']           = utils.perc_to_float( df['ROE']           )
     df['Cresc. Rec.5a'] = utils.perc_to_float( df['Cresc. Rec.5a'] )
 
+    ## Ensure expected columns exist (handle site layout changes)
+    if 'Dív.Brut/ Patrim.' not in df.columns:
+        logging.warning('Column "Dív.Brut/ Patrim." not found in HTML. Fundamentus ' \
+        'website layout may have changed. Filling with NaN.')
+        df['Dív.Brut/ Patrim.'] = pd.NA
+
     ## index by 'Papel', instead of 'int'
     df.index = df['Papel']
     df.drop('Papel', axis='columns', inplace=True)
@@ -132,6 +138,7 @@ def _rename_cols(data):
     df2['liq2m'    ] = data['Liq.2meses'       ]
     df2['patrliq'  ] = data['Patrim. Líq'      ]
     df2['divbpatr' ] = data['Dív.Brut/ Patrim.']
+    df2['divlpatr' ] = data['Dív.Líq/ Patrim.' ]
     df2['c5y'      ] = data['Cresc. Rec.5a'    ]
 
     return df2
