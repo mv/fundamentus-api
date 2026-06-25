@@ -73,7 +73,7 @@ def test_get_resultado_index_name(df_resultado):
 ###
 lst2 = ['cotacao', 'pl', 'pvp', 'psr', 'dy', 'pa', 'pcg', 'pebit', 'pacl',
        'evebit', 'evebitda', 'mrgebit', 'mrgliq', 'roic', 'roe', 'liqc',
-       'liq2m', 'patrliq', 'divbpatr', 'c5y']
+    'liq2m', 'patrliq', 'divbpatr', 'divlpatr', 'c5y']
 
 @pytest.fixture(scope='session')
 def _get_cols_final(df_resultado):
@@ -88,3 +88,7 @@ def test_get_resultado_has_col(_get_cols_final, param):
     assert my_chk[param] == True
 
 
+def test_get_resultado_raw_divbpatr_is_nan(df_resultado_raw):
+    # GIVEN a 'resultado_raw' df
+    # THEN  the gross debt column must always exist
+    assert 'Dív.Brut/ Patrim.' in df_resultado_raw.columns
